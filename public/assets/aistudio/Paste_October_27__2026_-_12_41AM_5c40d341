@@ -1,0 +1,753 @@
+# UTSAVFLOW — PHASE 6
+## Stateful Constraint-Aware Replanning & Budget Shock Simulator
+
+### ROLE
+
+Act as a senior full-stack engineer, AI systems architect, financial optimization specialist, and TypeScript state-management expert.
+
+We are developing UtsavFlow, an AI-powered celebration planning application for weddings, birthdays, and community events.
+
+The existing application contains:
+
+- Event setup wizard and saved event constraints.
+- Gemini-powered event-plan generation.
+- Overview Dashboard.
+- Budget Ledger and financial calculations.
+- Add/Edit Budget Item modals.
+- Event Timeline and dependency engine.
+- Vendor Studio and quotation comparison.
+- Persistent budget items, timeline tasks, vendors, and quotations.
+- Shared TypeScript data models, Zod validation, and automated tests.
+- Imported Google Stitch screens for the application.
+
+Phase 3, Phase 4, and Phase 5 have been reported as completed.
+
+Our next milestone is to implement the **Constraint-Aware Replanning Engine**, which must coordinate proposed changes across the event constraints, financial plan, vendor quotations, and task timeline.
+
+The main objective is:
+
+**When the user changes important event requirements, UtsavFlow must explain the consequences, produce three meaningful alternatives, and allow the user to apply a chosen alternative without losing completed work or existing financial records.**
+
+Implement Phase 6 only.
+
+Do not rebuild the application or redesign unrelated screens.
+
+---
+
+# PART 1 — INSPECT BEFORE IMPLEMENTING
+
+Before modifying the repository:
+
+1. Inspect the current working tree and project structure.
+2. Read `docs/IMPLEMENTATION_STATUS.md` and other relevant project documentation.
+3. Inspect the current `EventPlan`, event constraint, budget item, timeline task, vendor, and quotation types.
+4. Review the financial calculation utilities and timeline dependency engine.
+5. Inspect the existing secure Gemini backend integration.
+6. Review the Overview Dashboard, Budget Ledger, Timeline, and Vendor Studio implementations.
+7. Locate the imported Stitch designs for the Revise Plan modal, Trade-off Comparison screen, and Before/After Review screen.
+8. Inspect the existing persistence and schema-validation implementation.
+9. Run the existing tests before changing code.
+10. Record any pre-existing failures.
+
+Do not rely solely on earlier implementation reports. Verify the actual source code.
+
+Reuse existing functionality wherever possible. Do not create competing budget stores, timeline engines, Gemini clients, or event-plan schemas.
+
+After inspection, proceed with implementation.
+
+If a specific existing defect blocks replanning, fix the smallest necessary part and cover that correction with a test.
+
+# PART 2 — PRESERVE THE EXISTING DESIGN
+
+The imported Stitch designs remain the visual source of truth.
+
+Preserve UtsavFlow's:
+
+- Existing typography and colors.
+- Sidebar and navigation.
+- Button styling and component hierarchy.
+- Modal design and spacing.
+- Cards, tables, and status badges.
+- Border radii, icons, shadows, and interaction patterns.
+- Responsive desktop and mobile layouts.
+
+Do not redesign the landing page, setup wizard, Budget Ledger, Timeline, Vendor Studio, or Overview Dashboard.
+
+The replanning interface should feel integrated with the existing application.
+
+Reuse the imported designs for:
+
+1. Revise Plan / Change Constraints modal.
+2. Compare Trade-off Options.
+3. Before & After Change Review.
+
+If a specific imported design does not exist, implement the smallest consistent interface using existing shared components.
+
+Do not invent additional navigation destinations unnecessarily.
+
+# PART 3 — IMPLEMENT THE REVISE PLAN WORKFLOW
+
+The workflow must be accessible from the existing application's relevant entry points:
+
+- Overview Dashboard.
+- Budget Ledger.
+- Timeline.
+- Vendor Studio when a quotation changes the financial forecast.
+
+The Revise Plan action must use the currently selected event.
+
+## A. Change Constraints modal
+
+Implement the modal over the current workspace.
+
+Required inputs:
+
+- Updated total budget.
+- Updated expected guest count.
+- Updated event date.
+- Additional natural-language instructions.
+- Optional selection of the constraint that triggered replanning.
+
+Examples of user instructions:
+
+- "Our budget has decreased by ₹50,000."
+- "We now expect 50 additional guests."
+- "The event is happening two weeks earlier."
+- "The catering quotation has increased."
+- "Keep food quality unchanged and simplify the decoration."
+- "Do not compromise accessibility for elderly guests."
+
+Prefill the form using the current saved constraints.
+
+Allow the user to modify only the fields that changed.
+
+The modal must not modify the saved plan when fields are edited.
+
+On submission, record a proposed constraint change and pass it to the replanning engine.
+
+Do not apply changes until the user reviews and explicitly accepts an option.
+
+## B. Budget shock presets
+
+Provide convenient actions to test common scenarios.
+
+Include:
+
+1. Simulate a 20% cost overrun.
+2. Increase guest count by 25%.
+3. Increase guest count by 50.
+4. Reduce the budget by ₹50,000.
+5. Move the event two weeks earlier.
+6. Use a selected vendor quotation as a new projected-cost input.
+
+These are scenario controls, not hardcoded financial outcomes.
+
+Calculate the actual effects using the current saved plan and selected inputs.
+
+Allow users to modify preset values before proceeding.
+
+Never modify saved data merely because a simulation button was clicked.
+
+---
+
+# PART 4 — BUILD A PURE REPLANNING ENGINE
+
+Create a dedicated service responsible for coordinating proposed changes.
+
+Suggested location:
+
+`src/utils/replanningEngine.ts`
+
+Adapt the filename to the existing architecture if an appropriate service already exists.
+
+Separate the following responsibilities:
+
+1. Constraint-delta validation.
+2. Deterministic financial impact calculation.
+3. Affected-task and dependency analysis.
+4. Preservation of quotations and completed work.
+5. Validation of proposed changes.
+6. Application of explicitly approved changes.
+
+Do not place the entire engine inside a React component.
+
+## A. Define the constraint change model
+
+Create a typed model similar in concept to:
+
+- Change ID.
+- Event ID.
+- Base plan version.
+- Current constraints.
+- Proposed constraints.
+- User instructions.
+- Trigger source.
+- Creation timestamp.
+
+Use the existing application types rather than introducing a duplicate event model.
+
+A change request must clearly distinguish original values from proposed values.
+
+## B. Calculate deterministic impact
+
+For every proposed change, calculate its effects using application code.
+
+At minimum, calculate:
+
+- Original budget limit.
+- Proposed budget limit.
+- Original projected cost.
+- Proposed projected cost.
+- Original remaining balance or deficit.
+- Proposed remaining balance or deficit.
+- Additional or reduced projected expenses.
+- Changes to per-guest expense calculations.
+- Changes to budget allocations, if the proposed strategy modifies allocations.
+- New event date and changes to the planning horizon.
+- Tasks potentially affected by the date change.
+- Tasks blocked by unresolved dependencies.
+- Vendor quotations that may need to be reconsidered.
+
+Use the existing tested financial utilities wherever possible.
+
+Do not trust Gemini to perform authoritative arithmetic.
+
+Use integer INR amounts wherever practical.
+
+Do not convert a budget deficit into an apparently positive balance by modifying the budget cap or silently discarding expenses.
+
+## C. Recalculate guest-dependent costs
+
+Use the saved cost model for each budget item.
+
+For a per-guest item:
+
+`Projected Cost = Rate Per Guest × Expected Guest Count`
+
+For a combined item:
+
+`Projected Cost = Fixed Base Cost + (Rate Per Guest × Expected Guest Count)`
+
+For a fixed item:
+
+`Projected Cost = Fixed Amount`
+
+Apply the existing project's actual type definitions and calculation utilities.
+
+Do not automatically treat every cost as guest-dependent.
+
+A quotation for a fixed service must not be multiplied by the new guest count simply because it is linked to a budget item.
+
+If a vendor quote explicitly provides a per-guest rate, the engine may calculate a scenario projection using that rate, but it must distinguish the extrapolated projection from the original quotation.
+
+Preserve the original quotation text, original quoted amount, and quote history.
+
+A change in guest count must not rewrite the vendor's original offer.
+
+# PART 5 — PRESERVE COMPLETED TASKS AND VENDOR RECORDS
+
+This requirement is critical.
+
+When creating a proposed replan:
+
+- Preserve all completed task IDs and statuses.
+- Preserve task notes and unrelated metadata.
+- Preserve existing vendor records.
+- Preserve quotation records and their source text.
+- Preserve booking records and their status.
+- Preserve existing budget allocations until an explicit strategy changes them.
+- Preserve unrelated event constraints.
+- Preserve stable IDs for existing records.
+
+Do not replace the current `EventPlan` with a partially populated AI response.
+
+Do not regenerate every task from scratch.
+
+If the event date changes:
+
+1. Identify tasks whose due dates are calculated relative to the event date.
+2. Calculate their proposed new deadlines.
+3. Identify explicitly scheduled tasks whose dates require user review.
+4. Identify tasks at risk because less planning time remains.
+5. Keep completed tasks intact.
+6. Present the proposed date changes before applying them.
+
+If the existing model cannot reliably distinguish event-relative deadlines from manually chosen dates, introduce the minimum necessary metadata and a safe migration strategy.
+
+Do not silently change a manually chosen deadline merely because the event date changed.
+
+# PART 6 — IMPLEMENT THE GEMINI TRADE-OFF GENERATOR
+
+Reuse the existing server-side Gemini integration.
+
+Suggested endpoint:
+
+`POST /api/plan/rebalance`
+
+Follow the project's established route and service conventions if an equivalent endpoint already exists.
+
+Never expose the Gemini API key in frontend code.
+
+Validate all request data with Zod before calling the model.
+
+## Input to Gemini
+
+Provide the model with:
+
+- Current event constraints.
+- Proposed constraints.
+- Existing budget categories and cost models.
+- User priority ranking.
+- Must-have requirements.
+- Cultural and accessibility constraints.
+- Existing vendor quotation summaries.
+- Current timeline tasks and dependencies.
+- Already completed tasks.
+- Relevant booking records.
+- Deterministically calculated impact information.
+
+Only send the information needed for the requested replan.
+
+Do not send unnecessary personal contact details.
+
+## Model instructions
+
+Gemini should generate three genuinely different trade-off strategies.
+
+The strategies should optimize the user's stated priorities rather than automatically selecting the cheapest approach.
+
+Example strategy patterns:
+
+### Option A — Protect the top priorities
+
+Keep the user's highest-ranked items intact and simplify lower-priority areas.
+
+Example: preserve food quality and accessible guest seating while simplifying decorative installations.
+
+### Option B — Optimize service choices
+
+Keep the overall event format but propose different service configurations.
+
+Example: reduce optional catering stations while preserving required dietary accommodations.
+
+### Option C — Adjust the event format
+
+Suggest a meaningful structural alternative when smaller adjustments are insufficient.
+
+Example: simplify the ceremony setup or reorganize optional activities.
+
+These examples describe possible strategies; the model must derive its actual recommendations from the saved event data.
+
+Do not return the same alternative three times with slightly different wording.
+
+## Model output schema
+
+Each option should contain:
+
+- Unique option ID.
+- Title.
+- Strategy summary.
+- Main rationale.
+- Priorities protected.
+- Proposed compromises.
+- Budget-category adjustments.
+- Projected-cost changes.
+- Vendor implications.
+- Proposed timeline changes.
+- Affected tasks.
+- Unresolved risks.
+- Assumptions.
+- Whether the strategy satisfies the budget constraint.
+- Any remaining deficit.
+
+Every budget adjustment must reference an existing budget item ID or a clearly identified new proposed item.
+
+Every timeline adjustment must reference an existing task ID or a clearly identified new proposed task.
+
+Do not allow the model to invent IDs for existing records.
+
+Validate the response with Zod and reconcile its numerical results with the deterministic financial engine.
+
+If the model response is malformed, incomplete, or inconsistent, reject it safely.
+
+Use bounded retries where appropriate.
+
+# PART 7 — BUILD THE TRADE-OFF COMPARISON SCREEN
+
+After a valid replan response is received, show the existing Compare Trade-off Options design.
+
+The screen must clearly identify:
+
+- The current plan.
+- The proposed constraints.
+- The original projected cost.
+- The revised budget limit.
+- The original financial deficit, if any.
+- The three alternative strategies.
+
+Each option card must display:
+
+1. Strategy title and explanation.
+2. Proposed projected cost.
+3. Calculated savings compared with the current plan.
+4. Remaining budget or remaining deficit.
+5. Protected priorities.
+6. Proposed compromises.
+7. Affected vendors or quotations.
+8. Affected timeline tasks.
+9. Important assumptions and unresolved risks.
+
+Calculate the financial figures in application code.
+
+Use the same financial definitions as the Budget Ledger.
+
+Do not present an AI-generated savings estimate as a confirmed saving.
+
+Clearly distinguish:
+
+- Savings relative to the original projected cost.
+- Remaining budget relative to the revised budget limit.
+- Changes in allocated amounts.
+- Changes in projected costs.
+
+These values are not interchangeable.
+
+## Recommendation logic
+
+The recommended option should respect the user's priorities and constraints.
+
+Do not simply recommend the lowest-cost option.
+
+If all three options exceed the budget:
+
+- Display the actual deficits.
+- Do not label an over-budget option as within budget.
+- Explain why the current constraints cannot be satisfied by the proposed options.
+- Present the options honestly so the user can reconsider their constraints.
+
+If no safe three-option result can be produced, do not invent numbers or fabricate alternatives to fill the layout.
+
+Provide an explicit recoverable state, retaining the current plan.
+
+Selecting a card must not modify the saved event.
+
+# PART 8 — IMPLEMENT BEFORE/AFTER REVIEW
+
+When the user selects an option and clicks Review Changes, open the detailed change-review interface.
+
+Use the existing imported Stitch design if available.
+
+Group the proposed changes into these sections:
+
+### A. Event constraints
+
+Show the current and proposed:
+
+- Budget.
+- Guest count.
+- Event date.
+- Other modified constraints.
+
+### B. Budget changes
+
+For every affected category, show:
+
+- Original allocation.
+- Proposed allocation.
+- Original projected cost.
+- Proposed projected cost.
+- Difference.
+- Reason for the change.
+- Whether the category is protected or flexible.
+
+Unchanged categories should remain unchanged and need not clutter the comparison.
+
+### C. Vendor and quotation effects
+
+Show:
+
+- Quotations whose assumptions may be affected.
+- Existing quotes whose scope may no longer match.
+- Vendor details requiring clarification.
+- Costs that remain locked because the booking or contract cannot safely be modified automatically.
+
+Do not rewrite original quotations.
+
+### D. Timeline changes
+
+Show:
+
+- Tasks whose proposed deadlines change.
+- Tasks newly blocked or no longer blocked.
+- Tasks at risk because of the shorter planning window.
+- Tasks requiring user confirmation.
+
+Completed tasks should remain visibly completed.
+
+### E. Priorities and compromises
+
+Explain how the strategy preserves the user's important requirements and which preferences it compromises.
+
+Make mandatory requirements visibly distinct from flexible preferences.
+
+A must-have must not be silently removed to force an option under budget.
+
+If a must-have conflicts with the budget, explain that conflict and let the user explicitly reconsider the requirement.
+
+### F. Final action
+
+Provide:
+
+- Cancel.
+- Return to comparison.
+- Apply changes.
+
+The Apply Changes button must make clear that it will modify the saved event plan.
+
+Do not apply changes just because a user selects an option.
+
+# PART 9 — APPLY CHANGES ATOMICALLY
+
+The final apply action must update the existing plan safely.
+
+Before applying:
+
+1. Confirm the base plan version still matches the version used to calculate the strategy.
+2. Revalidate all budget adjustments.
+3. Revalidate task IDs and dependencies.
+4. Verify that protected requirements and completed tasks remain intact.
+5. Verify that linked quotation and booking records have not been overwritten.
+6. Recalculate budget totals and task states.
+7. Confirm the proposed plan passes the application's invariants.
+
+If the underlying plan changed while the user was reviewing the proposal, do not apply stale adjustments blindly.
+
+Instead, report the conflict and regenerate or refresh the proposed review.
+
+When the user confirms Apply Changes:
+
+- Apply only the selected option.
+- Update the saved constraints.
+- Update the intended budget fields.
+- Update explicitly approved task deadlines.
+- Preserve unrelated data.
+- Preserve original quotation records.
+- Update budget and timeline summaries.
+- Persist the resulting event plan consistently.
+- Record enough information to explain what changed.
+
+Do not automatically mark vendors booked.
+
+Do not automatically mark tasks completed.
+
+Do not automatically create payment records.
+
+Do not make irreversible modifications to confirmed bookings or completed tasks without explicit user approval.
+
+If the current storage mechanism cannot provide a database transaction, implement an atomic state-update pattern within the existing persistence layer. Do not report transaction guarantees that the storage technology does not provide.
+
+# PART 10 — CHANGE HISTORY AND RECOVERY
+
+Record a concise history entry for every successfully applied replan.
+
+Capture:
+
+- Change ID.
+- Selected strategy.
+- Previous constraints.
+- Updated constraints.
+- Affected budget item IDs.
+- Affected task IDs.
+- Timestamp.
+- Summary of the changes applied.
+
+Preserve the original quotation records and task notes.
+
+Implement a safe way to inspect the most recent change.
+
+If a reliable undo operation can be implemented within the current storage architecture, support undoing the most recent replan while preventing the restoration of stale or unrelated state.
+
+If safe undo cannot be implemented in this phase, do not create a misleading Undo button. Provide a history view and document the limitation.
+
+# PART 11 — BUDGET SHOCK SIMULATION
+
+Provide practical scenario presets that feed into the same replan engine.
+
+Examples:
+
+- Costs increase by 20%.
+- Guest count increases by 50.
+- Budget decreases by ₹50,000.
+- Event date moves two weeks earlier.
+- A selected vendor quote increases the projected catering cost.
+
+The scenario engine must:
+
+1. Start with the actual saved plan.
+2. Calculate the proposed effects without mutating saved data.
+3. Show the actual calculated deficit or surplus.
+4. Generate the alternatives.
+5. Allow the user to inspect differences.
+6. Apply only the user's approved option.
+
+Do not hardcode the ₹8 lakh wedding, 200 guests, or any other demo scenario into the actual calculation logic.
+
+If a scenario preset is provided for demonstration, its values must remain editable.
+
+If no valid strategy can be produced, preserve the original plan and explain the limitation.
+
+# PART 12 — RESILIENCE AND SECURITY
+
+Reuse the existing secure server-side Gemini integration and fallback conventions.
+
+Requirements:
+
+- No frontend API keys.
+- Input-size validation.
+- Zod validation for requests and responses.
+- Bounded API requests and retries.
+- Safe error messages.
+- No untrusted model output applied directly to persisted state.
+- No execution of instructions embedded inside user-provided quotation text.
+- No automatic mutation of saved data during simulation.
+- No fabricated savings or confirmations.
+- No silent destruction of existing records.
+
+If Gemini is unavailable, the application may offer a deterministic baseline scenario analysis.
+
+Clearly label that output as rule-based fallback rather than live AI generation.
+
+The fallback must calculate actual financial effects and must not pretend that unsupported recommendations or vendor facts were verified.
+
+Keep the current plan available when generation fails.
+
+# PART 13 — AUTOMATED TESTING
+
+Use the existing Vitest test framework.
+
+Add tests for:
+
+### Constraint changes
+
+1. Budget decrease.
+2. Budget increase.
+3. Guest-count increase.
+4. Event-date change.
+5. Multiple simultaneous changes.
+6. Rejection of invalid constraints.
+
+### Financial calculations
+
+7. Correct recalculation of per-guest items.
+8. Correct calculation of mixed fixed and variable costs.
+9. Preservation of fixed costs.
+10. Correct revised projected spending.
+11. Correct remaining budget and deficit.
+12. Correct reconciliation of proposed adjustments.
+
+### Vendor preservation
+
+13. Original quotation text remains unchanged.
+14. Quoted totals remain intact.
+15. Extrapolated per-guest scenario projections are clearly distinguished from the original quotation.
+16. Booking records are preserved.
+17. Applying a quote-related replan does not silently modify unrelated items.
+
+### Timeline preservation
+
+18. Completed tasks remain completed.
+19. Stable task IDs are preserved.
+20. Event-relative task dates are recalculated correctly.
+21. Manual deadlines are not silently changed.
+22. Dependency warnings are recalculated.
+23. Invalid dependencies are rejected.
+24. Unaffected tasks retain their existing state.
+
+### AI response validation
+
+25. Valid three-option response is accepted.
+26. Duplicate or indistinguishable options are rejected or flagged.
+27. Unknown item IDs are rejected.
+28. Invalid monetary amounts are rejected.
+29. Inconsistent budget arithmetic is corrected or rejected.
+30. Failed model response preserves the current plan.
+31. Fallback output is visibly labelled.
+32. User-provided instructions do not override application security rules.
+
+### Persistence and application
+
+33. Simulating a scenario does not mutate saved state.
+34. Selecting an option does not mutate saved state.
+35. Reviewing changes does not mutate saved state.
+36. Applying an approved option updates only the intended records.
+37. Stale proposals are rejected or refreshed.
+38. Change history is saved correctly.
+39. Repeated submissions do not apply the same changes twice.
+40. Dashboard, Budget Ledger, Timeline, and Vendor Studio remain consistent.
+
+Use deterministic inputs and mocked model responses for automated tests.
+
+Do not require live Gemini credentials for the standard test suite.
+
+Run all existing tests as well as the new tests.
+
+Report actual results.
+
+# PART 14 — STRICT SCOPE CONTROL
+
+Implement only:
+
+- Constraint-change modal.
+- Deterministic impact calculation.
+- Gemini trade-off generation.
+- Three-option comparison interface.
+- Before/After Change Review.
+- User-approved application of the selected strategy.
+- Budget shock presets.
+- Timeline and vendor impact previews.
+- Safe persistence and change history.
+- Automated tests.
+
+Do not implement:
+
+- Live vendor discovery.
+- Automatic vendor booking.
+- Payment processing.
+- Email or WhatsApp messaging.
+- Full guest RSVP management.
+- New authentication systems.
+- Unrelated dashboard redesigns.
+- New independent budget or timeline stores.
+
+Do not create placeholder controls that imply unsupported functionality is complete.
+
+# PART 15 — COMPLETION REPORT
+
+When implementation is complete:
+
+1. Summarize the features implemented.
+2. List files created or modified.
+3. Explain the replan data model and state transition flow.
+4. Explain how budget math is calculated and validated.
+5. Explain how quotations and completed tasks are protected.
+6. Explain how the three strategies are generated.
+7. Explain how stale plans and failed requests are handled.
+8. Report the actual test, lint, type-check, and production-build results.
+9. Confirm whether a live Gemini replan was tested or only mocked.
+10. Identify any unresolved limitations.
+11. Update `docs/IMPLEMENTATION_STATUS.md`.
+12. Recommend Phase 7 without implementing it.
+
+Do not claim that an integration, test, or safety guarantee succeeded unless it was actually verified.
+
+## FINAL EXECUTION INSTRUCTION
+
+Inspect the current repository first.
+
+Build on the existing Budget Ledger, Timeline, Vendor Studio, persistence layer, and Gemini integration.
+
+Preserve the imported Stitch UI designs.
+
+Implement Phase 6 incrementally, run the tests, fix failures introduced by the changes, and stop once this phase is complete.
+
+**Acceptance goal:** A user can change the budget, guest count, event date, or projected vendor costs; receive three realistic, priority-aware alternatives; inspect every proposed change; and apply one option without losing completed tasks, quotation records, booking information, or unrelated financial data.

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UtsavFlow — Timeline &amp; Cascade</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Fraunces, Plus Jakarta Sans, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "status-info": "#0369A1",
+            "surface-container-highest": "#e4e2df",
+            "on-background": "#1b1c1a",
+            "tertiary-container": "#683600",
+            "inverse-primary": "#c3c0ff",
+            "surface-container": "#efeeeb",
+            "status-danger-bg": "#FFE4E6",
+            "outline-variant": "#c8c4d5",
+            "on-surface-variant": "#464553",
+            "on-primary-fixed-variant": "#3b35a7",
+            "primary-fixed-dim": "#c3c0ff",
+            "status-success-border": "#86EFAC",
+            "primary": "#1f108e",
+            "surface-variant": "#e4e2df",
+            "surface-container-lowest": "#ffffff",
+            "inverse-surface": "#30312f",
+            "tertiary-fixed-dim": "#ffb77d",
+            "surface-dim": "#dbdad7",
+            "on-tertiary-container": "#ff9631",
+            "secondary-fixed-dim": "#ffb59f",
+            "secondary-fixed": "#ffdbd1",
+            "surface-bright": "#fbf9f6",
+            "background": "#fbf9f6",
+            "text-muted": "#71717A",
+            "primary-fixed": "#e2dfff",
+            "on-secondary-fixed-variant": "#842503",
+            "status-info-border": "#7DD3FC",
+            "status-info-bg": "#E0F2FE",
+            "on-error": "#ffffff",
+            "status-warning-border": "#F59E0B",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "status-success": "#15803D",
+            "tertiary-fixed": "#ffdcc3",
+            "surface-container-low": "#f5f3f0",
+            "text-primary": "#18181B",
+            "surface-subtle": "#F3EFEA",
+            "status-warning": "#B45309",
+            "primary-container": "#3730a3",
+            "secondary": "#a53c19",
+            "text-secondary": "#52525B",
+            "error-container": "#ffdad6",
+            "canvas-main": "#FAF8F5",
+            "on-secondary": "#ffffff",
+            "primary-hover": "#312E81",
+            "on-primary-container": "#a9a7ff",
+            "status-danger": "#BE123C",
+            "secondary-container": "#fb7b54",
+            "border-strong": "#C8C1B6",
+            "on-primary-fixed": "#0f0069",
+            "on-surface": "#1b1c1a",
+            "border-subtle": "#E6E1DA",
+            "status-warning-bg": "#FEF3C7",
+            "outline": "#777584",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed": "#2f1500",
+            "tertiary": "#482300",
+            "status-danger-border": "#FDA4AF",
+            "accent-saffron": "#F59E0B",
+            "on-error-container": "#93000a",
+            "inverse-on-surface": "#f2f0ed",
+            "on-tertiary": "#ffffff",
+            "primary-soft": "#EEF2FF",
+            "surface-tint": "#544fc0",
+            "surface-elevated": "#FFFFFF",
+            "surface": "#fbf9f6",
+            "primary-border": "#C7D2FE",
+            "on-secondary-fixed": "#3a0a00",
+            "surface-container-high": "#eae8e5",
+            "on-secondary-container": "#6b1a00",
+            "status-success-bg": "#DCFCE7",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-tablet": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "margin": "2rem",
+            "space-md": "1rem",
+            "space-xl": "2rem",
+            "margin-tablet": "1.5rem",
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-default": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-ui": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-hero-mobile": ["Fraunces"],
+            "headline-hero": ["Fraunces"],
+            "numeric-table": ["JetBrains Mono"],
+            "kpi-financial-lg": ["JetBrains Mono"],
+            "numeric-offset": ["JetBrains Mono"],
+            "kpi-financial-lg-mobile": ["JetBrains Mono"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-badge": ["Plus Jakarta Sans"],
+            "headline-lg": ["Fraunces"],
+            "headline-lg-mobile": ["Fraunces"]
+          },
+          "fontSize": {
+            "body-default": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-sm": ["15px", { "lineHeight": "21px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-ui": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-hero-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-hero": ["48px", { "lineHeight": "54px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "numeric-table": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "kpi-financial-lg": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "numeric-offset": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "kpi-financial-lg-mobile": ["22px", { "lineHeight": "26px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "label-badge": ["12px", { "lineHeight": "15px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #FAF8F5;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #E6E1DA;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #C8C1B6;
+    }
+  </style>
+</head>
+<body class="bg-canvas-main text-text-primary antialiased h-full flex overflow-hidden font-body-default text-body-default">
+<!-- LEFT SIDEBAR SHELL (260px) -->
+<aside class="flex flex-col justify-between h-full w-[260px] p-4 bg-canvas-main dark:bg-inverse-surface border-r border-border-subtle dark:border-outline-variant shrink-0 select-none">
+<div class="flex flex-col gap-4">
+<!-- Brand & Product Identifier -->
+<div class="flex items-center justify-between px-2 pt-1 pb-2">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary font-headline-md text-headline-md font-semibold tracking-tight shadow-sm">
+            U
+          </span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-semibold text-primary dark:text-inverse-primary tracking-tight leading-tight">UtsavFlow</span>
+<span class="font-numeric-offset text-numeric-offset text-text-muted">v1.2 · Workspace</span>
+</div>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-surface-subtle font-numeric-offset text-numeric-offset text-text-secondary border border-border-subtle">PRO</span>
+</div>
+<!-- Event Context Switcher Card -->
+<div class="p-3 bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)]">
+<div class="flex items-start gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-subtle border border-border-subtle flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[18px]">local_florist</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-headline-sm text-headline-sm text-text-primary truncate">Sharma &amp; Verma Wedding</h4>
+<p class="font-numeric-offset text-numeric-offset text-text-secondary truncate mt-0.5">Cap: ₹8,00,000 · 200 Guests</p>
+<div class="flex items-center gap-1 mt-1 text-text-muted font-label-badge text-label-badge">
+<span class="material-symbols-outlined text-[13px]">location_on</span>
+<span>Bhubaneswar</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Navigation Links Cluster -->
+<nav class="flex flex-col gap-1 mt-1">
+<!-- 1. Overview -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary dark:text-outline-variant hover:bg-surface-subtle dark:hover:bg-surface-container-high font-medium text-label-ui font-label-ui transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Overview</span>
+</a>
+<!-- 2. Budget Ledger -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary dark:text-outline-variant hover:bg-surface-subtle dark:hover:bg-surface-container-high font-medium text-label-ui font-label-ui transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+<span>Budget Ledger</span>
+</a>
+<!-- 3. Timeline Flow (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary-soft dark:bg-primary-container text-primary dark:text-on-primary font-semibold text-label-ui font-label-ui shadow-xs" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">timeline</span>
+<span class="flex-1">Timeline Flow</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+</a>
+<!-- 4. Vendor Studio -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary dark:text-outline-variant hover:bg-surface-subtle dark:hover:bg-surface-container-high font-medium text-label-ui font-label-ui transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+<span>Vendor Studio</span>
+</a>
+<!-- 5. Experience & Themes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary dark:text-outline-variant hover:bg-surface-subtle dark:hover:bg-surface-container-high font-medium text-label-ui font-label-ui transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span>Experience &amp; Themes</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Bottom / Footer Tools -->
+<div class="flex flex-col gap-1 pt-3 border-t border-border-subtle">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle font-medium text-body-sm font-body-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">science</span>
+<span>Scenario Lab</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle font-medium text-body-sm font-body-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span>Audit Log</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle font-medium text-body-sm font-body-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Settings</span>
+</a>
+<!-- Vault Status Indicator -->
+<div class="mt-3 px-3 py-2 rounded-lg bg-surface-subtle border border-border-subtle flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success inline-block"></span>
+<span class="font-numeric-offset text-numeric-offset text-text-secondary">Local Vault</span>
+</div>
+<span class="font-numeric-offset text-numeric-offset text-text-muted">Auto-synced</span>
+</div>
+</div>
+</aside>
+<!-- MAIN VIEWPORT CONTAINER -->
+<div class="flex-1 flex flex-col h-full min-w-0 overflow-hidden bg-canvas-main">
+<!-- Top Editorial Header Bar (64px) -->
+<header class="h-16 px-6 lg:px-8 bg-canvas-main/90 backdrop-blur-md border-b border-border-subtle flex items-center justify-between shrink-0 z-20">
+<!-- Left: Breadcrumb Navigation & Engine Badge -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 font-label-ui text-label-ui">
+<span class="text-text-secondary font-normal">Sharma &amp; Verma Wedding</span>
+<span class="text-text-muted font-numeric-table">/</span>
+<span class="text-text-primary font-semibold">Timeline</span>
+</div>
+<div class="h-4 w-[1px] bg-border-strong hidden sm:block"></div>
+<div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success-bg border border-status-success-border text-status-success font-label-badge text-label-badge">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span>
+<span>Live Deterministic Sync</span>
+</div>
+</div>
+<!-- Right: Actions & User Avatar -->
+<div class="flex items-center gap-3">
+<!-- Simulate Shock Quick Action -->
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-elevated text-text-primary border border-border-strong hover:bg-surface-subtle font-label-ui text-label-ui font-medium transition-colors shadow-xs active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[17px] text-accent-saffron">bolt</span>
+<span>Simulate Shock</span>
+</button>
+<!-- Notification Bell -->
+<button class="relative p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-subtle transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-status-danger ring-2 ring-canvas-main"></span>
+</button>
+<div class="h-6 w-[1px] bg-border-subtle"></div>
+<!-- User Profile Pill -->
+<div class="flex items-center gap-2.5 pl-1">
+<div class="w-8 h-8 rounded-full bg-primary-soft border border-primary-border flex items-center justify-center font-numeric-table text-numeric-offset font-semibold text-primary">
+            AS
+          </div>
+<div class="hidden md:flex flex-col text-left">
+<span class="font-label-ui text-label-ui font-semibold text-text-primary leading-tight">Ananya S.</span>
+<span class="font-numeric-offset text-numeric-offset text-text-muted leading-none">Lead Host</span>
+</div>
+</div>
+</div>
+</header>
+<!-- SCROLLABLE WORKSPACE CANVAS -->
+<main class="flex-1 overflow-y-auto custom-scrollbar px-6 lg:px-8 py-6 max-w-[1280px] w-full mx-auto space-y-6">
+<!-- 1. PAGE HEADER BLOCK -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-2">
+<div class="space-y-1">
+<span class="font-numeric-offset text-numeric-offset font-semibold tracking-wider text-primary uppercase">
+            MY WEDDING / EVENT WORKSPACE · TIMELINE &amp; CASCADE
+          </span>
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">
+            Timeline
+          </h1>
+<p class="font-body-default text-body-default text-text-secondary">
+            Your event tasks, deadlines and dependencies, organized in one clear plan.
+          </p>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<button class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary-container text-on-primary hover:bg-primary-hover font-label-ui text-label-ui font-semibold transition-all shadow-sm active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>+ Add task</span>
+</button>
+</div>
+</div>
+<!-- 2. TOP METRIC ROW (3 Clean Metric Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Metric 1: Completed Tasks -->
+<div class="p-5 bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-ui text-label-ui font-medium text-text-secondary">Completed Tasks</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-kpi-financial-lg text-kpi-financial-lg text-text-primary">8</span>
+<span class="font-numeric-table text-numeric-table text-text-muted">/ of 24 tasks</span>
+</div>
+<div class="font-numeric-offset text-numeric-offset text-status-success font-medium flex items-center gap-1">
+<span>●</span> 33.3% foundation done
+            </div>
+</div>
+<div class="w-12 h-12 rounded-full bg-status-success-bg border border-status-success-border flex items-center justify-center text-status-success">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Metric 2: Upcoming Tasks -->
+<div class="p-5 bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-ui text-label-ui font-medium text-text-secondary">Upcoming Tasks</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-kpi-financial-lg text-kpi-financial-lg text-text-primary">12</span>
+<span class="font-numeric-table text-numeric-table text-text-muted">Tasks ahead</span>
+</div>
+<div class="font-numeric-offset text-numeric-offset text-primary font-medium flex items-center gap-1">
+<span>●</span> 4 next 14 days
+            </div>
+</div>
+<div class="w-12 h-12 rounded-full bg-primary-soft border border-primary-border flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">calendar_clock</span>
+</div>
+</div>
+<!-- Metric 3: At Risk / Blocked Tasks -->
+<div class="p-5 bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-ui text-label-ui font-medium text-text-secondary">At Risk / Blocked Tasks</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-kpi-financial-lg text-kpi-financial-lg text-status-danger">2</span>
+<span class="font-numeric-table text-numeric-table text-text-muted">Need attention</span>
+</div>
+<div class="font-numeric-offset text-numeric-offset text-status-warning font-medium flex items-center gap-1">
+<span>▲</span> Blocking Catering &amp; Decor
+            </div>
+</div>
+<div class="w-12 h-12 rounded-full bg-status-warning-bg border border-status-warning-border flex items-center justify-center text-status-warning">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+</div>
+</div>
+<!-- 3. EVENT COUNTDOWN & OVERALL PROGRESS BANNER -->
+<div class="p-5 bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex flex-col md:flex-row md:items-center justify-between gap-5">
+<!-- Left: Countdown & Target Date -->
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-lg bg-surface-subtle border border-border-subtle flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">celebration</span>
+</div>
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-semibold text-text-primary">Wedding Day</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-soft text-primary font-numeric-offset text-numeric-offset font-semibold border border-primary-border">
+                120 Days remaining
+              </span>
+</div>
+<div class="font-numeric-table text-numeric-table text-text-muted flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">event</span>
+<span>15 Feb 2027 · Main Mandap Ceremony</span>
+</div>
+</div>
+</div>
+<!-- Right: Real-time Segmented Progress -->
+<div class="w-full md:w-[420px] space-y-2">
+<div class="flex items-center justify-between font-label-ui text-label-ui">
+<span class="font-semibold text-text-primary">33% Completed</span>
+<span class="font-numeric-table text-numeric-table text-text-secondary">(8 of 24 tasks)</span>
+</div>
+<!-- Segmented Progress Bar -->
+<div class="w-full h-3 rounded-full bg-border-subtle overflow-hidden flex">
+<div class="h-full bg-status-success transition-all duration-300" style="width: 33.3%" title="Completed (8)"></div>
+<div class="h-full bg-primary-container transition-all duration-300" style="width: 50%" title="Pending / In Progress (12)"></div>
+<div class="h-full bg-status-danger transition-all duration-300" style="width: 8.3%" title="Delayed (2)"></div>
+<div class="h-full bg-accent-saffron transition-all duration-300" style="width: 8.4%" title="Blocked (2)"></div>
+</div>
+<!-- Progress Legend Milestones -->
+<div class="flex items-center justify-between font-numeric-offset text-numeric-offset text-text-muted pt-0.5">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-status-success"></span> Done (8)</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary-container"></span> Flow (12)</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-status-danger"></span> Risk (2)</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-accent-saffron"></span> Blocked (2)</span>
+</div>
+</div>
+</div>
+<!-- 4. FILTER & CONTROL BAR -->
+<div class="p-3 bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex flex-col md:flex-row md:items-center justify-between gap-3">
+<!-- Search Input -->
+<div class="relative flex-1 max-w-sm">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-text-muted">search</span>
+<input class="w-full h-9 pl-9 pr-3 text-body-sm font-body-sm rounded-lg border border-border-strong bg-white placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-primary-container transition-all" placeholder="Search tasks or dependencies..." type="text"/>
+</div>
+<!-- Filter Chips -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 custom-scrollbar">
+<button class="px-2.5 py-1 rounded-md bg-text-primary text-white font-label-badge text-label-badge font-medium shrink-0" type="button">
+            All Tasks (24)
+          </button>
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle text-text-secondary hover:text-text-primary font-label-badge text-label-badge font-medium shrink-0" type="button">
+            Pending (12)
+          </button>
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle text-text-secondary hover:text-text-primary font-label-badge text-label-badge font-medium shrink-0" type="button">
+            Completed (8)
+          </button>
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle text-status-danger hover:bg-status-danger-bg font-label-badge text-label-badge font-medium shrink-0" type="button">
+            Delayed (2)
+          </button>
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle text-status-warning hover:bg-status-warning-bg font-label-badge text-label-badge font-medium shrink-0" type="button">
+            Blocked (2)
+          </button>
+</div>
+<div class="h-4 w-[1px] bg-border-subtle hidden md:block"></div>
+<!-- Quick Dependency Toggle -->
+<div class="flex items-center gap-2 shrink-0">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4.5 bg-border-strong peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border-strong after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-primary-container"></div>
+<span class="ml-2 font-label-ui text-label-ui text-text-secondary select-none">Show Dependency Chains</span>
+</label>
+</div>
+</div>
+<!-- 5. GROUPED PLANNING PHASES -->
+<div class="space-y-4">
+<!-- PHASE 01: INITIAL PLANNING & FOUNDATIONS -->
+<div class="bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] overflow-hidden">
+<!-- Accordion Header -->
+<div class="p-4 bg-surface-subtle/60 border-b border-border-subtle flex items-center justify-between cursor-pointer select-none hover:bg-surface-subtle transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-primary">folder_open</span>
+<div class="flex items-baseline gap-2">
+<h3 class="font-headline-md text-headline-md font-semibold text-text-primary">Phase 01 · Initial Planning &amp; Foundations</h3>
+<span class="font-numeric-offset text-numeric-offset text-text-secondary">3 tasks · 2 Completed · 1 Pending</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-status-success-bg text-status-success border border-status-success-border font-label-badge text-label-badge">
+                66% Done
+              </span>
+<span class="material-symbols-outlined text-[20px] text-text-muted">expand_less</span>
+</div>
+</div>
+<!-- Phase 1 Task List -->
+<div class="divide-y divide-border-subtle">
+<!-- Task 1.1 (Completed) -->
+<div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-canvas-main/40 transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-5 h-5 rounded-full bg-status-success text-white flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div class="space-y-0.5">
+<span class="font-body-default text-body-default font-medium text-text-primary line-through decoration-border-strong text-text-muted">
+                    Finalize core guest list (200 guests)
+                  </span>
+<div class="flex items-center gap-2 text-text-muted font-numeric-offset text-numeric-offset">
+<span>Due: T-120d · 18 Oct</span>
+<span>•</span>
+<span class="text-status-success font-medium">Verified by Host</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 sm:justify-end">
+<span class="px-2 py-0.5 rounded bg-status-success-bg text-status-success border border-status-success-border font-label-badge text-label-badge font-semibold">
+                  Completed
+                </span>
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-label-badge text-label-badge">
+                  P0 Must-Have
+                </span>
+<button class="p-1 text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Task 1.2 (Completed) -->
+<div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-canvas-main/40 transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-5 h-5 rounded-full bg-status-success text-white flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div class="space-y-0.5">
+<span class="font-body-default text-body-default font-medium text-text-primary line-through decoration-border-strong text-text-muted">
+                    Lock budget ceiling (₹8,00,000) &amp; allocations
+                  </span>
+<div class="flex items-center gap-2 text-text-muted font-numeric-offset text-numeric-offset">
+<span>Due: T-115d · 23 Oct</span>
+<span>•</span>
+<span class="text-status-success font-medium">Reconciled in Ledger</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 sm:justify-end">
+<span class="px-2 py-0.5 rounded bg-status-success-bg text-status-success border border-status-success-border font-label-badge text-label-badge font-semibold">
+                  Completed
+                </span>
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-label-badge text-label-badge">
+                  P0 Must-Have
+                </span>
+<button class="p-1 text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Task 1.3 (Pending) -->
+<div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-canvas-main/40 transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-5 h-5 rounded-full border-2 border-border-strong shrink-0 mt-0.5 sm:mt-0"></div>
+<div class="space-y-0.5">
+<span class="font-body-default text-body-default font-medium text-text-primary">
+                    Select wedding style &amp; aesthetic themes
+                  </span>
+<div class="flex items-center gap-2 text-text-muted font-numeric-offset text-numeric-offset">
+<span>Due: T-110d · 28 Oct</span>
+<span>•</span>
+<span class="text-text-secondary">Moodboards 80% drafted</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 sm:justify-end">
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary border border-border-subtle font-label-badge text-label-badge font-semibold">
+                  Pending
+                </span>
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-label-badge text-label-badge">
+                  P2 Flexible
+                </span>
+<button class="p-1 text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- PHASE 02: ESSENTIAL BOOKINGS & CONTRACTS (THE DEPENDENCY CASCADE) -->
+<div class="bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] overflow-hidden">
+<!-- Accordion Header -->
+<div class="p-4 bg-surface-subtle/60 border-b border-border-subtle flex items-center justify-between cursor-pointer select-none hover:bg-surface-subtle transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-primary">account_tree</span>
+<div class="flex items-baseline gap-2">
+<h3 class="font-headline-md text-headline-md font-semibold text-text-primary">Phase 02 · Essential Bookings &amp; Contracts</h3>
+<span class="font-numeric-offset text-numeric-offset text-text-secondary">6 tasks · 1 Delayed · 1 Blocked · 4 Pending</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-status-danger-bg text-status-danger border border-status-danger-border font-label-badge text-label-badge font-semibold">
+                Cascade Bottleneck
+              </span>
+<span class="material-symbols-outlined text-[20px] text-text-muted">expand_less</span>
+</div>
+</div>
+<!-- Phase 2 Task List with Cascade Details -->
+<div class="divide-y divide-border-subtle">
+<!-- Task 2.1: The Delayer (Crucial Venue Prerequisite) -->
+<div class="p-4 bg-status-danger-bg/20 hover:bg-status-danger-bg/30 transition-colors">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="w-5 h-5 rounded-full border-2 border-status-danger text-status-danger flex items-center justify-center shrink-0 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-status-danger"></span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-body-default text-body-default font-semibold text-text-primary">
+                        Finalize and book Mandap &amp; Banquet Venue
+                      </span>
+<span class="px-2 py-0.5 rounded bg-status-danger-bg text-status-danger border border-status-danger-border font-numeric-offset text-numeric-offset font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span>
+                        Delayed +10 days
+                      </span>
+</div>
+<div class="flex items-center gap-2 text-text-secondary font-numeric-offset text-numeric-offset">
+<span class="font-semibold text-status-danger">Due: T-90d · 17 Nov</span>
+<span>(Original target: 07 Nov)</span>
+<span>•</span>
+<span>Assigned to: Host Family</span>
+</div>
+<!-- Dependency Blocker Cascade Banner -->
+<div class="mt-2.5 p-2.5 rounded-lg bg-status-danger-bg border border-status-danger-border text-status-danger flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] shrink-0">report_problem</span>
+<p class="font-body-sm text-body-sm">
+<span class="font-semibold">Prerequisite task:</span> Directly blocks Catering Quote confirmation and Sound Rigging permits. Delaying this slips target execution across 2 major downstream vendors.
+                      </p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 sm:justify-end shrink-0 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-label-badge text-label-badge font-semibold">
+                    P0 Must-Have
+                  </span>
+<button class="p-1 text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Task 2.2: The Blocked (Catering Contract) -->
+<div class="p-4 bg-status-warning-bg/15 hover:bg-status-warning-bg/25 transition-colors pl-8 sm:pl-10 relative">
+<!-- Visual Branch Connector Line -->
+<div class="absolute left-6 top-0 bottom-1/2 w-0.5 bg-status-danger-border"></div>
+<div class="absolute left-6 top-1/2 w-3 h-0.5 bg-status-danger-border"></div>
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="w-5 h-5 rounded-full bg-status-warning-bg border border-status-warning-border text-status-warning flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-body-default text-body-default font-medium text-text-primary">
+                        Confirm catering menu &amp; vendor contract
+                      </span>
+<span class="px-2 py-0.5 rounded bg-status-warning-bg text-status-warning border border-status-warning-border font-numeric-offset text-numeric-offset font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+                        Blocked by Prerequisite
+                      </span>
+</div>
+<div class="flex items-center gap-2 text-text-secondary font-numeric-offset text-numeric-offset">
+<span>Due: T-85d · 22 Nov</span>
+<span>•</span>
+<span class="text-text-muted">Target quote: ₹2,40,000</span>
+</div>
+<!-- Explanatory note -->
+<div class="mt-2 p-2 rounded-lg bg-surface-subtle border border-border-subtle text-text-secondary flex items-center gap-2 font-numeric-offset text-numeric-offset">
+<span class="material-symbols-outlined text-[16px] text-status-warning shrink-0">info</span>
+<span>Blocked until Task 2.1 (Venue) is finalized — venue kitchen specs &amp; layout permit required.</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 sm:justify-end shrink-0 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-label-badge text-label-badge font-semibold">
+                    P0 Must-Have
+                  </span>
+<button class="p-1 text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Task 2.3: In Progress (Photographer) -->
+<div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-canvas-main/40 transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-5 h-5 rounded-full border-2 border-primary-container text-primary flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+</div>
+<div class="space-y-0.5">
+<span class="font-body-default text-body-default font-medium text-text-primary">
+                    Shortlist and book Candid Photographer
+                  </span>
+<div class="flex items-center gap-2 text-text-muted font-numeric-offset text-numeric-offset">
+<span>Due: T-80d · 27 Nov</span>
+<span>•</span>
+<span class="text-primary font-medium">2 quotes received (₹65,000 avg)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 sm:justify-end">
+<span class="px-2 py-0.5 rounded bg-primary-soft text-primary border border-primary-border font-label-badge text-label-badge font-semibold">
+                  In Progress
+                </span>
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-label-badge text-label-badge">
+                  P1 Important
+                </span>
+<button class="p-1 text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Task 2.4: Pending (Floral & Mandap Scheme) -->
+<div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-canvas-main/40 transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-5 h-5 rounded-full border-2 border-border-strong shrink-0 mt-0.5 sm:mt-0"></div>
+<div class="space-y-0.5">
+<span class="font-body-default text-body-default font-medium text-text-primary">
+                    Confirm floral &amp; mandap decor scheme
+                  </span>
+<div class="flex items-center gap-2 text-text-muted font-numeric-offset text-numeric-offset">
+<span>Due: T-75d · 02 Dec</span>
+<span>•</span>
+<span>Dependent on venue lighting grid</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 sm:justify-end">
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary border border-border-subtle font-label-badge text-label-badge font-semibold">
+                  Pending
+                </span>
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-label-badge text-label-badge">
+                  P1 Important
+                </span>
+<button class="p-1 text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- PHASE 03: FINAL PREPARATIONS & LOGISTICS (COMPACT VIEW) -->
+<div class="bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] overflow-hidden">
+<!-- Accordion Header -->
+<div class="p-4 bg-surface-subtle/60 border-b border-border-subtle flex items-center justify-between cursor-pointer select-none hover:bg-surface-subtle transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-text-secondary">inventory_2</span>
+<div class="flex items-baseline gap-2">
+<h3 class="font-headline-md text-headline-md font-semibold text-text-primary">Phase 03 · Final Preparations &amp; Logistics</h3>
+<span class="font-numeric-offset text-numeric-offset text-text-secondary">4 tasks · Upcoming</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-surface-subtle text-text-secondary border border-border-subtle font-label-badge text-label-badge">
+                T-30d Window
+              </span>
+<span class="material-symbols-outlined text-[20px] text-text-muted">expand_less</span>
+</div>
+</div>
+<!-- Phase 3 Task List -->
+<div class="divide-y divide-border-subtle">
+<!-- Task 3.1 -->
+<div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-canvas-main/40 transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-5 h-5 rounded-full border-2 border-border-strong shrink-0 mt-0.5 sm:mt-0"></div>
+<div class="space-y-0.5">
+<span class="font-body-default text-body-default font-medium text-text-primary">
+                    Finalize seating chart &amp; senior citizen access zone
+                  </span>
+<div class="flex items-center gap-2 text-text-muted font-numeric-offset text-numeric-offset">
+<span>Due: T-30d · 16 Jan</span>
+<span>•</span>
+<span>20 VIP Elders identified</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 sm:justify-end">
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-label-badge text-label-badge">
+                  P1 Important
+                </span>
+<button class="p-1 text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Task 3.2 -->
+<div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-canvas-main/40 transition-colors">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-5 h-5 rounded-full border-2 border-border-strong shrink-0 mt-0.5 sm:mt-0"></div>
+<div class="space-y-0.5">
+<span class="font-body-default text-body-default font-medium text-text-primary">
+                    Confirm DJ sound equipment &amp; generator backup
+                  </span>
+<div class="flex items-center gap-2 text-text-muted font-numeric-offset text-numeric-offset">
+<span>Due: T-20d · 26 Jan</span>
+<span>•</span>
+<span>Requires 65kVA Genset sanction</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 sm:justify-end">
+<span class="px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-label-badge text-label-badge">
+                  P0 Must-Have
+                </span>
+<button class="p-1 text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- PHASE 04: EVENT DAY EXECUTION (COLLAPSED / COMPACT) -->
+<div class="bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] overflow-hidden">
+<div class="p-4 bg-surface-subtle/60 flex items-center justify-between cursor-pointer select-none hover:bg-surface-subtle transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-accent-saffron">auto_awesome</span>
+<div class="flex items-baseline gap-2">
+<h3 class="font-headline-md text-headline-md font-semibold text-text-primary">Phase 04 · Event Day Execution</h3>
+<span class="font-numeric-offset text-numeric-offset text-text-secondary">5 tasks · T-0d · 15 Feb 2027</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-status-info-bg text-status-info border border-status-info-border font-label-badge text-label-badge">
+                Ceremony D-Day
+              </span>
+<span class="material-symbols-outlined text-[20px] text-text-muted">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM INFORMATIONAL METRIC CALLOUT -->
+<div class="p-4 bg-surface-subtle/60 rounded-xl border border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-text-secondary">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-primary">verified_user</span>
+<span class="font-body-sm text-body-sm">
+            Deterministic Cascade Engine: Task completion flags directly synchronize with Ledger payment tranches.
+          </span>
+</div>
+<a class="font-label-ui text-label-ui text-primary font-semibold hover:underline inline-flex items-center gap-1 shrink-0" href="#">
+<span>View Dependency Graph</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</main>
+</div>
+</body></html>

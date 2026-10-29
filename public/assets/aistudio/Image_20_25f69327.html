@@ -1,0 +1,801 @@
+<!DOCTYPE html><html class="h-full" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>UtsavFlow — Overview Dashboard</title>
+<!-- Google Fonts: Fraunces (Editorial Serif), Plus Jakarta Sans (Grotesque UI), JetBrains Mono (Financial Tabular) -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration Verbatim from Spec -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "status-success-bg": "#DCFCE7",
+            "status-warning-bg": "#FEF3C7",
+            "status-info-border": "#7DD3FC",
+            "surface-bright": "#fbf9f6",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "surface-variant": "#e4e2df",
+            "tertiary-fixed-dim": "#ffb77d",
+            "outline-variant": "#c8c4d5",
+            "on-primary-fixed-variant": "#3b35a7",
+            "primary-border": "#C7D2FE",
+            "on-surface-variant": "#464553",
+            "inverse-primary": "#c3c0ff",
+            "error": "#ba1a1a",
+            "primary-soft": "#EEF2FF",
+            "border-subtle": "#E6E1DA",
+            "accent-saffron": "#F59E0B",
+            "status-info": "#0369A1",
+            "secondary": "#a53c19",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed": "#2f1500",
+            "surface-subtle": "#F3EFEA",
+            "status-warning": "#B45309",
+            "on-error": "#ffffff",
+            "tertiary": "#482300",
+            "on-secondary": "#ffffff",
+            "primary-fixed": "#e2dfff",
+            "status-danger": "#BE123C",
+            "inverse-on-surface": "#f2f0ed",
+            "surface-elevated": "#FFFFFF",
+            "primary-hover": "#312E81",
+            "surface-container": "#efeeeb",
+            "inverse-surface": "#30312f",
+            "primary-container": "#3730a3",
+            "text-muted": "#71717A",
+            "canvas-main": "#FAF8F5",
+            "on-secondary-fixed-variant": "#842503",
+            "on-primary-fixed": "#0f0069",
+            "status-warning-border": "#F59E0B",
+            "on-tertiary-container": "#ff9631",
+            "surface-container-high": "#eae8e5",
+            "secondary-fixed": "#ffdbd1",
+            "status-success-border": "#86EFAC",
+            "tertiary-container": "#683600",
+            "error-container": "#ffdad6",
+            "on-secondary-fixed": "#3a0a00",
+            "status-info-bg": "#E0F2FE",
+            "text-primary": "#18181B",
+            "tertiary-fixed": "#ffdcc3",
+            "on-background": "#1b1c1a",
+            "text-secondary": "#52525B",
+            "surface-dim": "#dbdad7",
+            "background": "#fbf9f6",
+            "outline": "#777584",
+            "on-tertiary": "#ffffff",
+            "on-error-container": "#93000a",
+            "on-primary-container": "#a9a7ff",
+            "primary": "#1f108e",
+            "surface": "#fbf9f6",
+            "border-strong": "#C8C1B6",
+            "secondary-container": "#fb7b54",
+            "on-primary": "#ffffff",
+            "surface-tint": "#544fc0",
+            "surface-container-highest": "#e4e2df",
+            "on-secondary-container": "#6b1a00",
+            "secondary-fixed-dim": "#ffb59f",
+            "surface-container-low": "#f5f3f0",
+            "on-surface": "#1b1c1a",
+            "status-danger-border": "#FDA4AF",
+            "primary-fixed-dim": "#c3c0ff",
+            "status-success": "#15803D",
+            "status-danger-bg": "#FFE4E6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-tablet": "1rem",
+            "margin": "2rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "margin-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-xl": "2rem",
+            "space-xs": "0.25rem",
+            "margin-tablet": "1.5rem",
+            "gutter-mobile": "0.75rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Fraunces", "serif"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "kpi-financial-lg-mobile": ["JetBrains Mono", "monospace"],
+            "numeric-offset": ["JetBrains Mono", "monospace"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "numeric-table": ["JetBrains Mono", "monospace"],
+            "headline-hero": ["Fraunces", "serif"],
+            "label-badge": ["Plus Jakarta Sans", "sans-serif"],
+            "body-default": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "kpi-financial-lg": ["JetBrains Mono", "monospace"],
+            "headline-hero-mobile": ["Fraunces", "serif"],
+            "label-ui": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-lg": ["Fraunces", "serif"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "kpi-financial-lg-mobile": ["22px", { "lineHeight": "26px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "numeric-offset": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "numeric-table": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "headline-hero": ["48px", { "lineHeight": "54px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-badge": ["12px", { "lineHeight": "15px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "body-default": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-sm": ["15px", { "lineHeight": "21px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "kpi-financial-lg": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-hero-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-ui": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .tnum {
+      font-feature-settings: 'tnum' on, 'lnum' on;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #FAF8F5;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #E6E1DA;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-canvas-main text-text-primary font-body-default text-body-default min-h-screen flex antialiased selection:bg-primary-soft selection:text-primary">
+<!-- ========================================================================= -->
+<!-- PERSISTENT LEFT SIDEBAR (Shared Component: SideNavBar)                      -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-full w-[260px] bg-canvas-main border-r border-border-subtle z-30 hidden lg:flex flex-col justify-between p-4 shadow-[0_0_0_1px_#E6E1DA]">
+<div class="flex flex-col gap-4">
+<!-- Logo & Brand Mark -->
+<div class="flex items-center justify-between pb-3 border-b border-border-subtle">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-white flex items-center justify-center font-bold text-base shadow-sm ring-1 ring-primary-border/40">
+            U
+          </div>
+<div class="flex items-center gap-1.5">
+<span class="font-headline-md text-headline-md font-semibold text-primary tracking-tight">UtsavFlow</span>
+<span class="text-[10px] font-label-badge text-status-warning bg-status-warning-bg border border-status-warning-border/40 px-1.5 py-0.5 rounded font-semibold tracking-wide">MVP</span>
+</div>
+</div>
+</div>
+<!-- Event Selector Tile -->
+<div class="p-2.5 rounded-lg bg-surface-subtle border border-border-subtle hover:border-border-strong transition-colors cursor-pointer group">
+<div class="flex items-start justify-between">
+<div class="min-w-0 pr-1">
+<p class="font-headline-sm text-headline-sm text-text-primary font-semibold truncate group-hover:text-primary transition-colors">
+              Sharma &amp; Verma Wedding
+            </p>
+<p class="font-numeric-offset text-numeric-offset text-text-secondary truncate mt-0.5 tnum">
+              Cap: ₹8,00,000 · 200 Guests
+            </p>
+<p class="text-[11px] font-body-sm text-accent-saffron font-medium flex items-center gap-1 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-saffron"></span>
+              Traditional &amp; Regal · Bhubaneswar
+            </p>
+</div>
+<span class="material-symbols-outlined text-text-secondary group-hover:text-text-primary transition-transform group-hover:translate-y-0.5 text-[16px]">unfold_more</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1 mt-1">
+<!-- Overview (Active) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary-soft text-primary font-semibold text-label-ui font-label-ui border-l-2 border-primary transition-all" href="#overview">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="">Overview</span>
+</a>
+<!-- Budget Ledger -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary font-medium text-label-ui font-label-ui transition-colors" href="#budget">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="">Budget Ledger</span>
+</a>
+<!-- Timeline Flow -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary font-medium text-label-ui font-label-ui transition-colors" href="#timeline">
+<span class="material-symbols-outlined">timeline</span>
+<span class="">Timeline Flow</span>
+</a>
+<!-- Vendor Studio -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary font-medium text-label-ui font-label-ui transition-colors" href="#vendors">
+<span class="material-symbols-outlined">storefront</span>
+<span class="">Vendor Studio</span>
+</a>
+<!-- Experience & Themes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary font-medium text-label-ui font-label-ui transition-colors" href="#experience">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="">Experience &amp; Themes</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Utility & Vault Section -->
+<div class="flex flex-col gap-2 pt-3 border-t border-border-subtle">
+<div class="flex flex-col gap-0.5">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary font-medium text-label-ui font-label-ui transition-colors" href="#scenariolab">
+<span class="material-symbols-outlined text-[18px]">science</span>
+<span class="">Scenario Lab</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary font-medium text-label-ui font-label-ui transition-colors" href="#audit">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span class="">Audit Log</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary font-medium text-label-ui font-label-ui transition-colors" href="#settings">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="">Settings</span>
+</a>
+</div>
+<!-- Local Vault Status Card -->
+<div class="mt-2 p-2.5 rounded-lg bg-surface-subtle/80 border border-border-subtle flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+<span class="font-numeric-offset text-numeric-offset text-text-secondary">Local Vault · Auto-synced</span>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[15px]">lock</span>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN WORKSPACE CANVAS                                                     -->
+<!-- ========================================================================= -->
+<div class="flex-1 lg:ml-[260px] flex flex-col min-h-screen bg-canvas-main custom-scroll">
+<!-- Compact Top Bar (Docked & Subtle Drop Elevation) -->
+<header class="sticky top-0 z-20 w-full bg-canvas-main/90 backdrop-blur-md border-b border-border-subtle px-4 lg:px-8 py-3 shadow-[0_1px_2px_rgba(24,24,27,0.04)]"><div class="max-w-[1240px] mx-auto flex items-center justify-between gap-4">
+<div class="flex items-center gap-3 min-w-0">
+<span class="font-headline-sm text-headline-sm font-semibold text-text-primary tracking-tight">Sharma &amp; Verma Wedding</span>
+<span class="text-border-strong text-xs hidden sm:inline">/</span>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-status-success-bg border border-status-success-border text-status-success font-label-badge text-label-badge font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span>
+<span class="">Live AI Sync</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-status-danger-border bg-status-danger-bg text-status-danger text-label-ui font-label-ui font-semibold hover:bg-status-danger hover:text-white transition-colors duration-150 active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span class="">Simulate Shock</span>
+</button>
+<div class="h-4 w-px bg-border-subtle hidden sm:block"></div>
+<button aria-label="Notifications" class="relative p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-subtle transition-colors" type="button">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-status-danger rounded-full"></span>
+</button>
+<div class="flex items-center gap-2 pl-1 border-l border-border-subtle cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-primary-soft border border-primary-border flex items-center justify-center font-headline-sm text-headline-sm font-semibold text-primary">
+        AS
+      </div>
+<span class="hidden xl:block text-label-ui font-label-ui font-semibold text-text-primary">Ananya S.</span>
+</div>
+</div>
+</div></header>
+<!-- Main Content Body -->
+<main class="flex-1 px-4 lg:px-8 py-6 max-w-[1240px] w-full mx-auto flex flex-col gap-6">
+<!-- ========================================================================= -->
+<!-- SECTION 1: EDITORIAL HEADER & METADATA CHIPS                              -->
+<!-- ========================================================================= -->
+<section class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-2 border-b border-border-subtle/80"><div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-[11px] uppercase tracking-wider font-semibold text-accent-saffron">Master Plan Overview</span>
+<span class="text-text-muted text-xs">·</span>
+<span class="font-numeric-offset text-numeric-offset text-text-muted tnum">v1.4</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-semibold text-text-primary tracking-tight">
+    Ananya &amp; Rahul's Wedding
+  </h1>
+<div class="flex flex-wrap items-center gap-2 mt-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-subtle border border-border-subtle text-text-secondary text-label-badge font-label-badge font-medium">
+<span class="material-symbols-outlined text-[15px] text-text-muted">event</span>
+<span class="tnum">14 Nov 2025</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-primary-soft border border-primary-border text-primary text-label-badge font-label-badge font-semibold">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span class="tnum">124 days left</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-subtle border border-border-subtle text-text-secondary text-label-badge font-label-badge font-medium">
+<span class="material-symbols-outlined text-[15px] text-text-muted">groups</span>
+<span class="">200 Guests</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-subtle border border-border-subtle text-text-secondary text-label-badge font-label-badge font-medium">
+<span class="material-symbols-outlined text-[15px] text-text-muted">account_balance_wallet</span>
+<span class="tnum">₹8,00,000 Budget</span>
+</span>
+</div>
+</div>
+<div class="flex items-center gap-2.5 shrink-0 pt-2 lg:pt-0">
+<button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border-strong bg-surface-elevated hover:bg-surface-subtle text-text-primary font-label-ui text-label-ui font-semibold shadow-sm transition-colors duration-150 active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]">ios_share</span>
+<span class="">Export Plan</span>
+</button>
+<button class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-container hover:bg-primary-hover text-on-primary font-label-ui text-label-ui font-semibold shadow-[0_1px_2px_rgba(24,24,27,0.1)] transition-all duration-150 active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span class="">Revise Plan</span>
+</button>
+</div></section>
+<!-- ========================================================================= -->
+<!-- SECTION 2: FOUR TOP SUMMARY KPI CARDS (Bento Grid)                        -->
+<!-- ========================================================================= -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"><!-- KPI 1: Budget Cap / Total Budget Ceiling -->
+<div class="bg-surface-elevated rounded-xl p-5 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex flex-col justify-between">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-2">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <span class="material-symbols-outlined text-text-muted text-[18px]">verified</span>
+        <span class="text-[11px] uppercase tracking-wider font-semibold text-text-secondary truncate">Total Budget Ceiling</span>
+      </div>
+      <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-label-badge font-semibold bg-surface-subtle text-text-secondary border border-border-subtle shrink-0">
+        Hard Cap
+      </span>
+    </div>
+    <div class="font-kpi-financial-lg text-kpi-financial-lg text-text-primary tnum tracking-tight font-bold">
+      ₹8,00,000
+    </div>
+  </div>
+  <div class="mt-4 pt-3 border-t border-border-subtle/80 flex flex-col gap-1.5">
+    <div class="flex items-center justify-between text-xs text-text-muted">
+      <span class="flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-status-info"></span>
+        <span class="">Protected Reserve</span>
+      </span>
+      <span class="font-numeric-table font-semibold text-text-secondary tnum">₹40,000 (5%)</span>
+    </div>
+    <div class="flex items-center justify-between text-xs">
+      <span class="text-text-muted">Usable Allocation</span>
+      <span class="font-numeric-table font-medium text-text-primary tnum">₹7,60,000 (95%)</span>
+    </div>
+  </div>
+</div>
+
+<!-- KPI 2: Projected Spend & Headroom -->
+<div class="bg-surface-elevated rounded-xl p-5 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex flex-col justify-between">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-2">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <span class="material-symbols-outlined text-primary text-[18px]">trending_up</span>
+        <span class="text-[11px] uppercase tracking-wider font-semibold text-text-secondary truncate">Projected Spend</span>
+      </div>
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-label-badge font-semibold bg-status-success-bg text-status-success border border-status-success-border shrink-0 font-numeric-offset">
+        <span class="material-symbols-outlined text-[13px]">check</span>
+        +₹15k Buffer
+      </span>
+    </div>
+    <div class="font-kpi-financial-lg text-kpi-financial-lg text-primary tnum tracking-tight font-bold">
+      ₹7,85,000
+    </div>
+  </div>
+  <div class="mt-4 pt-3 border-t border-border-subtle/80 flex flex-col gap-1.5">
+    <div class="flex items-center justify-between text-xs">
+      <span class="text-text-muted flex items-center gap-1">
+        <span class="material-symbols-outlined text-status-success text-[13px]">check_circle</span>
+        Confirmed (User)
+      </span>
+      <span class="font-numeric-table font-semibold text-text-primary tnum">₹1,80,000</span>
+    </div>
+    <div class="flex items-center justify-between text-xs">
+      <span class="text-text-muted flex items-center gap-1">
+        <span class="material-symbols-outlined text-accent-saffron text-[13px]">bolt</span>
+        AI Estimates
+      </span>
+      <span class="font-numeric-table font-medium text-text-secondary tnum">₹6,05,000</span>
+    </div>
+  </div>
+</div>
+
+<!-- KPI 3: Task Progress -->
+<div class="bg-surface-elevated rounded-xl p-5 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex flex-col justify-between">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-2">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <span class="material-symbols-outlined text-text-muted text-[18px]">checklist</span>
+        <span class="text-[11px] uppercase tracking-wider font-semibold text-text-secondary truncate">Task Progress</span>
+      </div>
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-label-badge font-semibold bg-status-danger-bg text-status-danger border border-status-danger-border shrink-0 font-numeric-offset">
+        <span class="w-1.5 h-1.5 rounded-full bg-status-danger"></span>
+        2 Blocked
+      </span>
+    </div>
+    <div class="flex items-baseline gap-2">
+      <span class="font-kpi-financial-lg text-kpi-financial-lg text-text-primary tnum font-bold">3 <span class="text-text-muted font-normal text-lg">/ 14</span></span>
+      <span class="text-text-secondary text-xs font-medium">(21% done)</span>
+    </div>
+  </div>
+  <div class="mt-4 pt-3 border-t border-border-subtle/80 flex flex-col gap-2">
+    <div class="w-full bg-surface-subtle h-2 rounded-full overflow-hidden flex gap-0.5 p-0.5 shadow-inner">
+      <div class="bg-status-success h-full rounded-l-full" style="width: 21.4%" title="Completed: 3 tasks"></div>
+      <div class="bg-status-danger h-full" style="width: 14.3%" title="Blocked: 2 tasks"></div>
+      <div class="bg-border-subtle h-full rounded-r-full flex-1" title="Remaining: 9 tasks"></div>
+    </div>
+    <div class="flex items-center justify-between text-xs text-text-muted">
+      <span class="text-status-warning font-medium font-numeric-offset flex items-center gap-1">
+        <span class="material-symbols-outlined text-[13px]">alarm</span>
+        Next due in 6d
+      </span>
+      <span class="text-text-secondary font-medium">9 in queue</span>
+    </div>
+  </div>
+</div>
+
+<!-- KPI 4: Countdown & Active Phase -->
+<div class="bg-surface-elevated rounded-xl p-5 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex flex-col justify-between">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-2">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <span class="material-symbols-outlined text-accent-saffron text-[18px]">schedule</span>
+        <span class="text-[11px] uppercase tracking-wider font-semibold text-text-secondary truncate">Countdown</span>
+      </div>
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-label-badge font-semibold bg-surface-subtle text-text-secondary border border-border-subtle shrink-0 font-numeric-offset">
+        14 Nov 2025
+      </span>
+    </div>
+    <div class="flex items-baseline gap-2">
+      <span class="font-kpi-financial-lg text-kpi-financial-lg text-text-primary tnum font-bold">124</span>
+      <span class="text-text-secondary font-medium text-sm">Days Remaining</span>
+    </div>
+  </div>
+  <div class="mt-4 pt-3 border-t border-border-subtle/80 flex flex-col gap-1">
+    <div class="flex items-center justify-between text-xs">
+      <span class="text-text-muted">Active Phase</span>
+      <span class="font-semibold text-text-primary text-[13px]">Vendor Booking</span>
+    </div>
+    <div class="flex items-center justify-between text-[11px] text-text-muted">
+      <span class="">Milestone 2 of 5</span>
+      <span class="text-status-success font-medium">On Track</span>
+    </div>
+  </div>
+</div></section>
+<!-- ========================================================================= -->
+<!-- SECTION 3: TWO-COLUMN OPERATIONAL CORE                                    -->
+<!-- ========================================================================= -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start"><!-- Left Column: Needs Attention (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-3.5">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-danger"></span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-text-primary">Needs Attention</h2>
+<span class="bg-status-danger-bg text-status-danger border border-status-danger-border px-2 py-0.5 rounded-full text-xs font-semibold tnum">3 items</span>
+</div>
+<a class="text-label-ui font-label-ui font-semibold text-primary hover:text-primary-hover inline-flex items-center gap-1" href="#timeline">
+<span class="">View all</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Card A: Critical Blocker -->
+<div class="bg-surface-elevated rounded-xl p-4 sm:p-5 border border-status-danger-border shadow-[0_1px_2px_rgba(24,24,27,0.04)] relative overflow-hidden flex flex-col gap-3">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-status-danger"></div>
+<div class="flex items-start justify-between gap-3 pl-1">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-status-danger-bg text-status-danger border border-status-danger-border font-label-badge text-label-badge font-semibold">
+            Critical Blocker
+          </span>
+<span class="text-xs text-status-danger font-numeric-offset font-medium">Overdue 2 days</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-text-primary mt-1">
+          Venue dimension sign-off overdue
+        </h3>
+<p class="font-body-sm text-body-sm text-text-secondary">
+          Blocks 2 downstream tasks: <strong class="text-text-primary font-medium">Sound Rigging</strong> &amp; <strong class="text-text-primary font-medium">Electrical Load</strong>.
+        </p>
+</div>
+<span class="material-symbols-outlined text-status-danger text-[22px] shrink-0">error</span>
+</div>
+<div class="pt-2 pl-1 border-t border-border-subtle/80 flex items-center justify-between">
+<span class="text-xs text-text-muted">Prerequisite: Tent &amp; Stage Layout</span>
+<a class="inline-flex items-center gap-1 text-label-ui font-label-ui font-semibold text-status-danger hover:underline" href="#timeline">
+<span class="">Resolve in Timeline</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card B: Quote Variance -->
+<div class="bg-surface-elevated rounded-xl p-4 sm:p-5 border border-status-warning-border/80 shadow-[0_1px_2px_rgba(24,24,27,0.04)] relative overflow-hidden flex flex-col gap-3">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-status-warning"></div>
+<div class="flex items-start justify-between gap-3 pl-1">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-status-warning-bg text-status-warning border border-status-warning-border/60 font-label-badge text-label-badge font-semibold">
+            Quote Audit
+          </span>
+<span class="text-xs text-status-warning font-numeric-offset font-medium">Hidden Cost Risk</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-text-primary mt-1">
+          Catering: 2 proposals ready for review
+        </h3>
+<p class="font-body-sm text-body-sm text-text-secondary">
+          Royal Spice vs Utsav Flavours. AI flagged Quote B excludes <span class="text-status-warning font-medium">18% GST &amp; generator fuel</span> (~₹38k gap).
+        </p>
+</div>
+<span class="material-symbols-outlined text-status-warning text-[22px] shrink-0">warning</span>
+</div>
+<div class="pt-2 pl-1 border-t border-border-subtle/80 flex items-center justify-between">
+<span class="text-xs text-text-muted">2 Proposals submitted</span>
+<a class="inline-flex items-center gap-1 text-label-ui font-label-ui font-semibold text-status-warning hover:underline" href="#vendors">
+<span class="">Compare Quotes</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card C: Must-Have Locked -->
+<div class="bg-surface-elevated rounded-xl p-4 sm:p-5 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-status-success-bg text-status-success border border-status-success-border font-label-badge text-label-badge font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+            Verified &amp; Locked
+          </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-text-primary mt-1">
+          Senior Mandap Seating Arrangement
+        </h3>
+<p class="font-body-sm text-body-sm text-text-secondary">
+          25 ground-floor cushioned seats confirmed with wheelchair access and low acoustics.
+        </p>
+</div>
+<span class="material-symbols-outlined text-status-success text-[22px] shrink-0">chair</span>
+</div>
+<div class="pt-2 border-t border-border-subtle/80 flex items-center justify-between text-xs text-text-muted">
+<span class="">Cohort: 30 Elders</span>
+<span class="font-medium text-status-success">Space allocated</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Next Actions Checklist (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-3.5">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">task_alt</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-text-primary">Next Actions</h2>
+</div>
+<span class="text-xs font-numeric-offset text-text-muted tnum">3 Upcoming</span>
+</div>
+<div class="bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] divide-y divide-border-subtle">
+<!-- Task 1 -->
+<div class="p-4 flex items-center justify-between gap-3 hover:bg-surface-subtle/40 transition-colors">
+<div class="flex items-start gap-3 min-w-0">
+<input class="w-4 h-4 rounded border-border-strong text-primary focus:ring-primary/20 cursor-pointer mt-1" type="checkbox">
+<div class="min-w-0">
+<p class="font-semibold text-text-primary text-body-default truncate">Finalize Caterer &amp; Tasting</p>
+<div class="flex items-center gap-2 mt-1 text-xs text-text-muted">
+<span class="font-numeric-offset text-status-warning font-medium">Due in 6d</span>
+<span class="">·</span>
+<span class="">Royal Spice session</span>
+</div>
+</div>
+</div>
+<span class="font-numeric-table font-semibold text-text-primary tnum shrink-0 text-sm">₹2,40,000</span>
+</div>
+<!-- Task 2 -->
+<div class="p-4 flex items-center justify-between gap-3 hover:bg-surface-subtle/40 transition-colors">
+<div class="flex items-start gap-3 min-w-0">
+<input class="w-4 h-4 rounded border-border-strong text-primary focus:ring-primary/20 cursor-pointer mt-1" type="checkbox">
+<div class="min-w-0">
+<p class="font-semibold text-text-primary text-body-default truncate">Confirm Photographer Advance</p>
+<div class="flex items-center gap-2 mt-1 text-xs text-text-muted">
+<span class="font-numeric-offset text-text-secondary font-medium">Due in 12d</span>
+<span class="">·</span>
+<span class="">Shot list &amp; drone</span>
+</div>
+</div>
+</div>
+<span class="font-numeric-table font-semibold text-text-primary tnum shrink-0 text-sm">₹1,10,000</span>
+</div>
+<!-- Task 3 -->
+<div class="p-4 flex items-center justify-between gap-3 hover:bg-surface-subtle/40 transition-colors">
+<div class="flex items-start gap-3 min-w-0">
+<input class="w-4 h-4 rounded border-border-strong text-primary focus:ring-primary/20 cursor-pointer mt-1" type="checkbox">
+<div class="min-w-0">
+<p class="font-semibold text-text-primary text-body-default truncate">Senior Seating Allocation</p>
+<div class="flex items-center gap-2 mt-1 text-xs text-text-muted">
+<span class="font-numeric-offset text-text-secondary font-medium">Due in 18d</span>
+<span class="">·</span>
+<span class="">Venue Operations</span>
+</div>
+</div>
+</div>
+<span class="text-xs text-status-success font-medium shrink-0">Mapped</span>
+</div>
+<!-- Bottom Action link -->
+<div class="p-3 bg-surface-subtle/50 text-center">
+<a class="text-label-ui font-label-ui font-semibold text-primary hover:text-primary-hover inline-flex items-center gap-1" href="#timeline">
+<span class="">View all 14 tasks</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div></section>
+<!-- ========================================================================= -->
+<!-- SECTION 4: LOWER SECTION — "BUDGET AT A GLANCE"                           -->
+<!-- ========================================================================= -->
+<section class="bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] p-5 sm:p-6 mb-8 flex flex-col gap-6"><!-- Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-border-subtle/80">
+<div>
+<h2 class="font-headline-md text-headline-md font-semibold text-text-primary">Budget at a Glance</h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+      Real-time financial status: unconfirmed AI estimates vs validated vendor quotes.
+    </p>
+</div>
+<a class="text-label-ui font-label-ui font-semibold text-primary hover:text-primary-hover inline-flex items-center gap-1.5 self-start sm:self-auto" href="#budget">
+<span class="">Open Full Ledger</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<!-- Allocation Progress Bar -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between text-xs text-text-secondary">
+<span class="">Allocation Breakdown</span>
+<span class="font-numeric-table font-semibold text-text-primary tnum">₹7,85,000 / ₹8,00,000 (98.1%)</span>
+</div>
+<div class="w-full h-3 bg-border-subtle rounded-full overflow-hidden flex shadow-inner gap-0.5 p-0.5">
+<div class="h-full rounded-l-full bg-primary-container" style="width: 30.5%" title="Catering: 30.5%"></div>
+<div class="h-full bg-status-success" style="width: 22.9%" title="Venue: 22.9%"></div>
+<div class="h-full bg-accent-saffron" style="width: 14%" title="Photography: 14%"></div>
+<div class="h-full bg-on-secondary-container" style="width: 15.9%" title="Decor: 15.9%"></div>
+<div class="h-full bg-status-info" style="width: 5.1%" title="Reserve: 5.1%"></div>
+<div class="h-full rounded-r-full bg-surface-subtle" style="width: 11.6%" title="Buffer: ₹15k safe"></div>
+</div>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-text-secondary pt-0.5">
+<span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-primary-container"></span> Catering (30.5%)</span>
+<span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-status-success"></span> Venue (22.9%)</span>
+<span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-accent-saffron"></span> Photo (14%)</span>
+<span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-on-secondary-container"></span> Decor (15.9%)</span>
+<span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-status-info"></span> Reserve (5.1%)</span>
+<span class="inline-flex items-center gap-1.5 text-status-success font-medium"><span class="w-2 h-2 rounded-sm bg-border-subtle"></span> ₹15k Buffer Headroom</span>
+</div>
+</div>
+<!-- Streamlined Tabular List -->
+<div class="overflow-x-auto -mx-5 sm:mx-0">
+<table class="w-full text-left border-collapse min-w-[650px]">
+<thead>
+<tr class="border-b border-border-subtle text-xs font-semibold text-text-secondary bg-surface-subtle/50">
+<th class="py-2.5 px-4 font-label-ui">Category</th>
+<th class="py-2.5 px-4 font-label-ui">Formula / Model</th>
+<th class="py-2.5 px-4 font-label-ui">Track</th>
+<th class="py-2.5 px-4 font-label-ui">Status</th>
+<th class="py-2.5 px-4 font-label-ui text-right">Value</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle text-body-sm font-body-sm">
+<!-- Row 1: Food & Catering -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-4 font-semibold text-text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[18px]">restaurant</span>
+<span class="">Food &amp; Catering</span>
+</div>
+</td>
+<td class="py-3 px-4 text-xs font-numeric-offset text-text-secondary tnum">200 Guests × ₹1,200</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#FEF3C7] text-[#78350F] border border-dashed border-[#F59E0B] text-label-badge font-label-badge font-semibold">
+            AI Estimate
+          </span>
+</td>
+<td class="py-3 px-4 text-xs text-text-secondary">Contacted (2 Quotes)</td>
+<td class="py-3 px-4 text-right font-numeric-table font-semibold text-text-primary tnum">₹2,40,000</td>
+</tr>
+<!-- Row 2: Venue & Mandap -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-4 font-semibold text-text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[18px]">holiday_village</span>
+<span class="">Venue &amp; Mandap</span>
+</div>
+</td>
+<td class="py-3 px-4 text-xs font-numeric-offset text-text-secondary tnum">36-hr Fixed Access</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#EEF2FF] text-[#3730A3] border border-[#C7D2FE] text-label-badge font-label-badge font-semibold">
+            User Quote
+          </span>
+</td>
+<td class="py-3 px-4 text-xs text-status-info font-medium">Quote Received</td>
+<td class="py-3 px-4 text-right font-numeric-table font-semibold text-text-primary tnum">₹1,80,000</td>
+</tr>
+<!-- Row 3: Photography -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-4 font-semibold text-text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[18px]">photo_camera</span>
+<span class="">Photography &amp; Film</span>
+</div>
+</td>
+<td class="py-3 px-4 text-xs font-numeric-offset text-text-secondary tnum">Fixed Coverage + Drone</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#FEF3C7] text-[#78350F] border border-dashed border-[#F59E0B] text-label-badge font-label-badge font-semibold">
+            AI Estimate
+          </span>
+</td>
+<td class="py-3 px-4 text-xs text-text-secondary">Shortlisting</td>
+<td class="py-3 px-4 text-right font-numeric-table font-semibold text-text-primary tnum">₹1,10,000</td>
+</tr>
+<!-- Row 4: Decor & Lighting -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-4 font-semibold text-text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[18px]">local_florist</span>
+<span class="">Decor &amp; Florals</span>
+</div>
+</td>
+<td class="py-3 px-4 text-xs font-numeric-offset text-text-secondary tnum">Marigold &amp; Fairy Lights</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#FEF3C7] text-[#78350F] border border-dashed border-[#F59E0B] text-label-badge font-label-badge font-semibold">
+            AI Estimate
+          </span>
+</td>
+<td class="py-3 px-4 text-xs text-text-muted">Not Contacted</td>
+<td class="py-3 px-4 text-right font-numeric-table font-semibold text-text-primary tnum">₹1,25,000</td>
+</tr>
+<!-- Row 5: Contingency Reserve -->
+<tr class="bg-surface-subtle/30 font-medium">
+<td class="py-3 px-4 font-semibold text-text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-status-info text-[18px]">shield</span>
+<span class="">Contingency Reserve</span>
+</div>
+</td>
+<td class="py-3 px-4 text-xs font-numeric-offset text-text-secondary tnum">5% Emergency Buffer</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#DCFCE7] text-[#14532D] border border-[#86EFAC] text-label-badge font-label-badge font-semibold">
+            Protected
+          </span>
+</td>
+<td class="py-3 px-4 text-xs text-status-success font-semibold">Locked in Vault</td>
+<td class="py-3 px-4 text-right font-numeric-table font-semibold text-text-primary tnum">₹40,000</td>
+</tr>
+</tbody>
+</table>
+</div></section>
+</main>
+</div>
+<!-- ========================================================================= -->
+<!-- MOBILE BOTTOM NAVIGATION DOCK (Responsive Pivot for < 768px)               -->
+<!-- ========================================================================= -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-[60px] bg-canvas-main/95 backdrop-blur-md shadow-[0_-2px_10px_rgba(24,24,27,0.08)] z-40 flex items-center justify-around px-2">
+<a class="flex flex-col items-center justify-center py-1 text-primary font-semibold" href="#overview">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-label-ui mt-0.5">Overview</span>
+</a>
+<a class="flex flex-col items-center justify-center py-1 text-text-secondary hover:text-text-primary" href="#budget">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+<span class="text-[10px] font-label-ui mt-0.5">Ledger</span>
+</a>
+<a class="flex flex-col items-center justify-center py-1 text-text-secondary hover:text-text-primary" href="#timeline">
+<span class="material-symbols-outlined text-[20px]">timeline</span>
+<span class="text-[10px] font-label-ui mt-0.5">Timeline</span>
+</a>
+<a class="flex flex-col items-center justify-center py-1 text-text-secondary hover:text-text-primary" href="#vendors">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+<span class="text-[10px] font-label-ui mt-0.5">Vendors</span>
+</a>
+<a class="flex flex-col items-center justify-center py-1 text-text-secondary hover:text-text-primary" href="#experience">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span class="text-[10px] font-label-ui mt-0.5">Themes</span>
+</a>
+</nav>
+
+
+</body></html>

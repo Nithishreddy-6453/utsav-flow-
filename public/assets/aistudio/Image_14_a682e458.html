@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UtsavFlow — Generating Your Event Plan</title>
+<!-- Google Fonts: Fraunces (Headlines), Plus Jakarta Sans (Body/UI), JetBrains Mono (Financial/Tabular) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config verbatim per Design System guidelines -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "border-strong": "#C8C1B6",
+            "on-surface-variant": "#464553",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#e4e2df",
+            "tertiary-fixed-dim": "#ffb77d",
+            "on-surface": "#1b1c1a",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#eae8e5",
+            "tertiary-fixed": "#ffdcc3",
+            "status-info-border": "#7DD3FC",
+            "error": "#ba1a1a",
+            "text-secondary": "#52525B",
+            "status-info-bg": "#E0F2FE",
+            "on-secondary-container": "#6b1a00",
+            "primary-soft": "#EEF2FF",
+            "secondary-fixed": "#ffdbd1",
+            "surface-elevated": "#FFFFFF",
+            "on-background": "#1b1c1a",
+            "surface-dim": "#dbdad7",
+            "status-success": "#15803D",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#f2f0ed",
+            "secondary-fixed-dim": "#ffb59f",
+            "background": "#fbf9f6",
+            "secondary-container": "#fb7b54",
+            "primary-fixed-dim": "#c3c0ff",
+            "primary-hover": "#312E81",
+            "status-warning-bg": "#FEF3C7",
+            "status-success-bg": "#DCFCE7",
+            "surface-bright": "#fbf9f6",
+            "canvas-main": "#FAF8F5",
+            "surface-tint": "#544fc0",
+            "on-primary-fixed": "#0f0069",
+            "on-secondary-fixed": "#3a0a00",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f5f3f0",
+            "accent-saffron": "#F59E0B",
+            "inverse-surface": "#30312f",
+            "tertiary-container": "#683600",
+            "text-muted": "#71717A",
+            "primary-fixed": "#e2dfff",
+            "tertiary": "#482300",
+            "primary-border": "#C7D2FE",
+            "status-danger": "#BE123C",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed": "#2f1500",
+            "secondary": "#a53c19",
+            "surface-subtle": "#F3EFEA",
+            "status-warning": "#B45309",
+            "status-danger-border": "#FDA4AF",
+            "outline-variant": "#c8c4d5",
+            "text-primary": "#18181B",
+            "border-subtle": "#E6E1DA",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "status-info": "#0369A1",
+            "surface-variant": "#e4e2df",
+            "primary-container": "#3730a3",
+            "surface-container": "#efeeeb",
+            "inverse-primary": "#c3c0ff",
+            "on-secondary-fixed-variant": "#842503",
+            "status-success-border": "#86EFAC",
+            "surface": "#fbf9f6",
+            "status-danger-bg": "#FFE4E6",
+            "outline": "#777584",
+            "on-error-container": "#93000a",
+            "status-warning-border": "#F59E0B",
+            "on-primary-fixed-variant": "#3b35a7",
+            "on-tertiary-container": "#ff9631",
+            "on-primary-container": "#a9a7ff",
+            "primary": "#1f108e"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-tablet": "1rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "margin": "2rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "0.75rem",
+            "margin-tablet": "1.5rem"
+          },
+          "fontFamily": {
+            "label-ui": ["Plus Jakarta Sans", "sans-serif"],
+            "kpi-financial-lg": ["JetBrains Mono", "monospace"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "label-badge": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-hero-mobile": ["Fraunces", "serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-hero": ["Fraunces", "serif"],
+            "headline-lg-mobile": ["Fraunces", "serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "numeric-table": ["JetBrains Mono", "monospace"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "numeric-offset": ["JetBrains Mono", "monospace"],
+            "kpi-financial-lg-mobile": ["JetBrains Mono", "monospace"],
+            "headline-lg": ["Fraunces", "serif"],
+            "body-default": ["Plus Jakarta Sans", "sans-serif"]
+          },
+          "fontSize": {
+            "label-ui": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "kpi-financial-lg": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-sm": ["15px", { "lineHeight": "21px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "label-badge": ["12px", { "lineHeight": "15px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-hero-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-hero": ["48px", { "lineHeight": "54px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "numeric-table": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "numeric-offset": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "kpi-financial-lg-mobile": ["22px", { "lineHeight": "26px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-default": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Indeterminate Shimmer Progress Bar Animation */
+    @keyframes subtleIndeterminate {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(35%); }
+      100% { transform: translateX(200%); }
+    }
+    .animate-progress-shimmer {
+      animation: subtleIndeterminate 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* Ambient Festive Aura Pulsing */
+    @keyframes gentlePulseHalo {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.35;
+      }
+      50% {
+        transform: scale(1.18);
+        opacity: 0.65;
+      }
+    }
+    .animate-pulse-halo {
+      animation: gentlePulseHalo 3.5s ease-in-out infinite;
+    }
+
+    /* Spinner ring smooth spin */
+    @keyframes smoothSpin {
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin-smooth {
+      animation: smoothSpin 1.1s linear infinite;
+    }
+  </style>
+</head>
+<body class="bg-canvas-main text-text-primary font-body-default min-h-screen flex flex-col antialiased selection:bg-primary-soft selection:text-primary">
+<!-- 1. Top Header (Minimal Brand Header, Navigation Shell Suppressed per Semantic Rules) -->
+<header class="w-full bg-canvas-main/90 backdrop-blur-md sticky top-0 z-40 border-b border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.03)]">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<!-- Brand Cluster -->
+<div class="flex items-center gap-3">
+<!-- Logo Tile with Monogram -->
+<div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm ring-1 ring-primary-border/40">
+<span class="font-headline-lg text-lg font-bold leading-none select-none">U</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-semibold text-text-primary tracking-tight">UtsavFlow</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-status-warning-bg text-status-warning border border-status-warning-border/50">
+              MVP
+            </span>
+</div>
+<span class="hidden sm:inline-block text-xs text-text-secondary font-label-ui">
+            Plan with clarity. Celebrate with confidence.
+          </span>
+</div>
+</div>
+<!-- Right Side: Auto-Saved State Anchor (No distracting exit buttons during active generation) -->
+<div class="flex items-center">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-elevated border border-border-subtle shadow-sm text-xs font-label-ui text-text-secondary">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+<span class="material-symbols-outlined text-sm text-status-success" data-icon="lock" data-weight="fill">lock</span>
+<span class="font-medium text-text-primary">Details auto-saved</span>
+<span class="hidden md:inline text-text-muted">· Local vault</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas: Generating / Synthesis Workspace -->
+<main class="flex-1 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+<div class="max-w-xl w-full mx-auto space-y-6 sm:space-y-8">
+<!-- 2. Upper Center Visual Anchor (Glowing warm amber & indigo pulse aura) -->
+<div class="flex flex-col items-center text-center">
+<div class="relative w-20 h-20 flex items-center justify-center mb-4">
+<!-- Ambient glowing pulsing rings -->
+<div class="absolute inset-0 rounded-full bg-accent-saffron/20 blur-xl animate-pulse-halo"></div>
+<div class="absolute -inset-2 rounded-full bg-primary-soft/80 blur-md"></div>
+<!-- Concentric Ring Container -->
+<div class="relative w-16 h-16 rounded-full bg-surface-elevated border border-border-subtle shadow-md flex items-center justify-center ring-4 ring-primary-soft">
+<!-- Rotating subtle inner festive icon or symbol -->
+<div class="relative flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-28px" data-icon="auto_awesome" data-weight="fill" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<!-- Orbiting micro celebratory sparkle dot -->
+<div class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-accent-saffron border-2 border-surface-elevated flex items-center justify-center shadow-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary"></span>
+</div>
+</div>
+</div>
+<!-- 3. Main Headings -->
+<h1 class="font-headline-lg text-headline-lg font-semibold text-text-primary tracking-tight mb-2">
+          Your celebration is taking shape
+        </h1>
+<p class="font-body-default text-body-default text-text-secondary max-w-lg mx-auto">
+          We’re turning your event details and priorities into a practical plan you can actually use.
+        </p>
+</div>
+<!-- 4. Compact Event Summary Anchor Card (Verified Data Pill Card) -->
+<div class="bg-surface-elevated rounded-xl border border-border-subtle p-3.5 sm:p-4 shadow-[0_1px_2px_rgba(24,24,27,0.04)]">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 divide-y sm:divide-y-0 sm:divide-x divide-border-subtle">
+<!-- Left Column: Identity & Scale -->
+<div class="flex flex-col justify-center space-y-1.5 pr-0 sm:pr-3">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-text-muted text-base" data-icon="celebration">celebration</span>
+<span class="font-label-ui text-xs font-semibold text-text-primary truncate">Ananya &amp; Rahul's Wedding</span>
+</div>
+<div class="text-xs text-text-secondary font-label-ui flex items-center gap-2">
+<span class="inline-block px-2 py-0.5 rounded bg-surface-subtle border border-border-subtle text-[11px] text-text-secondary">
+                Traditional &amp; Regal
+              </span>
+<span>· Bhubaneswar</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-text-muted pt-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="group">group</span>
+<span class="font-numeric-table text-xs font-medium text-text-secondary">200 Guests</span>
+<span class="text-[11px] text-text-muted">(140 Adults, 30 Kids, 30 Seniors)</span>
+</div>
+</div>
+<!-- Right Column: Financial Cap & Shielded Anchor -->
+<div class="flex flex-col justify-center space-y-1.5 pt-2.5 sm:pt-0 sm:pl-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-label-ui text-text-secondary">Verified Budget</span>
+<span class="font-numeric-table text-numeric-table font-semibold text-primary">₹8,00,000 INR</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-medium bg-status-info-bg text-status-info border border-status-info-border/60">
+<span class="material-symbols-outlined text-[12px]" data-icon="shield">shield</span>
+                5% Contingency Shielded
+              </span>
+</div>
+<div class="flex items-center gap-1 text-xs text-text-secondary pt-0.5">
+<span class="material-symbols-outlined text-status-success text-xs" data-icon="lock" data-weight="fill">lock</span>
+<span class="font-medium text-text-primary">#1 Priority:</span>
+<span class="truncate">Food &amp; Catering (Protected)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. Main Content: "Building your event plan" Checklist Card -->
+<section aria-label="Synthesis Progress Stages" class="bg-surface-elevated rounded-xl border border-border-subtle shadow-[0_1px_3px_rgba(24,24,27,0.05),0_0_0_1px_#E6E1DA] overflow-hidden">
+<!-- Card Header with Live Status Pill -->
+<div class="px-5 py-4 border-b border-border-subtle bg-surface-subtle/50 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-semibold">
+              Building your event plan
+            </h2>
+</div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-soft border border-primary-border text-primary text-xs font-label-ui font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span>Live Synthesis in Progress</span>
+</div>
+</div>
+<!-- Four Honest Synthesis Stages -->
+<div class="p-5 space-y-4">
+<!-- Stage 1: Budget plan (Completed) -->
+<div class="flex items-start gap-3.5 p-3 rounded-lg transition-colors bg-surface-subtle/40 border border-transparent">
+<!-- Icon / Badge -->
+<div class="flex-shrink-0 mt-0.5">
+<div class="w-7 h-7 rounded-full bg-status-success-bg border border-status-success-border flex items-center justify-center text-status-success">
+<span class="material-symbols-outlined text-base" data-icon="check">check</span>
+</div>
+</div>
+<!-- Stage Description -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-headline-sm text-sm font-semibold text-text-primary">Budget plan</span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-status-success uppercase font-label-ui">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                  Done
+                </span>
+</div>
+<p class="font-body-sm text-xs text-text-secondary">
+                Organizing expense categories and estimates.
+              </p>
+</div>
+</div>
+<!-- Stage 2: Planning timeline (Active / In Progress) -->
+<div class="flex items-start gap-3.5 p-3 rounded-lg bg-primary-soft/50 border border-primary-border ring-1 ring-primary-border/50">
+<!-- Animated Spinner Icon -->
+<div class="flex-shrink-0 mt-0.5">
+<div class="w-7 h-7 rounded-full bg-surface-elevated border-2 border-primary border-t-transparent animate-spin-smooth flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</div>
+</div>
+<!-- Stage Description -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-headline-sm text-sm font-semibold text-primary">Planning timeline</span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-surface-elevated text-primary border border-primary-border">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                  Analyzing milestones...
+                </span>
+</div>
+<p class="font-body-sm text-xs text-text-secondary">
+                Organizing tasks, deadlines, and dependencies.
+              </p>
+</div>
+</div>
+<!-- Stage 3: Vendor checklist (Pending) -->
+<div class="flex items-start gap-3.5 p-3 rounded-lg opacity-85">
+<!-- Muted Clock/Pending Circle -->
+<div class="flex-shrink-0 mt-0.5">
+<div class="w-7 h-7 rounded-full bg-surface-subtle border border-border-subtle flex items-center justify-center text-text-muted">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+</div>
+</div>
+<!-- Stage Description -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-headline-sm text-sm font-medium text-text-muted">Vendor checklist</span>
+<span class="text-[11px] font-medium text-text-muted font-label-ui">
+                  Waiting for timeline graph
+                </span>
+</div>
+<p class="font-body-sm text-xs text-text-muted">
+                Preparing vendor requirements and quotation questions.
+              </p>
+</div>
+</div>
+<!-- Stage 4: Personalized ideas (Queued / Pending) -->
+<div class="flex items-start gap-3.5 p-3 rounded-lg opacity-85">
+<!-- Muted Sparkle Circle -->
+<div class="flex-shrink-0 mt-0.5">
+<div class="w-7 h-7 rounded-full bg-surface-subtle border border-border-subtle flex items-center justify-center text-text-muted">
+<span class="material-symbols-outlined text-sm" data-icon="hourglass_empty">hourglass_empty</span>
+</div>
+</div>
+<!-- Stage Description -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-headline-sm text-sm font-medium text-text-muted">Personalized ideas</span>
+<span class="text-[11px] font-medium text-text-muted font-label-ui">
+                  Queued
+                </span>
+</div>
+<p class="font-body-sm text-xs text-text-muted">
+                Adapting recommendations to your priorities and preferences.
+              </p>
+</div>
+</div>
+</div>
+<!-- 6. Progress Indicator Section -->
+<div class="p-5 pt-1 bg-surface-subtle/30 border-t border-border-subtle/70 space-y-3">
+<!-- Indeterminate Animated Bar -->
+<div class="relative w-full h-2.5 bg-border-subtle rounded-full overflow-hidden">
+<div class="absolute inset-y-0 w-1/2 bg-gradient-to-r from-primary via-accent-saffron to-primary rounded-full animate-progress-shimmer"></div>
+</div>
+<!-- Honest Stage Label & Real-time Indicator -->
+<div class="flex items-center justify-between text-xs font-label-ui text-text-secondary">
+<div class="flex items-center gap-1.5">
+<span class="font-semibold text-text-primary">Stage 2 of 4</span>
+<span>· Connecting dependency nodes...</span>
+</div>
+<span class="font-numeric-offset text-xs text-text-muted">~8-12s</span>
+</div>
+</div>
+</section>
+<!-- 7. Reassurance & Safeguards (Bottom Area) -->
+<div class="space-y-4 pt-2 text-center">
+<!-- Reassurance Message with Shield -->
+<div class="flex items-center justify-center gap-1.5 text-xs font-label-ui text-text-secondary">
+<span class="material-symbols-outlined text-status-success text-base" data-icon="verified_user" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span>Your saved event details will be preserved.</span>
+</div>
+<!-- Deterministic Arithmetic Engine Stamp -->
+<div class="text-[11px] font-numeric-offset text-text-muted">
+          Engine v2.4 · Deterministic INR Arithmetic · No duplicate submissions
+        </div>
+<!-- Unobtrusive Recovery / Fallback Safeguards -->
+<div class="pt-2">
+<div class="inline-flex flex-wrap items-center justify-center gap-1.5 text-xs text-text-secondary">
+<span>Taking longer than usual?</span>
+<button class="font-semibold text-primary hover:text-primary-hover underline underline-offset-2 transition-colors min-h-[44px] px-1 inline-flex items-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" type="button">
+              View Fallback Plan
+            </button>
+<span class="text-text-muted">or</span>
+<button class="text-text-secondary hover:text-text-primary underline underline-offset-2 transition-colors min-h-[44px] px-1 inline-flex items-center focus:outline-none focus:ring-2 focus:ring-border-strong focus:ring-offset-2 rounded" type="button">
+              Cancel &amp; Return to Review
+            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Clean, unobtrusive semantic script for subtle simulated progress advancement for realistic demo feel -->
+<script>
+    // Micro-interaction simulation without breaking UI truthfulness
+    document.addEventListener('DOMContentLoaded', () => {
+      // Simulate real calculation flow state progression after 5 seconds if left open
+      setTimeout(() => {
+        const stageLabel = document.querySelector('.font-numeric-offset');
+        if (stageLabel) {
+          stageLabel.textContent = '~4-6s';
+        }
+      }, 4000);
+    });
+  </script>
+</body></html>

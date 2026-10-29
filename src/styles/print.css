@@ -1,0 +1,110 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* UtsavFlow Dedicated Print Stylesheet */
+
+@media print {
+  /* Set standard A4 page layout with comfortable margins */
+  @page {
+    size: A4 portrait;
+    margin: 1.8cm 1.5cm 1.8cm 1.5cm;
+  }
+
+  /* Reset body and hide all interactive application containers */
+  body {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide all interactive shell chrome, navigation, toolbars, and action buttons */
+  header,
+  nav,
+  aside,
+  footer,
+  .no-print,
+  button,
+  input,
+  select,
+  textarea,
+  [role="dialog"] > div:first-child:not(#event-brief-container),
+  .workspace-sidebar,
+  .workspace-layout-nav {
+    display: none !important;
+  }
+
+  /* Ensure the printable container fills the page cleanly */
+  #event-brief-printable {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+  }
+
+  /* Structural section breaks */
+  .print-page-break {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Clean table borders and layout */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: auto !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  th, td {
+    padding: 6pt 8pt !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    font-size: 9.5pt !important;
+  }
+
+  th {
+    background-color: #f9fafb !important;
+    color: #374151 !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    font-size: 8pt !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  /* Badges and pills readable in grayscale */
+  .badge-print {
+    border: 1px solid #d1d5db !important;
+    background-color: #f3f4f6 !important;
+    color: #1f2937 !important;
+    font-weight: 600 !important;
+    padding: 2px 6px !important;
+    font-size: 8pt !important;
+  }
+
+  /* Links */
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}

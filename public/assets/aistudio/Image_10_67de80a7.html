@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-canvas-main" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UtsavFlow — Step 1: Basic Details</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts: Fraunces, Plus Jakarta Sans, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "text-primary": "#18181B",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "canvas-main": "#FAF8F5",
+            "secondary-fixed": "#ffdbd1",
+            "primary-fixed-dim": "#c3c0ff",
+            "surface": "#fbf9f6",
+            "status-success": "#15803D",
+            "status-success-bg": "#DCFCE7",
+            "status-success-border": "#86EFAC",
+            "surface-container-high": "#eae8e5",
+            "outline": "#777584",
+            "outline-variant": "#c8c4d5",
+            "on-surface": "#1b1c1a",
+            "inverse-primary": "#c3c0ff",
+            "on-secondary-container": "#6b1a00",
+            "border-subtle": "#E6E1DA",
+            "status-warning-bg": "#FEF3C7",
+            "text-secondary": "#52525B",
+            "border-strong": "#C8C1B6",
+            "status-warning": "#B45309",
+            "status-warning-border": "#F59E0B",
+            "status-danger": "#BE123C",
+            "status-danger-bg": "#FFE4E6",
+            "status-danger-border": "#FDA4AF",
+            "primary-fixed": "#e2dfff",
+            "status-info": "#0369A1",
+            "status-info-bg": "#E0F2FE",
+            "status-info-border": "#7DD3FC",
+            "surface-elevated": "#FFFFFF",
+            "on-primary": "#ffffff",
+            "surface-bright": "#fbf9f6",
+            "background": "#fbf9f6",
+            "tertiary": "#482300",
+            "error": "#ba1a1a",
+            "primary-border": "#C7D2FE",
+            "primary-container": "#3730a3",
+            "surface-dim": "#dbdad7",
+            "primary-soft": "#EEF2FF",
+            "accent-saffron": "#F59E0B",
+            "secondary": "#a53c19",
+            "text-muted": "#71717A",
+            "surface-variant": "#e4e2df",
+            "primary": "#1f108e",
+            "surface-container": "#efeeeb",
+            "surface-subtle": "#F3EFEA",
+            "primary-hover": "#312E81",
+            "surface-container-low": "#f5f3f0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-mobile": "0.75rem",
+            "margin": "2rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "margin-tablet": "1.5rem",
+            "gutter-tablet": "1rem"
+          },
+          "fontFamily": {
+            "headline-hero": ["Fraunces", "serif"],
+            "headline-hero-mobile": ["Fraunces", "serif"],
+            "headline-lg": ["Fraunces", "serif"],
+            "headline-lg-mobile": ["Fraunces", "serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "body-default": ["Plus Jakarta Sans", "sans-serif"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "label-ui": ["Plus Jakarta Sans", "sans-serif"],
+            "label-badge": ["Plus Jakarta Sans", "sans-serif"],
+            "kpi-financial-lg": ["JetBrains Mono", "monospace"],
+            "numeric-table": ["JetBrains Mono", "monospace"],
+            "numeric-offset": ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+    .warm-festive-glow {
+      background: radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 90% 15%, rgba(55, 48, 163, 0.07) 0%, transparent 45%),
+                  radial-gradient(circle at 50% 80%, rgba(251, 123, 84, 0.05) 0%, transparent 50%);
+    }
+    .focus-ring:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #FAF8F5, 0 0 0 4px #3730A3;
+    }
+  </style>
+</head>
+<body class="h-full font-body-default text-text-primary bg-canvas-main antialiased relative selection:bg-primary-soft selection:text-primary flex flex-col min-h-screen">
+<!-- Ambient Celebratory Background Layer -->
+<div class="fixed inset-0 pointer-events-none warm-festive-glow z-0"></div>
+<!-- 1. HEADER (Top) -->
+<header class="relative z-20 w-full bg-canvas-main/90 backdrop-blur-md border-b border-border-subtle shrink-0">
+<div class="max-w-[1280px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
+<!-- Left: Brand mark -->
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-2.5 group" href="#">
+<span class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-headline-lg text-lg shadow-sm">
+            𑁍
+          </span>
+<span class="font-headline-lg text-headline-md font-semibold text-primary tracking-tight">
+            UtsavFlow
+          </span>
+</a>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-badge font-label-badge bg-status-warning-bg text-status-warning border border-status-warning-border/40">
+          MVP
+        </span>
+<div class="hidden md:flex items-center text-text-secondary text-body-sm pl-2 border-l border-border-subtle">
+          Plan with clarity. Celebrate with confidence.
+        </div>
+</div>
+<!-- Right: Auto-save status & Save & exit button -->
+<div class="flex items-center gap-3">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-subtle border border-border-subtle text-xs font-numeric-offset text-text-secondary transition-all" id="save-status-pill">
+<span class="w-2 h-2 rounded-full bg-status-success" id="save-status-dot"></span>
+<span id="save-status-text">Draft auto-saved</span>
+</div>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 text-label-ui font-label-ui text-text-secondary hover:text-text-primary hover:bg-surface-subtle rounded-lg border border-border-subtle transition-colors focus-ring" id="save-exit-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+<span class="hidden sm:inline">Save &amp; exit</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Wizard Workspace Layout (Centered, max-w-4xl) -->
+<main class="relative z-10 flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+<!-- 2. FOUR-STEP HORIZONTAL PROGRESS INDICATOR -->
+<nav aria-label="Wizard Steps" class="mb-10">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+<!-- Step 1: ACTIVE -->
+<div class="p-3.5 rounded-xl border-2 border-primary-container bg-surface-elevated shadow-md relative overflow-hidden ring-2 ring-primary-soft">
+<div class="absolute top-0 right-0 w-2 h-full bg-primary-container"></div>
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-numeric-offset font-numeric-offset text-primary font-semibold flex items-center gap-1">
+<span class="w-4 h-4 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-[10px]">1</span>
+              STEP 1
+            </span>
+<span class="text-[11px] px-2 py-0.5 rounded bg-primary-soft text-primary font-semibold">Active</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-primary font-semibold">
+            Basic Details
+          </p>
+<p class="text-xs text-text-secondary mt-0.5">
+            Event type, date &amp; city
+          </p>
+</div>
+<!-- Step 2: Upcoming -->
+<div class="p-3.5 rounded-xl border border-border-subtle bg-surface-subtle opacity-75">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-numeric-offset font-numeric-offset text-text-secondary font-semibold">STEP 2</span>
+<span class="material-symbols-outlined text-text-muted text-[16px]">lock_outline</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-text-primary font-semibold">
+            Budget &amp; Guests
+          </p>
+<p class="text-xs text-text-secondary mt-0.5">
+            Cost cap &amp; cohort tiers
+          </p>
+</div>
+<!-- Step 3: Upcoming -->
+<div class="p-3.5 rounded-xl border border-border-subtle bg-surface-subtle opacity-75">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-numeric-offset font-numeric-offset text-text-secondary font-semibold">STEP 3</span>
+<span class="material-symbols-outlined text-text-muted text-[16px]">lock_outline</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-text-primary font-semibold">
+            Priorities
+          </p>
+<p class="text-xs text-text-secondary mt-0.5">
+            Sacred pillars &amp; comforts
+          </p>
+</div>
+<!-- Step 4: Upcoming -->
+<div class="p-3.5 rounded-xl border border-border-subtle bg-surface-subtle opacity-75">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-numeric-offset font-numeric-offset text-text-secondary font-semibold">STEP 4</span>
+<span class="material-symbols-outlined text-text-muted text-[16px]">hourglass_empty</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-text-primary font-semibold">
+            Review
+          </p>
+<p class="text-xs text-text-secondary mt-0.5">
+            Verification &amp; ledger lock
+          </p>
+</div>
+</div>
+</nav>
+<!-- 3. PAGE TITLE & NARRATIVE -->
+<div class="mb-8 text-center max-w-2xl mx-auto">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-soft text-primary text-xs font-semibold mb-3 border border-primary-border">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">celebration</span>
+        Step 1 of 4: Cultural &amp; Logistical Anchor
+      </div>
+<h1 class="font-headline-lg text-headline-hero-mobile md:text-headline-hero text-text-primary tracking-tight font-semibold">
+        Let’s start with the basics
+      </h1>
+<p class="mt-2 text-text-secondary text-body-lg">
+        Tell us the foundational details of your celebration so we can tailor timelines, cultural traditions, and regional planning nuances.
+      </p>
+</div>
+<!-- Alert / Validation banner container (JS dynamic) -->
+<div class="hidden mb-6 p-4 rounded-xl bg-status-danger-bg border border-status-danger-border text-status-danger text-sm flex items-start gap-3 transition-all" id="validation-alert">
+<span class="material-symbols-outlined text-[20px] shrink-0 mt-0.5">error</span>
+<div class="flex-1">
+<p class="font-semibold" id="validation-alert-title">Please complete the required details</p>
+<p class="text-xs mt-0.5" id="validation-alert-msg">Ensure event type, name, celebration date, and location are provided.</p>
+</div>
+</div>
+<!-- MAIN FORM CARD -->
+<div class="bg-surface-elevated rounded-2xl border border-border-subtle shadow-sm p-6 sm:p-8 space-y-8">
+<!-- Section A: Event Type Selector -->
+<div>
+<div class="flex items-center justify-between mb-3">
+<label class="block font-headline-sm text-headline-sm font-semibold text-text-primary">
+            Event Type <span class="text-status-danger">*</span>
+</label>
+<span class="text-xs text-text-secondary">Select one celebratory category</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4" id="event-type-container">
+<!-- Option 1: Wedding -->
+<div class="event-type-card cursor-pointer p-4 rounded-xl border-2 transition-all relative flex items-start gap-3.5 bg-primary-soft/40 border-primary-container shadow-xs" data-type="Wedding">
+<div class="w-10 h-10 rounded-lg bg-primary-soft text-primary-container flex items-center justify-center shrink-0 border border-primary-border">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">filter_vintage</span>
+</div>
+<div class="flex-1 min-w-0 pr-6">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-sm font-semibold text-text-primary">Wedding</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-accent-saffron/15 text-status-warning font-semibold uppercase tracking-wider">Multi-Day</span>
+</div>
+<p class="text-xs text-text-secondary mt-1 leading-relaxed">
+                Ceremonial nuptials, multi-day celebrations, sacred rituals &amp; banquet receptions.
+              </p>
+</div>
+<div class="radio-indicator absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-primary-container flex items-center justify-center bg-primary-container text-white">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<!-- Option 2: Birthday -->
+<div class="event-type-card cursor-pointer p-4 rounded-xl border border-border-subtle hover:border-primary-border transition-all relative flex items-start gap-3.5 bg-surface hover:bg-surface-subtle" data-type="Birthday">
+<div class="w-10 h-10 rounded-lg bg-surface-subtle text-text-primary flex items-center justify-center shrink-0 border border-border-subtle">
+<span class="material-symbols-outlined text-[22px]">cake</span>
+</div>
+<div class="flex-1 min-w-0 pr-6">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-sm font-semibold text-text-primary">Birthday</span>
+</div>
+<p class="text-xs text-text-secondary mt-1 leading-relaxed">
+                Milestones, anniversary jubilees, themed birthday parties &amp; family celebrations.
+              </p>
+</div>
+<div class="radio-indicator absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-border-strong flex items-center justify-center bg-transparent text-transparent">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<!-- Option 3: Community Event -->
+<div class="event-type-card cursor-pointer p-4 rounded-xl border border-border-subtle hover:border-primary-border transition-all relative flex items-start gap-3.5 bg-surface hover:bg-surface-subtle" data-type="Community">
+<div class="w-10 h-10 rounded-lg bg-surface-subtle text-text-primary flex items-center justify-center shrink-0 border border-border-subtle">
+<span class="material-symbols-outlined text-[22px]">groups</span>
+</div>
+<div class="flex-1 min-w-0 pr-6">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-sm font-semibold text-text-primary">Community Event</span>
+</div>
+<p class="text-xs text-text-secondary mt-1 leading-relaxed">
+                Cultural utsavs, society pujas, festive melas, and neighborhood gatherings.
+              </p>
+</div>
+<div class="radio-indicator absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-border-strong flex items-center justify-center bg-transparent text-transparent">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<!-- Option 4: Other Event -->
+<div class="event-type-card cursor-pointer p-4 rounded-xl border border-border-subtle hover:border-primary-border transition-all relative flex items-start gap-3.5 bg-surface hover:bg-surface-subtle" data-type="Other">
+<div class="w-10 h-10 rounded-lg bg-surface-subtle text-text-primary flex items-center justify-center shrink-0 border border-border-subtle">
+<span class="material-symbols-outlined text-[22px]">auto_awesome</span>
+</div>
+<div class="flex-1 min-w-0 pr-6">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-sm font-semibold text-text-primary">Other Event</span>
+</div>
+<p class="text-xs text-text-secondary mt-1 leading-relaxed">
+                Bespoke family banquets, corporate soirees, private reunions, or housewarmings.
+              </p>
+</div>
+<div class="radio-indicator absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-border-strong flex items-center justify-center bg-transparent text-transparent">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section B: Full-width Event Name Input -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="block font-headline-sm text-headline-sm font-semibold text-text-primary" for="event-name">
+            Event Name <span class="text-status-danger">*</span>
+</label>
+<span class="text-xs font-numeric-offset text-text-secondary" id="name-counter">31 / 70</span>
+</div>
+<div class="relative">
+<input class="block w-full px-4 py-3 text-base text-text-primary bg-surface-subtle border border-border-strong rounded-lg focus-ring placeholder:text-text-muted transition-colors" id="event-name" maxlength="70" placeholder="e.g., Ananya &amp; Rahul’s Grand Wedding or Aarav’s 1st Birthday Carnival" type="text" value="Ananya &amp; Rahul’s Grand Wedding"/>
+</div>
+<p class="text-xs text-text-secondary mt-1.5 flex items-center gap-1" id="name-helper">
+<span class="material-symbols-outlined text-[14px] text-text-muted">info</span>
+          This title will anchor your vendor briefs, budget sheets, and guest invites.
+        </p>
+</div>
+<!-- Section C: Two-column Row (Event Date Picker & Location/City) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+<!-- Left: Event Date -->
+<div>
+<label class="block font-headline-sm text-headline-sm font-semibold text-text-primary mb-2" for="event-date">
+            Event Date <span class="text-status-danger">*</span>
+</label>
+<div class="relative">
+<input class="block w-full pl-4 pr-10 py-3 text-sm text-text-primary bg-surface-subtle border border-border-strong rounded-lg focus-ring font-medium" id="event-date" type="date" value="2026-11-14"/>
+<div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-text-muted">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+</div>
+</div>
+<p class="text-xs text-text-secondary mt-1.5 flex items-center gap-1" id="date-helper">
+<span class="material-symbols-outlined text-[14px] text-status-success" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span id="date-helper-text">Target celebration date · approx. 8 months horizon</span>
+</p>
+</div>
+<!-- Right: Event Location / City -->
+<div>
+<label class="block font-headline-sm text-headline-sm font-semibold text-text-primary mb-2" for="event-city">
+            Event Location / City <span class="text-status-danger">*</span>
+</label>
+<div class="relative">
+<input class="block w-full pl-4 pr-10 py-3 text-sm text-text-primary bg-surface-subtle border border-border-strong rounded-lg focus-ring font-medium placeholder:text-text-muted" id="event-city" placeholder="e.g., Bhubaneswar, Odisha" type="text" value="Bhubaneswar, Odisha"/>
+<div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-text-muted">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+</div>
+</div>
+<p class="text-xs text-text-secondary mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-text-muted">hub</span>
+            Drives regional seasonal logistics, vendor benchmark rates, and availability.
+          </p>
+</div>
+</div>
+<!-- Section D: Style Preference Section -->
+<div class="pt-2 border-t border-border-subtle">
+<div class="flex items-center justify-between mb-2">
+<div>
+<label class="block font-headline-sm text-headline-sm font-semibold text-text-primary">
+              Desired Atmosphere &amp; Style
+            </label>
+<p class="text-xs text-text-secondary mt-0.5">
+              Select one or more aesthetic directions to guide moodboards and theme presets.
+            </p>
+</div>
+<span class="text-xs text-text-muted hidden sm:inline">Optional</span>
+</div>
+<!-- Chips Multi-select Grid -->
+<div class="flex flex-wrap items-center gap-2.5 mt-3" id="style-chips-container">
+<button class="style-chip px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all flex items-center gap-1.5 bg-primary-soft text-primary-container border-primary-container focus-ring" data-style="Elegant" type="button">
+<span class="material-symbols-outlined text-[15px] chip-icon">check</span>
+<span>Elegant</span>
+</button>
+<button class="style-chip px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all flex items-center gap-1.5 bg-primary-soft text-primary-container border-primary-container focus-ring" data-style="Traditional" type="button">
+<span class="material-symbols-outlined text-[15px] chip-icon">check</span>
+<span>Traditional</span>
+</button>
+<button class="style-chip px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface-subtle text-text-secondary border-border-subtle hover:border-border-strong focus-ring" data-style="Fun &amp; Lively" type="button">
+<span class="material-symbols-outlined text-[15px] chip-icon hidden">check</span>
+<span>Fun &amp; Lively</span>
+</button>
+<button class="style-chip px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface-subtle text-text-secondary border-border-subtle hover:border-border-strong focus-ring" data-style="Intimate" type="button">
+<span class="material-symbols-outlined text-[15px] chip-icon hidden">check</span>
+<span>Intimate</span>
+</button>
+<button class="style-chip px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface-subtle text-text-secondary border-border-subtle hover:border-border-strong focus-ring" data-style="Modern" type="button">
+<span class="material-symbols-outlined text-[15px] chip-icon hidden">check</span>
+<span>Modern</span>
+</button>
+<!-- Custom chip toggle -->
+<button class="px-3.5 py-1.5 rounded-full text-xs font-semibold border border-dashed border-border-strong hover:border-primary-container text-text-primary bg-surface hover:bg-surface-subtle transition-all flex items-center gap-1.5 focus-ring" id="toggle-custom-style-btn" type="button">
+<span class="material-symbols-outlined text-[15px]">add</span>
+<span>+ Custom Style</span>
+</button>
+</div>
+<!-- Inline Custom Style Input (Collapsible) -->
+<div class="hidden mt-3 max-w-md flex items-center gap-2" id="custom-style-input-row">
+<input class="flex-1 px-3 py-2 text-xs bg-surface-subtle border border-border-strong rounded-lg focus-ring placeholder:text-text-muted text-text-primary" id="custom-style-input" placeholder="Enter custom style, e.g., Bohemian Royal, Vedic Minimalist" type="text"/>
+<button class="px-3 py-2 rounded-lg bg-primary-container text-on-primary text-xs font-semibold hover:bg-primary-hover focus-ring" id="add-custom-style-btn" type="button">
+            Add
+          </button>
+</div>
+</div>
+<!-- Section E: Optional Event Horizon / Duration toggle -->
+<div class="pt-2 border-t border-border-subtle">
+<div class="flex items-center justify-between mb-2">
+<label class="block font-headline-sm text-sm font-semibold text-text-primary">
+            Event Duration &amp; Format
+          </label>
+<span class="text-xs text-text-muted">Calculates multi-day itinerary slots</span>
+</div>
+<div class="flex flex-wrap items-center gap-2" id="duration-pills-container">
+<button class="duration-pill px-3 py-1.5 text-xs font-medium rounded-lg border border-border-subtle bg-surface-subtle text-text-secondary hover:border-border-strong focus-ring transition-all" data-duration="Single Day" type="button">
+            Single Day Event
+          </button>
+<button class="duration-pill px-3 py-1.5 text-xs font-medium rounded-lg border border-border-subtle bg-surface-subtle text-text-secondary hover:border-border-strong focus-ring transition-all" data-duration="2 Days" type="button">
+            2 Days Celebration
+          </button>
+<button class="duration-pill px-3 py-1.5 text-xs font-semibold rounded-lg border border-primary-container bg-primary-soft text-primary-container focus-ring transition-all" data-duration="3+ Days Ceremonial" type="button">
+            3+ Days Ceremonial
+          </button>
+</div>
+</div>
+</div>
+<!-- 5. BOTTOM NAVIGATION BAR -->
+<div class="mt-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-surface-elevated border border-border-subtle shadow-sm">
+<!-- Left: Disabled Back Button -->
+<div class="w-full sm:w-auto">
+<button class="w-full sm:w-auto px-4 py-2.5 rounded-lg border border-border-subtle text-text-muted font-label-ui text-label-ui font-medium cursor-not-allowed opacity-60 flex items-center justify-center gap-2" disabled="" title="You are at the first step of the setup wizard" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>Previous Step</span>
+</button>
+</div>
+<!-- Right: Primary Action -->
+<div class="w-full sm:w-auto flex items-center gap-3 justify-end">
+<a class="text-xs text-text-secondary hover:text-text-primary hover:underline px-2 hidden sm:inline" href="#">
+          Cancel to Workspace
+        </a>
+<button class="w-full sm:w-auto px-7 py-3 rounded-xl bg-primary-container hover:bg-primary-hover text-on-primary font-headline-sm text-sm font-semibold shadow-md hover:shadow-lg transition-all focus-ring flex items-center justify-center gap-2 group" id="continue-step2-btn" type="button">
+<span>Continue to Budget &amp; Guests</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Reassurance Footer Note -->
+<div class="mt-6 text-center text-xs text-text-secondary flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-accent-saffron">lock</span>
+<span>All inputs are safely auto-saved locally. You can adjust parameters at any stage before publishing.</span>
+</div>
+</main>
+<!-- Interactive JavaScript -->
+<script>
+    (function() {
+      const STORAGE_KEY = 'utsavflow_step1_draft';
+
+      // Elements
+      const eventNameInput = document.getElementById('event-name');
+      const nameCounter = document.getElementById('name-counter');
+      const eventDateInput = document.getElementById('event-date');
+      const eventCityInput = document.getElementById('event-city');
+      const dateHelperText = document.getElementById('date-helper-text');
+      const customStyleInputRow = document.getElementById('custom-style-input-row');
+      const customStyleInput = document.getElementById('custom-style-input');
+      const toggleCustomBtn = document.getElementById('toggle-custom-style-btn');
+      const addCustomBtn = document.getElementById('add-custom-style-btn');
+      const styleChipsContainer = document.getElementById('style-chips-container');
+      const durationPills = document.querySelectorAll('.duration-pill');
+      const validationAlert = document.getElementById('validation-alert');
+      const saveStatusDot = document.getElementById('save-status-dot');
+      const saveStatusText = document.getElementById('save-status-text');
+      const saveExitBtn = document.getElementById('save-exit-btn');
+      const continueBtn = document.getElementById('continue-step2-btn');
+
+      // State Object
+      let state = {
+        eventType: 'Wedding',
+        eventName: 'Ananya & Rahul’s Grand Wedding',
+        eventDate: '2026-11-14',
+        eventCity: 'Bhubaneswar, Odisha',
+        styles: ['Elegant', 'Traditional'],
+        duration: '3+ Days Ceremonial'
+      };
+
+      // Load draft from localStorage if present
+      function loadSavedDraft() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            const saved = JSON.parse(raw);
+            state = { ...state, ...saved };
+            // Populate form controls
+            if (eventNameInput) eventNameInput.value = state.eventName || '';
+            if (eventDateInput) eventDateInput.value = state.eventDate || '';
+            if (eventCityInput) eventCityInput.value = state.eventCity || '';
+            updateDateHelper();
+            updateCounter();
+            renderSelectedEventType();
+            renderSelectedStyles();
+            renderSelectedDuration();
+            notifySaved('Draft loaded');
+          }
+        } catch (e) {
+          console.warn('LocalStorage error:', e);
+        }
+      }
+
+      // Save state to localStorage
+      function persistState(customMsg) {
+        state.eventName = eventNameInput.value.trim();
+        state.eventDate = eventDateInput.value;
+        state.eventCity = eventCityInput.value.trim();
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          notifySaved(customMsg || 'Draft auto-saved');
+        } catch (e) {
+          console.warn('LocalStorage save error:', e);
+        }
+      }
+
+      function notifySaved(message) {
+        if (!saveStatusText || !saveStatusDot) return;
+        saveStatusText.textContent = message;
+        saveStatusDot.className = 'w-2 h-2 rounded-full bg-status-success animate-pulse';
+        setTimeout(() => {
+          saveStatusDot.classList.remove('animate-pulse');
+        }, 1200);
+      }
+
+      // Event Type Selection
+      const typeCards = document.querySelectorAll('.event-type-card');
+      typeCards.forEach(card => {
+        card.addEventListener('click', () => {
+          state.eventType = card.getAttribute('data-type');
+          renderSelectedEventType();
+          persistState();
+        });
+      });
+
+      function renderSelectedEventType() {
+        typeCards.forEach(card => {
+          const isSelected = card.getAttribute('data-type') === state.eventType;
+          const radio = card.querySelector('.radio-indicator');
+          const iconWrapper = card.querySelector('.w-10');
+          if (isSelected) {
+            card.className = 'event-type-card cursor-pointer p-4 rounded-xl border-2 transition-all relative flex items-start gap-3.5 bg-primary-soft/40 border-primary-container shadow-xs';
+            if (radio) {
+              radio.className = 'radio-indicator absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-primary-container flex items-center justify-center bg-primary-container text-white';
+            }
+            if (iconWrapper) {
+              iconWrapper.className = 'w-10 h-10 rounded-lg bg-primary-soft text-primary-container flex items-center justify-center shrink-0 border border-primary-border';
+            }
+          } else {
+            card.className = 'event-type-card cursor-pointer p-4 rounded-xl border border-border-subtle hover:border-primary-border transition-all relative flex items-start gap-3.5 bg-surface hover:bg-surface-subtle';
+            if (radio) {
+              radio.className = 'radio-indicator absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-border-strong flex items-center justify-center bg-transparent text-transparent';
+            }
+            if (iconWrapper) {
+              iconWrapper.className = 'w-10 h-10 rounded-lg bg-surface-subtle text-text-primary flex items-center justify-center shrink-0 border border-border-subtle';
+            }
+          }
+        });
+      }
+
+      // Character Counter & Validation
+      function updateCounter() {
+        if (!eventNameInput || !nameCounter) return;
+        const len = eventNameInput.value.length;
+        nameCounter.textContent = `${len} / 70`;
+        if (len >= 65) {
+          nameCounter.classList.add('text-status-warning');
+        } else {
+          nameCounter.classList.remove('text-status-warning');
+        }
+      }
+
+      eventNameInput.addEventListener('input', () => {
+        updateCounter();
+        persistState();
+      });
+
+      // Date helper calculation
+      function updateDateHelper() {
+        if (!eventDateInput || !dateHelperText) return;
+        const val = eventDateInput.value;
+        if (!val) {
+          dateHelperText.textContent = 'Please choose a target date';
+          return;
+        }
+        const target = new Date(val);
+        const today = new Date();
+        const diffMs = target - today;
+        const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+        if (diffDays > 0) {
+          const months = Math.floor(diffDays / 30);
+          dateHelperText.textContent = `Target celebration date · approx. ${diffDays} days (${months} months) horizon`;
+        } else if (diffDays === 0) {
+          dateHelperText.textContent = `Target celebration date · Happening today`;
+        } else {
+          dateHelperText.textContent = `Target celebration date · Selected date has passed`;
+        }
+      }
+
+      eventDateInput.addEventListener('change', () => {
+        updateDateHelper();
+        persistState();
+      });
+
+      eventCityInput.addEventListener('input', () => {
+        persistState();
+      });
+
+      // Style Chips
+      function setupChips() {
+        document.querySelectorAll('.style-chip').forEach(chip => {
+          chip.onclick = () => {
+            const style = chip.getAttribute('data-style');
+            const idx = state.styles.indexOf(style);
+            if (idx > -1) {
+              state.styles.splice(idx, 1);
+            } else {
+              state.styles.push(style);
+            }
+            renderSelectedStyles();
+            persistState();
+          };
+        });
+      }
+
+      function renderSelectedStyles() {
+        document.querySelectorAll('.style-chip').forEach(chip => {
+          const style = chip.getAttribute('data-style');
+          const isSelected = state.styles.includes(style);
+          const icon = chip.querySelector('.chip-icon');
+          if (isSelected) {
+            chip.className = 'style-chip px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all flex items-center gap-1.5 bg-primary-soft text-primary-container border-primary-container focus-ring';
+            if (icon) icon.classList.remove('hidden');
+          } else {
+            chip.className = 'style-chip px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface-subtle text-text-secondary border-border-subtle hover:border-border-strong focus-ring';
+            if (icon) icon.classList.add('hidden');
+          }
+        });
+      }
+
+      // Custom Style Input Toggle & Add
+      toggleCustomBtn.addEventListener('click', () => {
+        customStyleInputRow.classList.toggle('hidden');
+        if (!customStyleInputRow.classList.contains('hidden')) {
+          customStyleInput.focus();
+        }
+      });
+
+      function addCustomStyle() {
+        const val = customStyleInput.value.trim();
+        if (val && !state.styles.includes(val)) {
+          state.styles.push(val);
+          // Create new button element
+          const btn = document.createElement('button');
+          btn.className = 'style-chip px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all flex items-center gap-1.5 bg-primary-soft text-primary-container border-primary-container focus-ring';
+          btn.setAttribute('data-style', val);
+          btn.type = 'button';
+          btn.innerHTML = `<span class="material-symbols-outlined text-[15px] chip-icon">check</span><span>${val}</span>`;
+          styleChipsContainer.insertBefore(btn, toggleCustomBtn);
+          setupChips();
+          customStyleInput.value = '';
+          customStyleInputRow.classList.add('hidden');
+          persistState();
+        }
+      }
+
+      addCustomBtn.addEventListener('click', addCustomStyle);
+      customStyleInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          addCustomStyle();
+        }
+      });
+
+      // Duration Pills
+      durationPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          state.duration = pill.getAttribute('data-duration');
+          renderSelectedDuration();
+          persistState();
+        });
+      });
+
+      function renderSelectedDuration() {
+        durationPills.forEach(pill => {
+          const isSelected = pill.getAttribute('data-duration') === state.duration;
+          if (isSelected) {
+            pill.className = 'duration-pill px-3 py-1.5 text-xs font-semibold rounded-lg border border-primary-container bg-primary-soft text-primary-container focus-ring transition-all';
+          } else {
+            pill.className = 'duration-pill px-3 py-1.5 text-xs font-medium rounded-lg border border-border-subtle bg-surface-subtle text-text-secondary hover:border-border-strong focus-ring transition-all';
+          }
+        });
+      }
+
+      // Save & Exit button handler
+      saveExitBtn.addEventListener('click', () => {
+        persistState('Draft saved successfully');
+        alert('Step 1 details saved to local storage. You can safely return anytime to continue.');
+      });
+
+      // Validation and Continue to Step 2
+      continueBtn.addEventListener('click', () => {
+        const nameVal = eventNameInput.value.trim();
+        const dateVal = eventDateInput.value;
+        const cityVal = eventCityInput.value.trim();
+        const errors = [];
+
+        if (!state.eventType) errors.push('Select an event type.');
+        if (!nameVal) errors.push('Provide an event name.');
+        if (!dateVal) errors.push('Choose a target event date.');
+        if (!cityVal) errors.push('Enter event location or city.');
+
+        if (errors.length > 0) {
+          validationAlert.classList.remove('hidden');
+          document.getElementById('validation-alert-msg').textContent = errors.join(' ');
+          // Smooth scroll to top of card
+          validationAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        validationAlert.classList.add('hidden');
+        persistState('Step 1 verified');
+
+        // Visual confirmation before advancing
+        continueBtn.innerHTML = `
+          <span class="material-symbols-outlined text-[18px] animate-spin">refresh</span>
+          <span>Saving &amp; Advancing...</span>
+        `;
+        continueBtn.classList.add('opacity-90', 'cursor-wait');
+
+        setTimeout(() => {
+          alert('Step 1 Complete! Configuration verified for: ' + nameVal + ' in ' + cityVal + '. Proceeding to Step 2: Budget & Guests.');
+          continueBtn.innerHTML = `
+            <span>Continue to Budget &amp; Guests</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          `;
+          continueBtn.classList.remove('opacity-90', 'cursor-wait');
+        }, 700);
+      });
+
+      // Init setup
+      setupChips();
+      loadSavedDraft();
+      updateCounter();
+      updateDateHelper();
+    })();
+  </script>
+</body></html>

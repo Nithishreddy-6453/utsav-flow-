@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-[#FAF8F5]" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Budget Ledger — UtsavFlow</title>
+<!-- Google Fonts: Fraunces, Plus Jakarta Sans, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Play CDN with container queries & forms -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration Verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "status-info-border": "#7DD3FC",
+            "on-secondary": "#ffffff",
+            "surface-elevated": "#FFFFFF",
+            "on-secondary-container": "#6b1a00",
+            "tertiary-container": "#683600",
+            "on-primary-fixed-variant": "#3b35a7",
+            "primary-hover": "#312E81",
+            "surface-container-highest": "#e4e2df",
+            "text-secondary": "#52525B",
+            "status-success": "#15803D",
+            "on-error": "#ffffff",
+            "inverse-primary": "#c3c0ff",
+            "on-tertiary-fixed": "#2f1500",
+            "status-danger-border": "#FDA4AF",
+            "on-surface": "#1b1c1a",
+            "status-success-border": "#86EFAC",
+            "secondary-fixed": "#ffdbd1",
+            "surface-container-low": "#f5f3f0",
+            "on-secondary-fixed-variant": "#842503",
+            "on-tertiary-container": "#ff9631",
+            "on-primary": "#ffffff",
+            "status-warning-bg": "#FEF3C7",
+            "background": "#fbf9f6",
+            "error": "#ba1a1a",
+            "on-surface-variant": "#464553",
+            "on-primary-container": "#a9a7ff",
+            "status-danger-bg": "#FFE4E6",
+            "surface-container": "#efeeeb",
+            "secondary-container": "#fb7b54",
+            "surface-dim": "#dbdad7",
+            "secondary-fixed-dim": "#ffb59f",
+            "primary": "#1f108e",
+            "surface-container-lowest": "#ffffff",
+            "status-warning-border": "#F59E0B",
+            "status-warning": "#B45309",
+            "primary-border": "#C7D2FE",
+            "border-subtle": "#E6E1DA",
+            "surface-bright": "#fbf9f6",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-error-container": "#93000a",
+            "text-muted": "#71717A",
+            "status-info": "#0369A1",
+            "status-success-bg": "#DCFCE7",
+            "surface-subtle": "#F3EFEA",
+            "error-container": "#ffdad6",
+            "primary-soft": "#EEF2FF",
+            "outline": "#777584",
+            "canvas-main": "#FAF8F5",
+            "status-info-bg": "#E0F2FE",
+            "border-strong": "#C8C1B6",
+            "primary-fixed": "#e2dfff",
+            "on-background": "#1b1c1a",
+            "text-primary": "#18181B",
+            "tertiary": "#482300",
+            "outline-variant": "#c8c4d5",
+            "on-secondary-fixed": "#3a0a00",
+            "tertiary-fixed": "#ffdcc3",
+            "accent-saffron": "#F59E0B",
+            "secondary": "#a53c19",
+            "surface-container-high": "#eae8e5",
+            "inverse-on-surface": "#f2f0ed",
+            "on-primary-fixed": "#0f0069",
+            "status-danger": "#BE123C",
+            "inverse-surface": "#30312f",
+            "surface-tint": "#544fc0",
+            "primary-container": "#3730a3",
+            "surface": "#fbf9f6",
+            "tertiary-fixed-dim": "#ffb77d",
+            "on-tertiary": "#ffffff",
+            "surface-variant": "#e4e2df"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "body-default": ["Plus Jakarta Sans", "sans-serif"],
+            "numeric-offset": ["JetBrains Mono", "monospace"],
+            "headline-lg": ["Fraunces", "serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-hero-mobile": ["Fraunces", "serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "label-badge": ["Plus Jakarta Sans", "sans-serif"],
+            "kpi-financial-lg-mobile": ["JetBrains Mono", "monospace"],
+            "label-ui": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-hero": ["Fraunces", "serif"],
+            "numeric-table": ["JetBrains Mono", "monospace"],
+            "kpi-financial-lg": ["JetBrains Mono", "monospace"],
+            "headline-lg-mobile": ["Fraunces", "serif"]
+          }
+        }
+      }
+    }
+</script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #FAF8F5;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #E6E1DA;
+      border-radius: 9999px;
+    }
+    .tnum {
+      font-feature-settings: 'tnum';
+    }
+</style>
+</head>
+<body class="h-full bg-[#FAF8F5] text-zinc-900 font-['Plus_Jakarta_Sans',sans-serif] antialiased">
+<div class="flex min-h-screen w-full relative">
+<!-- PERSISTENT LEFT SIDEBAR (260px wide, docked on md+) -->
+<aside class="fixed top-0 left-0 h-full w-[260px] z-40 flex flex-col justify-between bg-[#FAF8F5] border-r border-[#E6E1DA] transition-transform duration-200 ease-in-out md:translate-x-0 -translate-x-full" id="sidebar-drawer">
+<!-- Top Section -->
+<div class="p-4 flex flex-col gap-5 overflow-y-auto custom-scroll">
+<!-- Brand Header -->
+<div class="flex items-center justify-between pb-3 border-b border-[#E6E1DA]">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-lg bg-[#3730a3] text-white flex items-center justify-center font-['Fraunces',serif] font-bold text-base shadow-sm">U</span>
+<span class="font-bold text-lg text-[#1f108e] tracking-tight">UtsavFlow</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold tracking-wider uppercase bg-[#F3EFEA] text-zinc-600 border border-[#E6E1DA]">MVP</span>
+</div>
+<button aria-label="Close navigation" class="md:hidden text-zinc-500 hover:text-zinc-900 p-1 rounded-md" id="sidebar-close-btn">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- Event Switcher Box -->
+<div class="p-3 rounded-xl bg-white border border-[#E6E1DA] shadow-xs">
+<div class="flex items-start gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-[#EEF2FF] text-[#3730a3] flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#C7D2FE]">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_vintage">filter_vintage</span>
+</div>
+<div class="min-w-0 flex-1">
+<h2 class="text-sm font-semibold text-zinc-900 truncate">Sharma &amp; Verma Wedding</h2>
+<p class="font-['JetBrains_Mono',monospace] text-[11px] text-zinc-600 truncate mt-0.5 font-medium">Cap: ₹8,00,000 · 200 Guests</p>
+<span class="inline-block mt-1 text-[10.5px] font-medium text-zinc-500 truncate max-w-full">Traditional &amp; Regal · Bhubaneswar</span>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col gap-1">
+<!-- Overview -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 hover:bg-[#F3EFEA] hover:text-zinc-900 font-medium text-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] text-zinc-400" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<!-- Budget Ledger (ACTIVE TAB) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#EEF2FF] text-[#1f108e] font-semibold text-sm border border-[#C7D2FE] shadow-xs" href="#">
+<span class="material-symbols-outlined text-[20px] text-[#3730a3]" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span>Budget Ledger</span>
+</a>
+<!-- Timeline Flow -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 hover:bg-[#F3EFEA] hover:text-zinc-900 font-medium text-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] text-zinc-400" data-icon="timeline">timeline</span>
+<span>Timeline Flow</span>
+</a>
+<!-- Vendor Studio -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 hover:bg-[#F3EFEA] hover:text-zinc-900 font-medium text-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] text-zinc-400" data-icon="storefront">storefront</span>
+<span>Vendor Studio</span>
+</a>
+<!-- Experience & Themes -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 hover:bg-[#F3EFEA] hover:text-zinc-900 font-medium text-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] text-zinc-400" data-icon="auto_awesome">auto_awesome</span>
+<span>Experience &amp; Themes</span>
+</a>
+</nav>
+</div>
+<!-- Footer Tabs & Status Strip -->
+<div class="p-4 border-t border-[#E6E1DA] bg-[#FAF8F5]/90 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-zinc-600 hover:bg-[#F3EFEA] hover:text-zinc-900 font-medium text-xs transition-colors" href="#">
+<span class="material-symbols-outlined text-[17px] text-zinc-400" data-icon="science">science</span>
+<span>Scenario Lab</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-zinc-600 hover:bg-[#F3EFEA] hover:text-zinc-900 font-medium text-xs transition-colors" href="#">
+<span class="material-symbols-outlined text-[17px] text-zinc-400" data-icon="receipt_long">receipt_long</span>
+<span>Audit Log</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-zinc-600 hover:bg-[#F3EFEA] hover:text-zinc-900 font-medium text-xs transition-colors" href="#">
+<span class="material-symbols-outlined text-[17px] text-zinc-400" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<!-- Local Vault Auto-synced strip -->
+<div class="mt-2 pt-2 border-t border-[#E6E1DA] flex items-center justify-between px-2 text-zinc-500">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-emerald-600" data-icon="lock">lock</span>
+<span class="text-[11px] font-medium tracking-tight">Local Vault · Auto-synced</span>
+</div>
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+</div>
+</div>
+</aside>
+<!-- SIDEBAR BACKDROP (Mobile only) -->
+<div class="fixed inset-0 bg-zinc-900/40 backdrop-blur-xs z-30 hidden md:hidden" id="sidebar-overlay"></div>
+<!-- MAIN APP CANVAS (Offset by 260px on desktop) -->
+<div class="flex-1 min-w-0 md:pl-[260px] flex flex-col">
+<!-- TOP APP BAR -->
+<header class="sticky top-0 z-20 h-16 bg-[#FAF8F5]/90 backdrop-blur-md px-4 sm:px-6 lg:px-8 border-b border-[#E6E1DA] flex items-center justify-between">
+<!-- Left: Hamburger + Contextual Breadcrumbs -->
+<div class="flex items-center gap-3 sm:gap-4">
+<button aria-label="Toggle Navigation" class="md:hidden p-2 rounded-lg text-zinc-600 hover:bg-[#F3EFEA] transition-colors" id="sidebar-toggle-btn">
+<span class="material-symbols-outlined text-[24px]" data-icon="menu">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="hidden sm:flex items-center gap-1.5 text-zinc-500 text-sm font-medium">
+<span>Sharma &amp; Verma Wedding</span>
+<span class="text-zinc-300">/</span>
+</div>
+<span class="text-sm font-semibold text-zinc-900">Budget Ledger</span>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium ml-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+<span>Live AI Sync</span>
+</div>
+</div>
+</div>
+<!-- Right Utilities -->
+<div class="flex items-center gap-2.5 sm:gap-3">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-zinc-50 text-zinc-800 text-xs font-semibold border border-[#C8C1B6] shadow-xs transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[15px] text-amber-500" data-icon="bolt">bolt</span>
+<span>Simulate Shock</span>
+</button>
+<!-- Notification Bell -->
+<button aria-label="Notifications" class="relative p-2 rounded-lg text-zinc-500 hover:bg-[#F3EFEA] hover:text-zinc-900 transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-600 ring-2 ring-[#FAF8F5]"></span>
+</button>
+<!-- User Avatar -->
+<div class="flex items-center gap-2.5 pl-2 border-l border-[#E6E1DA]">
+<div class="w-8 h-8 rounded-full bg-[#3730a3] text-white flex items-center justify-center font-semibold text-xs tracking-tight shadow-xs">
+            AS
+          </div>
+<span class="hidden md:inline-block text-xs font-semibold text-zinc-800">Ananya S.</span>
+</div>
+</div>
+</header>
+<!-- PAGE CONTENT AREA -->
+<main class="flex-1 px-4 sm:px-6 lg:px-8 py-6 max-w-7xl w-full mx-auto flex flex-col gap-6">
+<!-- 1. PAGE HEADER -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1">
+<span>MY WEDDING / EVENT WORKSPACE</span>
+<span class="text-zinc-300">·</span>
+<span class="text-[#3730a3] font-bold">BUDGET OVERVIEW</span>
+</div>
+<h1 class="font-['Fraunces',serif] text-2xl sm:text-3xl font-bold text-zinc-900 tracking-tight">Budget Ledger</h1>
+<p class="text-sm text-zinc-600 mt-1 max-w-2xl">
+            Track allocations, estimated costs and payments in real time with strict price provenance.
+          </p>
+</div>
+<div class="flex items-center gap-3">
+<button class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#3730a3] hover:bg-[#312E81] text-white font-medium text-sm shadow-sm active:scale-[0.98] transition-all cursor-pointer" onclick="document.getElementById('add-budget-item-modal').classList.remove('hidden')" type="button">
+<span class="material-symbols-outlined text-[19px]" data-icon="add">add</span>
+<span>+ Add budget item</span>
+</button>
+</div>
+</div>
+<!-- 2. FOUR COMPACT SUMMARY CARDS -->
+<section aria-label="Key financial metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1: Total budget -->
+<div class="p-4 rounded-xl bg-white border border-[#E6E1DA] shadow-xs flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-zinc-500">Total Budget</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider bg-[#F3EFEA] text-zinc-700 border border-[#E6E1DA]">Hard Cap</span>
+</div>
+<div class="mt-3">
+<div class="font-['JetBrains_Mono',monospace] text-2xl font-bold text-zinc-900 tracking-tight tnum">₹8,00,000</div>
+<p class="text-xs text-zinc-500 mt-1">Spending limit</p>
+</div>
+</div>
+<!-- Card 2: Projected total -->
+<div class="p-4 rounded-xl bg-white border border-[#E6E1DA] shadow-xs flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-zinc-500">Projected Total</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold font-['JetBrains_Mono',monospace] bg-emerald-50 text-emerald-700 border border-emerald-200">+₹60k Safe</span>
+</div>
+<div class="mt-3">
+<div class="font-['JetBrains_Mono',monospace] text-2xl font-bold text-zinc-900 tracking-tight tnum">₹7,40,000</div>
+<p class="text-xs text-zinc-500 mt-1">Expected event cost</p>
+</div>
+</div>
+<!-- Card 3: Forecast remaining -->
+<div class="p-4 rounded-xl bg-white border border-[#E6E1DA] shadow-xs flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-zinc-500">Forecast Remaining</span>
+<span class="px-1.5 py-0.5 rounded font-['JetBrains_Mono',monospace] text-[10.5px] bg-[#EEF2FF] text-[#1f108e] font-semibold border border-[#C7D2FE]">₹8L - ₹7.4L</span>
+</div>
+<div class="mt-3">
+<div class="font-['JetBrains_Mono',monospace] text-2xl font-bold text-emerald-700 tracking-tight tnum">₹60,000</div>
+<p class="text-xs text-zinc-500 mt-1">Budget minus projected</p>
+</div>
+</div>
+<!-- Card 4: Paid so far -->
+<div class="p-4 rounded-xl bg-white border border-[#E6E1DA] shadow-xs flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-zinc-500">Paid So Far</span>
+<span class="px-2 py-0.5 rounded font-['JetBrains_Mono',monospace] text-[11px] font-semibold bg-[#F3EFEA] text-zinc-600 border border-[#E6E1DA]">16.2% Disbursed</span>
+</div>
+<div class="mt-3">
+<div class="font-['JetBrains_Mono',monospace] text-2xl font-bold text-zinc-900 tracking-tight tnum">₹1,20,000</div>
+<p class="text-xs text-zinc-500 mt-1">Recorded payments</p>
+</div>
+</div>
+</section>
+<!-- 3. BUDGET ALLOCATION PROGRESS SECTION -->
+<section class="p-4 sm:p-5 rounded-xl bg-white border border-[#E6E1DA] shadow-xs flex flex-col gap-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+<h2 class="text-sm font-semibold text-zinc-900">Budget Allocation</h2>
+<div class="font-['JetBrains_Mono',monospace] text-xs sm:text-sm font-semibold text-zinc-900">
+            ₹7,00,000 <span class="text-zinc-500 font-normal">of ₹8,00,000</span>
+<span class="ml-1 text-[#3730a3] font-bold">(87.5% Allocated)</span>
+</div>
+</div>
+<!-- 8px height progress bar -->
+<div class="w-full h-2 rounded-full bg-zinc-100 overflow-hidden relative">
+<div class="h-full bg-[#3730a3] rounded-full transition-all duration-300" style="width: 87.5%;"></div>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-zinc-500">
+<span class="material-symbols-outlined text-[16px] text-sky-600" data-icon="info">info</span>
+<span>₹1,00,000 (12.5%) of the budget remains unallocated to any category.</span>
+</div>
+</section>
+<!-- 4. EXPENSE CATEGORIES SECTION -->
+<section class="p-4 sm:p-5 rounded-xl bg-white border border-[#E6E1DA] shadow-xs flex flex-col gap-4">
+<!-- Heading & Counter -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<h2 class="text-base sm:text-lg font-semibold text-zinc-900">Expense Categories</h2>
+<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-[#F3EFEA] text-zinc-600 border border-[#E6E1DA]">
+              6 items
+            </span>
+</div>
+</div>
+<!-- Search & Filter Controls Bar -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-2.5">
+<!-- Search categories -->
+<div class="md:col-span-5 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-zinc-400 pointer-events-none" data-icon="search">search</span>
+<input class="w-full h-10 pl-9 pr-3 rounded-lg border border-[#C8C1B6] bg-white text-xs sm:text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] transition-all outline-none" placeholder="Search categories... (e.g. Catering, Venue)" type="text"/>
+</div>
+<!-- Filter: Price Sources -->
+<div class="md:col-span-2">
+<select class="w-full h-10 px-3 rounded-lg border border-[#C8C1B6] bg-white text-xs sm:text-sm text-zinc-800 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] cursor-pointer">
+<option selected="">All Price Sources ▾</option>
+<option>AI Estimate</option>
+<option>User Quote</option>
+<option>Confirmed Actual</option>
+</select>
+</div>
+<!-- Filter: Booking Statuses -->
+<div class="md:col-span-2">
+<select class="w-full h-10 px-3 rounded-lg border border-[#C8C1B6] bg-white text-xs sm:text-sm text-zinc-800 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] cursor-pointer">
+<option selected="">All Booking Statuses ▾</option>
+<option>Uncontacted</option>
+<option>Quote Received</option>
+<option>Shortlisted</option>
+<option>Baseline</option>
+</select>
+</div>
+<!-- Sort By -->
+<div class="md:col-span-3">
+<select class="w-full h-10 px-3 rounded-lg border border-[#C8C1B6] bg-white text-xs sm:text-sm text-zinc-800 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] cursor-pointer">
+<option selected="">Sort by Allocation (High to Low) ▾</option>
+<option>Sort by Allocation (Low to High)</option>
+<option>Sort by Variance</option>
+<option>Sort by Category Name</option>
+</select>
+</div>
+</div>
+<!-- TABLE / LIST DESIGN -->
+<div class="overflow-x-auto custom-scroll -mx-4 px-4 sm:mx-0 sm:px-0">
+<div class="min-w-[960px] flex flex-col gap-2.5">
+<!-- Header row with column labels -->
+<div class="grid grid-cols-12 px-4 py-2.5 text-xs font-semibold tracking-wider uppercase text-zinc-500 bg-[#F3EFEA]/80 rounded-lg border border-[#E6E1DA] items-center">
+<div class="col-span-3">CATEGORY &amp; TYPE</div>
+<div class="col-span-2 text-right pr-2">ALLOCATED</div>
+<div class="col-span-2 text-right pr-2">PROJECTED COST</div>
+<div class="col-span-1 text-right pr-2">PAID SO FAR</div>
+<div class="col-span-2 text-center">VARIANCE / IMPACT</div>
+<div class="col-span-2 text-right pr-2">PRICE SOURCE &amp; STATUS</div>
+</div>
+<!-- Category Card 1: Venue & Mandap -->
+<div class="grid grid-cols-12 items-center px-4 py-3.5 rounded-xl bg-white border border-[#E6E1DA] hover:border-indigo-300 hover:shadow-sm transition-all cursor-pointer group">
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#EEF2FF] text-[#3730a3] border border-[#C7D2FE] flex items-center justify-center flex-shrink-0 group-hover:bg-[#3730a3] group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[19px]" data-icon="castle">castle</span>
+</div>
+<div class="min-w-0">
+<span class="text-sm font-semibold text-zinc-900 block truncate">Venue &amp; Mandap</span>
+<span class="inline-block text-[11px] font-medium text-zinc-500 bg-[#F3EFEA] px-1.5 py-0.2 rounded border border-[#E6E1DA]">Fixed Cost</span>
+</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹1,50,000</div>
+<div class="text-[11px] text-zinc-400">Budgeted</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹1,60,000</div>
+<div class="text-[11px] text-zinc-400">Expected</div>
+</div>
+<div class="col-span-1 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-medium text-zinc-700 tnum">₹80,000</div>
+<div class="text-[10.5px] text-zinc-400">Disbursed</div>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-red-50 text-red-700 border border-red-200">
+<span class="material-symbols-outlined text-[13px]" data-icon="arrow_upward">arrow_upward</span>+₹10k Over
+                </span>
+</div>
+<div class="col-span-2 flex items-center justify-end gap-2 pr-1">
+<div class="flex flex-col items-end gap-0.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-medium bg-[#EEF2FF] text-[#3730a3] border border-[#C7D2FE]">
+                    User Quote
+                  </span>
+<span class="text-[11px] text-zinc-500">Quote Received</span>
+</div>
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-zinc-900 transition-colors text-[18px] ml-1 flex-shrink-0" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Category Card 2: Catering & Food -->
+<div class="grid grid-cols-12 items-center px-4 py-3.5 rounded-xl bg-white border border-[#E6E1DA] hover:border-indigo-300 hover:shadow-sm transition-all cursor-pointer group">
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#F3EFEA] text-[#3730a3] border border-[#E6E1DA] flex items-center justify-center flex-shrink-0 group-hover:bg-[#3730a3] group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[19px]" data-icon="restaurant">restaurant</span>
+</div>
+<div class="min-w-0">
+<span class="text-sm font-semibold text-zinc-900 block truncate">Catering &amp; Food</span>
+<span class="inline-block text-[11px] font-medium text-zinc-500 bg-[#F3EFEA] px-1.5 py-0.2 rounded border border-[#E6E1DA]">Per Guest: 200 × ₹1,250</span>
+</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹2,40,000</div>
+<div class="text-[11px] text-zinc-400">Budgeted</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹2,50,000</div>
+<div class="text-[11px] text-zinc-400">Expected</div>
+</div>
+<div class="col-span-1 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-medium text-zinc-700 tnum">₹40,000</div>
+<div class="text-[10.5px] text-zinc-400">Advance</div>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-red-50 text-red-700 border border-red-200">
+<span class="material-symbols-outlined text-[13px]" data-icon="arrow_upward">arrow_upward</span>+₹10k Over
+                </span>
+</div>
+<div class="col-span-2 flex items-center justify-end gap-2 pr-1">
+<div class="flex flex-col items-end gap-0.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-medium bg-amber-50 text-amber-800 border border-dashed border-amber-300">
+                    AI Estimate
+                  </span>
+<span class="text-[11px] text-zinc-500">Baseline</span>
+</div>
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-zinc-900 transition-colors text-[18px] ml-1 flex-shrink-0" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Category Card 3: Decoration & Florals -->
+<div class="grid grid-cols-12 items-center px-4 py-3.5 rounded-xl bg-white border border-[#E6E1DA] hover:border-indigo-300 hover:shadow-sm transition-all cursor-pointer group">
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#F3EFEA] text-[#3730a3] border border-[#E6E1DA] flex items-center justify-center flex-shrink-0 group-hover:bg-[#3730a3] group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[19px]" data-icon="local_florist">local_florist</span>
+</div>
+<div class="min-w-0">
+<span class="text-sm font-semibold text-zinc-900 block truncate">Decoration &amp; Florals</span>
+<span class="inline-block text-[11px] font-medium text-zinc-500 bg-[#F3EFEA] px-1.5 py-0.2 rounded border border-[#E6E1DA]">Fixed Cost</span>
+</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹1,00,000</div>
+<div class="text-[11px] text-zinc-400">Budgeted</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹90,000</div>
+<div class="text-[11px] text-zinc-400">Expected</div>
+</div>
+<div class="col-span-1 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-medium text-zinc-400 tnum">₹0</div>
+<div class="text-[10.5px] text-zinc-400">Disbursed</div>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+<span class="material-symbols-outlined text-[13px]" data-icon="arrow_downward">arrow_downward</span>-₹10k Saved
+                </span>
+</div>
+<div class="col-span-2 flex items-center justify-end gap-2 pr-1">
+<div class="flex flex-col items-end gap-0.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-medium bg-amber-50 text-amber-800 border border-dashed border-amber-300">
+                    AI Estimate
+                  </span>
+<span class="text-[11px] text-zinc-500">Uncontacted</span>
+</div>
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-zinc-900 transition-colors text-[18px] ml-1 flex-shrink-0" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Category Card 4: Photography & Film -->
+<div class="grid grid-cols-12 items-center px-4 py-3.5 rounded-xl bg-white border border-[#E6E1DA] hover:border-indigo-300 hover:shadow-sm transition-all cursor-pointer group">
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#F3EFEA] text-[#3730a3] border border-[#E6E1DA] flex items-center justify-center flex-shrink-0 group-hover:bg-[#3730a3] group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[19px]" data-icon="photo_camera">photo_camera</span>
+</div>
+<div class="min-w-0">
+<span class="text-sm font-semibold text-zinc-900 block truncate">Photography &amp; Film</span>
+<span class="inline-block text-[11px] font-medium text-zinc-500 bg-[#F3EFEA] px-1.5 py-0.2 rounded border border-[#E6E1DA]">Fixed Cost</span>
+</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹80,000</div>
+<div class="text-[11px] text-zinc-400">Budgeted</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹75,000</div>
+<div class="text-[11px] text-zinc-400">Expected</div>
+</div>
+<div class="col-span-1 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-medium text-zinc-400 tnum">₹0</div>
+<div class="text-[10.5px] text-zinc-400">Disbursed</div>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+<span class="material-symbols-outlined text-[13px]" data-icon="arrow_downward">arrow_downward</span>-₹5k Saved
+                </span>
+</div>
+<div class="col-span-2 flex items-center justify-end gap-2 pr-1">
+<div class="flex flex-col items-end gap-0.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-medium bg-[#EEF2FF] text-[#3730a3] border border-[#C7D2FE]">
+                    User Quote
+                  </span>
+<span class="text-[11px] text-zinc-500">Shortlisted</span>
+</div>
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-zinc-900 transition-colors text-[18px] ml-1 flex-shrink-0" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Category Card 5: Entertainment & Sound -->
+<div class="grid grid-cols-12 items-center px-4 py-3.5 rounded-xl bg-white border border-[#E6E1DA] hover:border-indigo-300 hover:shadow-sm transition-all cursor-pointer group">
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#F3EFEA] text-[#3730a3] border border-[#E6E1DA] flex items-center justify-center flex-shrink-0 group-hover:bg-[#3730a3] group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[19px]" data-icon="mic">mic</span>
+</div>
+<div class="min-w-0">
+<span class="text-sm font-semibold text-zinc-900 block truncate">Entertainment &amp; Sound</span>
+<span class="inline-block text-[11px] font-medium text-zinc-500 bg-[#F3EFEA] px-1.5 py-0.2 rounded border border-[#E6E1DA]">Fixed Cost</span>
+</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹50,000</div>
+<div class="text-[11px] text-zinc-400">Budgeted</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹45,000</div>
+<div class="text-[11px] text-zinc-400">Expected</div>
+</div>
+<div class="col-span-1 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-medium text-zinc-400 tnum">₹0</div>
+<div class="text-[10.5px] text-zinc-400">Disbursed</div>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+<span class="material-symbols-outlined text-[13px]" data-icon="arrow_downward">arrow_downward</span>-₹5k Saved
+                </span>
+</div>
+<div class="col-span-2 flex items-center justify-end gap-2 pr-1">
+<div class="flex flex-col items-end gap-0.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-medium bg-amber-50 text-amber-800 border border-dashed border-amber-300">
+                    AI Estimate
+                  </span>
+<span class="text-[11px] text-zinc-500">Baseline</span>
+</div>
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-zinc-900 transition-colors text-[18px] ml-1 flex-shrink-0" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Category Card 6: Transport & Logistics -->
+<div class="grid grid-cols-12 items-center px-4 py-3.5 rounded-xl bg-white border border-[#E6E1DA] hover:border-indigo-300 hover:shadow-sm transition-all cursor-pointer group">
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#F3EFEA] text-[#3730a3] border border-[#E6E1DA] flex items-center justify-center flex-shrink-0 group-hover:bg-[#3730a3] group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[19px]" data-icon="directions_car">directions_car</span>
+</div>
+<div class="min-w-0">
+<span class="text-sm font-semibold text-zinc-900 block truncate">Transport &amp; Logistics</span>
+<span class="inline-block text-[11px] font-medium text-zinc-500 bg-[#F3EFEA] px-1.5 py-0.2 rounded border border-[#E6E1DA]">Mixed Cost</span>
+</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹80,000</div>
+<div class="text-[11px] text-zinc-400">Budgeted</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-semibold text-zinc-900 tnum">₹60,000</div>
+<div class="text-[11px] text-zinc-400">Expected</div>
+</div>
+<div class="col-span-1 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-medium text-zinc-400 tnum">₹0</div>
+<div class="text-[10.5px] text-zinc-400">Disbursed</div>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+<span class="material-symbols-outlined text-[13px]" data-icon="arrow_downward">arrow_downward</span>-₹20k Saved
+                </span>
+</div>
+<div class="col-span-2 flex items-center justify-end gap-2 pr-1">
+<div class="flex flex-col items-end gap-0.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-medium bg-amber-50 text-amber-800 border border-dashed border-amber-300">
+                    AI Estimate
+                  </span>
+<span class="text-[11px] text-zinc-500">Baseline</span>
+</div>
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-zinc-900 transition-colors text-[18px] ml-1 flex-shrink-0" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Distinct Modular Summary / Totals Card -->
+<div class="grid grid-cols-12 items-center px-4 py-3.5 rounded-xl bg-[#F3EFEA] border border-[#E6E1DA] shadow-xs mt-1">
+<div class="col-span-3">
+<div class="text-sm font-bold text-zinc-900">Total Tracked Categories</div>
+<div class="text-xs text-zinc-500">6 Categories active</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-bold text-zinc-900 tnum">₹7,00,000</div>
+<div class="text-[11px] text-zinc-500 font-medium">Total Allocated</div>
+</div>
+<div class="col-span-2 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-bold text-zinc-900 tnum">₹6,80,000</div>
+<div class="text-[11px] text-zinc-500 font-medium">Total Projected</div>
+</div>
+<div class="col-span-1 text-right pr-2">
+<div class="font-['JetBrains_Mono',monospace] text-sm font-bold text-zinc-900 tnum">₹1,20,000</div>
+<div class="text-[11px] text-zinc-500 font-medium">Total Paid</div>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+<span class="material-symbols-outlined text-[13px]" data-icon="trending_down">trending_down</span>-₹20,000 Saved
+                </span>
+</div>
+<div class="col-span-2 text-right pr-1">
+<span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#EEF2FF] text-[#3730a3] border border-[#C7D2FE]">
+                  +₹60k Reserve
+                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footnote / provenance assurance strip -->
+<div class="p-3 rounded-lg bg-[#FAF8F5] border border-[#E6E1DA] flex items-center gap-2.5 text-xs text-zinc-600">
+<span class="material-symbols-outlined text-[18px] text-[#3730a3] flex-shrink-0" data-icon="verified_user">verified_user</span>
+<span>Price source and booking status are strictly orthogonal. AI estimates remain unconfirmed until user-provided quotes are entered and verified.</span>
+</div>
+</section>
+</main>
+</div>
+</div>
+<!-- Lightweight Script for Sidebar Toggle Interactions -->
+<script>
+    const sidebar = document.getElementById('sidebar-drawer');
+    const overlay = document.getElementById('sidebar-overlay');
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    const closeBtn = document.getElementById('sidebar-close-btn');
+
+    function openSidebar() {
+      if (sidebar) sidebar.classList.remove('-translate-x-full');
+      if (overlay) overlay.classList.remove('hidden');
+    }
+
+    function closeSidebar() {
+      if (sidebar) sidebar.classList.add('-translate-x-full');
+      if (overlay) overlay.classList.add('hidden');
+    }
+
+    if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
+    if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+    if (overlay) overlay.addEventListener('click', closeSidebar);
+</script>
+<!-- MODAL OVERLAY: ADD BUDGET ITEM -->
+<div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto backdrop-blur-sm bg-black/40" id="add-budget-item-modal" role="dialog">
+<!-- Modal Card Dialog Window (max-w-[660px], max-h-[88vh]) -->
+<div class="relative w-full max-w-[660px] bg-white rounded-2xl shadow-2xl border border-[#E6E1DA] flex flex-col max-h-[88vh] overflow-hidden transition-all duration-200">
+<!-- 1. Modal Sticky Header -->
+<div class="sticky top-0 z-10 flex items-start justify-between px-6 py-4 sm:py-5 border-b border-[#E6E1DA] bg-white/95 backdrop-blur-md">
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<span class="w-6 h-6 rounded-md bg-[#EEF2FF] text-[#3730a3] border border-[#C7D2FE] flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[15px]" data-icon="edit_note">edit_note</span>
+</span>
+<h3 class="font-['Fraunces',serif] text-xl font-bold text-zinc-900 tracking-tight" id="modal-title">Edit budget item</h3>
+<span class="px-2 py-0.5 rounded font-['JetBrains_Mono',monospace] text-[10.5px] font-semibold bg-[#F3EFEA] text-zinc-700 border border-[#E6E1DA]">ID: EXP-CAT-02 · Catering &amp; Food</span>
+</div>
+<p class="text-xs text-zinc-500 max-w-lg">Update expense parameters, allocations, and pricing assumptions. Changes sync immediately to ledger totals.</p>
+</div>
+<button aria-label="Close modal" class="p-1.5 text-zinc-400 hover:text-zinc-700 hover:bg-[#F3EFEA] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#3730a3] flex-shrink-0" onclick="document.getElementById('add-budget-item-modal').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- 2. Modal Body (Scrollable with custom-scroll) -->
+<div class="overflow-y-auto custom-scroll p-6 space-y-5 text-zinc-800">
+<!-- Section 1: Expense Details -->
+<div class="space-y-3">
+<h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3730a3]"></span>
+          1. Expense Details
+        </h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-semibold text-zinc-700 mb-1.5">Expense Category <span class="text-rose-600">*</span></label>
+<div class="relative">
+<select class="w-full h-10 px-3 pr-8 rounded-lg border border-[#C8C1B6] bg-white text-xs sm:text-sm text-zinc-900 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] cursor-pointer appearance-none transition-all">
+<option selected="" value="catering">Catering &amp; Food</option>
+<option value="venue">Venue &amp; Mandap</option>
+<option value="decoration">Decoration &amp; Florals</option>
+<option value="photography">Photography &amp; Film</option>
+<option value="entertainment">Entertainment &amp; Sound</option>
+<option value="transport">Transportation &amp; Logistics</option>
+<option value="custom">+ Custom Category</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[18px] text-zinc-400 pointer-events-none" data-icon="unfold_more">unfold_more</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-zinc-700 mb-1.5">Item Name <span class="text-rose-600">*</span></label>
+<input class="w-full h-10 px-3 rounded-lg border border-[#C8C1B6] bg-white text-xs sm:text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] transition-all outline-none" placeholder="e.g. Sangeet DJ or Buffet Dinner" type="text" value="Full Ceremony Buffet &amp; Live Counters"/>
+</div>
+</div>
+</div>
+<!-- Section 2: Cost Calculation Type -->
+<div class="space-y-3 pt-2 border-t border-[#E6E1DA]">
+<div class="flex items-center justify-between">
+<h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3730a3]"></span>
+            2. Cost Calculation Type
+          </h4>
+<span class="text-[11px] text-zinc-400">Determines formula &amp; pricing model</span>
+</div>
+<div class="grid grid-cols-3 gap-2.5">
+<!-- Option 1: Fixed Cost -->
+<label class="relative flex flex-col items-center justify-center p-3 rounded-xl border border-[#E6E1DA] bg-white hover:border-zinc-300 hover:bg-[#F3EFEA]/40 cursor-pointer text-center transition-all group">
+<input class="sr-only" name="calc_type" type="radio"/>
+<span class="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-zinc-600 mb-1" data-icon="lock">lock</span>
+<span class="text-xs font-medium text-zinc-700">Fixed Cost</span>
+<span class="text-[10px] text-zinc-400 mt-0.5">Lump sum rate</span>
+</label>
+<!-- Option 2: Per Guest (ACTIVE) -->
+<label class="relative flex flex-col items-center justify-center p-3 rounded-xl border-2 border-[#3730a3] bg-[#EEF2FF]/60 cursor-pointer text-center transition-all shadow-xs">
+<input checked="" class="sr-only" name="calc_type" type="radio"/>
+<span class="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-[#3730a3] text-white flex items-center justify-center text-[10px] font-bold">
+<span class="material-symbols-outlined text-[12px] leading-none" data-icon="check">check</span>
+</span>
+<span class="material-symbols-outlined text-[20px] text-[#3730a3] mb-1" data-icon="group">group</span>
+<span class="text-xs font-bold text-[#1f108e]">Per Guest</span>
+<span class="text-[10px] text-[#3730a3] font-medium mt-0.5">Variable on headcount</span>
+</label>
+<!-- Option 3: Combined -->
+<label class="relative flex flex-col items-center justify-center p-3 rounded-xl border border-[#E6E1DA] bg-white hover:border-zinc-300 hover:bg-[#F3EFEA]/40 cursor-pointer text-center transition-all group">
+<input class="sr-only" name="calc_type" type="radio"/>
+<span class="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-zinc-600 mb-1" data-icon="calculate">calculate</span>
+<span class="text-xs font-medium text-zinc-700">Combined</span>
+<span class="text-[10px] text-zinc-400 mt-0.5">Fixed fee + per head</span>
+</label>
+</div>
+</div>
+<!-- Section 3: Cost Parameters & Calculation Preview -->
+<div class="space-y-3 pt-2 border-t border-[#E6E1DA]">
+<h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3730a3]"></span>
+          3. Headcount &amp; Rate Parameters
+        </h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-semibold text-zinc-700 mb-1.5">Rate per Guest (₹)</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-['JetBrains_Mono',monospace] text-xs font-semibold text-zinc-400">₹</span>
+<input class="w-full h-10 pl-7 pr-3 rounded-lg border border-[#C8C1B6] bg-white text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold text-zinc-900 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] outline-none" type="number" value="1250"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="block text-xs font-semibold text-zinc-700">Expected Guest Count</label>
+<span class="text-[10.5px] font-medium text-zinc-400">Locked to event baseline</span>
+</div>
+<div class="relative">
+<input class="w-full h-10 px-3 pr-16 rounded-lg border border-[#C8C1B6] bg-white text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold text-zinc-900 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] outline-none" type="number" value="200"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-medium text-zinc-400 pointer-events-none">Guests</span>
+</div>
+</div>
+</div>
+<!-- Deterministic Computation Box -->
+<div class="p-3.5 rounded-xl bg-[#F3EFEA]/80 border border-[#E6E1DA] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600" data-icon="check_circle">check_circle</span>
+<div>
+<div class="text-xs font-medium text-zinc-700">Deterministic Cost Calculation</div>
+<div class="font-['JetBrains_Mono',monospace] text-xs text-zinc-600 font-semibold">200 Guests × ₹1,250 / head</div>
+</div>
+</div>
+<div class="text-right sm:text-right">
+<div class="font-['JetBrains_Mono',monospace] text-lg font-bold text-zinc-900 tnum">₹2,50,000</div>
+<span class="text-[10.5px] font-semibold text-zinc-500 uppercase tracking-wider">PROJECTED COST</span>
+</div>
+</div>
+</div>
+<!-- Section 4: Budget Allocation & Buffer Indicator -->
+<div class="space-y-3 pt-2 border-t border-[#E6E1DA]">
+<div class="flex items-center justify-between">
+<h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3730a3]"></span>
+            4. Budget Allocation Limit &amp; Variance
+          </h4>
+<span class="text-[11px] font-semibold text-zinc-500 font-['JetBrains_Mono',monospace]">Unallocated Pool: ₹1,00,000</span>
+</div>
+<div>
+<label class="block text-xs font-semibold text-zinc-700 mb-1.5">Allocated Budget Reserve (₹) <span class="text-rose-600">*</span></label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-['JetBrains_Mono',monospace] text-xs font-semibold text-zinc-400">₹</span>
+<input class="w-full h-10 pl-7 pr-3 rounded-lg border border-[#C8C1B6] bg-white text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold text-zinc-900 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] outline-none" type="number" value="240000"/>
+</div>
+</div>
+<!-- Variance warning indicator pill -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 px-3 py-2.5 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-rose-600 flex-shrink-0" data-icon="warning">warning</span>
+<span class="font-semibold font-['JetBrains_Mono',monospace]">↑ +₹10,000 Over Allocated Reserve</span>
+<span class="text-zinc-500 text-[11px] hidden sm:inline">(Projected ₹2,50,000 exceeds ₹2,40,000 cap)</span>
+</div>
+<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold tracking-wider uppercase bg-white text-red-700 border border-red-200 self-start sm:self-auto">Variance Alert</span>
+</div>
+</div>
+<!-- Section 5: Cost Source Provenance & Notes -->
+<div class="space-y-3 pt-2 border-t border-[#E6E1DA]">
+<h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3730a3]"></span>
+          5. Price Provenance &amp; Notes
+        </h4>
+<!-- Source Selection Radios -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<label class="flex items-start gap-2.5 p-3 rounded-xl border-2 border-amber-300 bg-amber-50 cursor-pointer shadow-xs">
+<input checked="" class="mt-0.5 text-[#3730a3] focus:ring-[#3730a3]" name="price_provenance" type="radio"/>
+<div class="min-w-0">
+<div class="text-xs font-bold text-amber-800 flex items-center gap-1.5">
+<span>AI / Regional Estimate</span>
+<span class="px-1.5 py-0.2 rounded text-[9.5px] font-semibold bg-white text-amber-800 border border-dashed border-amber-300">Active Baseline</span>
+</div>
+<p class="text-[11px] text-amber-800 mt-0.5">Estimated using Bhubaneswar wedding catering averages.</p>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-3 rounded-xl border border-[#E6E1DA] bg-white hover:bg-[#F3EFEA]/40 cursor-pointer">
+<input class="mt-0.5 text-[#3730a3] focus:ring-[#3730a3]" name="price_provenance" type="radio"/>
+<div class="min-w-0">
+<div class="text-xs font-medium text-zinc-800 flex items-center gap-1.5">
+<span>Vendor Quotation Received</span>
+<span class="px-1.5 py-0.2 rounded text-[9.5px] font-semibold bg-[#EEF2FF] text-[#3730a3] border border-[#C7D2FE]">User Quote</span>
+</div>
+<p class="text-[11px] text-zinc-500 mt-0.5">Switch once vendor itemized proposal is received.</p>
+</div>
+</label>
+</div>
+<!-- Booking status & vendor assignment -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div>
+<label class="block text-xs font-medium text-zinc-600 mb-1">Booking Status</label>
+<div class="relative">
+<select class="w-full h-9 px-3 pr-8 rounded-lg border border-[#C8C1B6] bg-white text-xs text-zinc-900 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] cursor-pointer appearance-none transition-all">
+<option selected="" value="contacted">Contacted (Quote Pending)</option>
+<option value="uncontacted">Uncontacted</option>
+<option value="shortlisted">Shortlisted</option>
+<option value="contract_signed">Contract Signed</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[17px] text-zinc-400 pointer-events-none" data-icon="unfold_more">unfold_more</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-medium text-zinc-600 mb-1">Assigned Vendor (Optional)</label>
+<input class="w-full h-9 px-3 rounded-lg border border-[#C8C1B6] bg-white text-xs text-zinc-900 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] outline-none" type="text" value="Mayfair Royal Caterers"/>
+</div>
+</div>
+<div>
+<label class="block text-xs font-medium text-zinc-600 mb-1">Assumptions &amp; Notes</label>
+<textarea class="w-full p-2.5 rounded-lg border border-[#C8C1B6] bg-white text-xs text-zinc-900 placeholder:text-zinc-400 focus:border-[#3730a3] focus:ring-1 focus:ring-[#3730a3] outline-none transition-all" rows="2">Includes standard 3-course North Indian &amp; Odia festive menu with dessert counter. 18% GST extra; generator fuel to be confirmed.</textarea>
+</div>
+</div>
+</div>
+<!-- 3. Modal Sticky Footer -->
+<div class="sticky bottom-0 z-10 flex items-center justify-between px-6 py-4 bg-[#F3EFEA]/80 backdrop-blur-md border-t border-[#E6E1DA]">
+<!-- Left: Destructive Delete Button -->
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-red-200 bg-white hover:bg-red-50 text-red-700 font-semibold text-xs transition-colors active:scale-[0.98] cursor-pointer" onclick="document.getElementById('add-budget-item-modal').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[16px] text-rose-600" data-icon="delete">delete</span>
+<span>Delete Item</span>
+</button>
+<!-- Right: Cancel & Save Changes -->
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-lg border border-[#C8C1B6] bg-white hover:bg-[#F3EFEA] text-zinc-700 font-semibold text-xs sm:text-sm shadow-xs transition-colors active:scale-[0.98]" onclick="document.getElementById('add-budget-item-modal').classList.add('hidden')" type="button">
+        Cancel
+      </button>
+<button class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#3730a3] hover:bg-[#312E81] text-white font-semibold text-xs sm:text-sm shadow-sm transition-all active:scale-[0.98]" onclick="document.getElementById('add-budget-item-modal').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+<span>Save changes (₹2,50,000)</span>
+</button>
+</div>
+</div>
+</div>
+</div></body></html>

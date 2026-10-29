@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" class="h-full bg-[#FAF8F5]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UtsavFlow — Plan with clarity. Celebrate with confidence.</title>
+    <meta name="description" content="AI-powered celebration planning and execution web application for weddings, birthdays, and community events." />
+    <meta property="og:title" content="UtsavFlow — Event Planning & Execution Workspace" />
+    <meta property="og:description" content="AI-powered celebration planning and execution web application for weddings, birthdays, and community events." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Google Fonts: Fraunces, Plus Jakarta Sans, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+      // Suppress Vite client WebSocket HMR errors in iframe preview
+      window.addEventListener('error', function(e) {
+        if (e && ((e.filename && e.filename.indexOf('@vite/client') !== -1) || (e.message && e.message.indexOf('WebSocket') !== -1))) {
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          return true;
+        }
+      }, true);
+      window.addEventListener('unhandledrejection', function(e) {
+        var reason = e.reason && (e.reason.message || e.reason.stack || String(e.reason));
+        if (reason && (reason.indexOf('WebSocket') !== -1 || reason.indexOf('@vite/client') !== -1)) {
+          e.stopImmediatePropagation();
+          e.preventDefault();
+        }
+      }, true);
+    </script>
+  </head>
+  <body class="h-full bg-[#FAF8F5] text-zinc-900 font-['Plus_Jakarta_Sans',sans-serif] antialiased selection:bg-[#EEF2FF] selection:text-[#1f108e]">
+    <div id="root" class="min-h-full flex flex-col"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

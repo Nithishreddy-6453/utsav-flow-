@@ -1,0 +1,6 @@
+{
+  "name": "UtsavFlow",
+  "description": "An AI-powered celebration planning and execution web application for weddings, birthdays, and community events with strict price provenance and event setup wizard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

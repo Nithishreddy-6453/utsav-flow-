@@ -1,0 +1,406 @@
+<!DOCTYPE html><html class="h-full bg-canvas-main" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>UtsavFlow — Event Setup, Step 3 of 4: Priorities &amp; Preferences</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-tint": "#544fc0",
+            "surface-container-lowest": "#ffffff",
+            "background": "#fbf9f6",
+            "status-success-border": "#86EFAC",
+            "outline": "#777584",
+            "primary": "#1f108e",
+            "canvas-main": "#FAF8F5",
+            "error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#ffb77d",
+            "secondary-container": "#fb7b54",
+            "text-secondary": "#52525B",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-primary-fixed-variant": "#3b35a7",
+            "surface-variant": "#e4e2df",
+            "outline-variant": "#c8c4d5",
+            "on-surface-variant": "#464553",
+            "primary-border": "#C7D2FE",
+            "on-surface": "#1b1c1a",
+            "status-success": "#15803D",
+            "status-warning-bg": "#FEF3C7",
+            "status-info-border": "#7DD3FC",
+            "text-primary": "#18181B",
+            "secondary-fixed-dim": "#ffb59f",
+            "accent-saffron": "#F59E0B",
+            "inverse-primary": "#c3c0ff",
+            "surface-dim": "#dbdad7",
+            "on-secondary-fixed-variant": "#842503",
+            "status-danger": "#BE123C",
+            "on-error": "#ffffff",
+            "surface-container": "#efeeeb",
+            "error": "#ba1a1a",
+            "text-muted": "#71717A",
+            "tertiary-container": "#683600",
+            "tertiary": "#482300",
+            "surface-bright": "#fbf9f6",
+            "surface-container-highest": "#e4e2df",
+            "status-danger-bg": "#FFE4E6",
+            "secondary-fixed": "#ffdbd1",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "tertiary-fixed": "#ffdcc3",
+            "surface-container-low": "#f5f3f0",
+            "on-primary-fixed": "#0f0069",
+            "primary-container": "#3730a3",
+            "border-subtle": "#E6E1DA",
+            "on-tertiary-fixed": "#2f1500",
+            "surface-container-high": "#eae8e5",
+            "on-primary-container": "#a9a7ff",
+            "surface-subtle": "#F3EFEA",
+            "status-success-bg": "#DCFCE7",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#6b1a00",
+            "status-info": "#0369A1",
+            "on-secondary": "#ffffff",
+            "primary-soft": "#EEF2FF",
+            "secondary": "#a53c19",
+            "on-tertiary-container": "#ff9631",
+            "primary-fixed": "#e2dfff",
+            "status-warning-border": "#F59E0B",
+            "inverse-surface": "#30312f",
+            "border-strong": "#C8C1B6",
+            "on-error-container": "#93000a",
+            "on-primary": "#ffffff",
+            "surface-elevated": "#FFFFFF",
+            "surface": "#fbf9f6",
+            "on-secondary-fixed": "#3a0a00",
+            "inverse-on-surface": "#f2f0ed",
+            "status-warning": "#B45309",
+            "on-background": "#1b1c1a",
+            "primary-hover": "#312E81",
+            "status-danger-border": "#FDA4AF",
+            "status-info-bg": "#E0F2FE"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Fraunces"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-lg": ["Fraunces"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "kpi-financial-lg-mobile": ["JetBrains Mono"],
+            "numeric-offset": ["JetBrains Mono"],
+            "numeric-table": ["JetBrains Mono"],
+            "headline-hero": ["Fraunces"],
+            "body-default": ["Plus Jakarta Sans"],
+            "label-badge": ["Plus Jakarta Sans"],
+            "label-ui": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "kpi-financial-lg": ["JetBrains Mono"],
+            "headline-hero-mobile": ["Fraunces"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-sm": ["15px", { "lineHeight": "21px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "kpi-financial-lg-mobile": ["22px", { "lineHeight": "26px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "numeric-offset": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "numeric-table": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "headline-hero": ["48px", { "lineHeight": "54px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-default": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "label-badge": ["12px", { "lineHeight": "15px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "label-ui": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "kpi-financial-lg": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-hero-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-canvas-main text-text-primary antialiased font-body-default flex flex-col justify-between selection:bg-primary-soft selection:text-primary-container">
+<!-- ========================================================================= -->
+<!-- 1. HEADER (Top Bar)                                                      -->
+<!-- ========================================================================= -->
+<header class="sticky top-0 z-40 w-full bg-canvas-main/90 backdrop-blur-md border-b border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.03)]">
+<div class="max-w-[1240px] mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+<!-- Left: Logo & MVP Badge & Subline -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center text-on-primary font-headline-lg font-bold shadow-sm">
+<span class="text-accent-saffron text-xl font-headline-hero">U</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-headline-lg text-headline-md font-bold tracking-tight text-primary">UtsavFlow</span>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold tracking-wide bg-status-warning-bg text-status-warning border border-status-warning-border">
+              MVP
+            </span>
+</div>
+</div>
+<div class="hidden md:block w-px h-4 bg-border-strong mx-1"></div>
+<span class="hidden md:inline-block font-body-sm text-body-sm text-text-secondary">
+          Plan with clarity. Celebrate with confidence.
+        </span>
+</div>
+<!-- Right: Draft Autosaved & Actions -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success-bg/80 border border-status-success-border text-status-success font-numeric-offset text-numeric-offset">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span>
+<span class="font-medium">Draft auto-saved</span>
+</div>
+<button class="px-3.5 py-1.5 rounded-lg border border-border-strong bg-surface-elevated text-text-primary hover:bg-surface-subtle font-label-ui text-label-ui transition-colors shadow-sm" type="button">
+          Save &amp; exit
+        </button>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- 2. MAIN WORKSPACE / CONTENT CANVAS                                       -->
+<!-- ========================================================================= -->
+<main class="flex-1 max-w-[1240px] w-full mx-auto px-6 lg:px-8 py-8 flex flex-col gap-8">
+<!-- PROGRESS RAIL (4-Step Indicator) -->
+<nav aria-label="Wizard Progress" class="w-full grid grid-cols-1 md:grid-cols-4 gap-3.5">
+  <!-- Step 1: Completed -->
+  <a href="#" class="group relative flex flex-col justify-between p-3.5 rounded-xl bg-surface-elevated border border-border-subtle hover:border-status-success-border hover:bg-status-success-bg/80 transition-all shadow-xs cursor-pointer select-none">
+    <div class="flex items-center justify-between gap-2">
+      <div class="flex items-center gap-1.5">
+        <span class="w-5 h-5 rounded-full bg-status-success text-on-primary flex items-center justify-center text-[11px] shrink-0">
+          <span class="material-symbols-outlined text-[13px] font-bold" style="font-variation-settings: 'FILL' 1;">check</span>
+        </span>
+        <span class="font-label-ui text-xs font-semibold text-text-primary">Step 1</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-status-success-bg/80 text-status-success border border-status-success-border font-numeric-offset">Done</span>
+    </div>
+    <div class="mt-2.5">
+      <h3 class="font-label-ui text-label-ui font-bold text-text-primary group-hover:text-status-success transition-colors">Basic Details</h3>
+      <p class="font-numeric-offset text-numeric-offset text-text-muted truncate mt-0.5">Wedding · Bhubaneswar · 14 Nov</p>
+    </div>
+    <div class="mt-2 pt-2 border-t border-border-subtle flex items-center justify-between text-[11px] font-numeric-offset text-text-secondary group-hover:text-status-success">
+      <span class="font-medium">Edit step</span>
+      <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+    </div>
+  </a>
+
+  <!-- Step 2: Completed -->
+  <a href="#" class="group relative flex flex-col justify-between p-3.5 rounded-xl bg-surface-elevated border border-border-subtle hover:border-status-success-border hover:bg-status-success-bg/80 transition-all shadow-xs cursor-pointer select-none">
+    <div class="flex items-center justify-between gap-2">
+      <div class="flex items-center gap-1.5">
+        <span class="w-5 h-5 rounded-full bg-status-success text-on-primary flex items-center justify-center text-[11px] shrink-0">
+          <span class="material-symbols-outlined text-[13px] font-bold" style="font-variation-settings: 'FILL' 1;">check</span>
+        </span>
+        <span class="font-label-ui text-xs font-semibold text-text-primary">Step 2</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-status-success-bg/80 text-status-success border border-status-success-border font-numeric-offset">Done</span>
+    </div>
+    <div class="mt-2.5">
+      <h3 class="font-label-ui text-label-ui font-bold text-text-primary group-hover:text-status-success transition-colors">Budget &amp; Guests</h3>
+      <p class="font-numeric-offset text-numeric-offset text-text-muted truncate mt-0.5">₹8,00,000 · 200 Guests</p>
+    </div>
+    <div class="mt-2 pt-2 border-t border-border-subtle flex items-center justify-between text-[11px] font-numeric-offset text-text-secondary group-hover:text-status-success">
+      <span class="font-medium">Edit step</span>
+      <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+    </div>
+  </a>
+
+  <!-- Step 3: Active / Current -->
+  <div class="relative flex flex-col justify-between p-3.5 rounded-xl bg-surface-elevated border-2 border-primary-container shadow-sm select-none">
+    <div class="flex items-center justify-between gap-2">
+      <div class="flex items-center gap-1.5">
+        <span class="w-5 h-5 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-[11px] font-bold font-numeric-offset shrink-0">
+          3
+        </span>
+        <span class="font-label-ui text-xs font-bold text-primary-container">Step 3</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary-container text-on-primary font-numeric-offset">
+        Active · 75%
+      </span>
+    </div>
+    <div class="mt-2.5">
+      <h3 class="font-label-ui text-label-ui font-bold text-primary-container">Priorities &amp; Preferences</h3>
+      <p class="font-body-sm text-[12px] text-text-secondary truncate mt-0.5">Cultural &amp; Logistical Priorities</p>
+    </div>
+    <div class="mt-2 pt-2 border-t border-primary-soft flex items-center gap-1 text-[11px] font-numeric-offset text-primary-container font-medium">
+      <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+      <span class="">Currently editing</span>
+    </div>
+  </div>
+
+  <!-- Step 4: Locked -->
+  <div class="relative flex flex-col justify-between p-3.5 rounded-xl bg-surface-subtle border border-border-subtle opacity-50 cursor-not-allowed select-none">
+    <div class="flex items-center justify-between gap-2">
+      <div class="flex items-center gap-1.5">
+        <span class="w-5 h-5 rounded-full bg-surface-elevated border border-border-subtle text-text-muted flex items-center justify-center text-[11px] shrink-0">
+          <span class="material-symbols-outlined text-[13px]">lock</span>
+        </span>
+        <span class="font-label-ui text-xs font-medium text-text-muted">Step 4</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-surface-elevated text-text-muted border border-border-subtle font-numeric-offset">Locked</span>
+    </div>
+    <div class="mt-2.5">
+      <h3 class="font-label-ui text-label-ui font-medium text-text-muted">Review &amp; Generate</h3>
+      <p class="font-numeric-offset text-numeric-offset text-text-muted truncate mt-0.5">Audit plan &amp; baseline</p>
+    </div>
+    <div class="mt-2 pt-2 border-t border-border-subtle flex items-center gap-1 text-[11px] font-numeric-offset text-text-muted">
+      <span class="material-symbols-outlined text-[13px]">schedule</span>
+      <span class="">Available after Step 3</span>
+    </div>
+  </div>
+</nav>
+<!-- 3. HEADLINE & INTRO SUMMARY (Decongested & Calmer) -->
+<div class="flex flex-col gap-3"><div class="flex flex-col gap-1"><h1 class="font-headline-lg text-headline-lg md:text-[32px] md:leading-[38px] text-text-primary tracking-tight font-semibold">What matters most to you?</h1><p class="font-body-default text-body-sm text-text-secondary">Rank your top priorities and must-haves to protect what counts most.</p></div><div class="inline-flex flex-wrap items-center gap-2 self-start px-3 py-1 rounded-full bg-surface-subtle border border-border-subtle text-text-secondary font-numeric-offset text-xs"><span class="material-symbols-outlined text-[15px] text-primary" style="font-variation-settings: 'FILL' 1;">celebration</span><span class="font-medium text-text-primary">Ananya &amp; Rahul</span><span class="text-border-strong">•</span><span class="">Bhubaneswar</span><span class="text-border-strong">•</span><span class="font-semibold text-text-primary">₹8,00,000</span><span class="text-border-strong">•</span><span class="">200 Guests</span></div></div>
+<!-- MAIN SECTIONS STACK -->
+<div class="space-y-6">
+<!-- ========================================================================= -->
+<!-- 4. SECTION 01: RANK YOUR PRIORITIES                                       -->
+<!-- ========================================================================= -->
+<section class="bg-surface-elevated rounded-xl p-6 lg:p-7 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.03)]">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-border-subtle gap-2"><div class=""><h2 class="font-headline-md text-headline-md text-text-primary flex items-center gap-2"><span class="text-primary-container font-headline-lg text-headline-md">01.</span> Rank your priorities</h2><p class="font-body-sm text-xs text-text-muted mt-0.5">Drag or reorder. Top categories are shielded first.</p></div><div class="flex items-center gap-1.5 self-start sm:self-auto px-2.5 py-1 rounded-full bg-status-info-bg text-status-info text-numeric-offset font-numeric-offset border border-status-info-border text-xs"><span class="material-symbols-outlined text-[14px]">shield</span><span class="">Protected in budget</span></div></div>
+<!-- Crisp, Streamlined Priority Cards -->
+<div class="mt-4 space-y-2.5" id="rank-list"><div class="group flex items-center justify-between p-3 rounded-lg bg-surface-elevated border-2 border-primary-container shadow-xs transition-colors"><div class="flex items-center gap-3"><button class="cursor-grab text-text-muted hover:text-text-primary focus:outline-none p-0.5" title="Drag to reorder" type="button"><span class="material-symbols-outlined text-[18px]">drag_indicator</span></button><div class="w-7 h-7 rounded-md bg-primary-container text-on-primary flex items-center justify-center font-numeric-offset font-bold text-xs">#1</div><div class="w-8 h-8 rounded-md bg-primary-soft text-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-[19px]">restaurant</span></div><div class="flex items-center gap-2.5"><span class="font-headline-sm text-headline-sm text-text-primary font-semibold">Food &amp; Catering</span><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-subtle text-text-secondary border border-border-subtle">Live counters &amp; buffet</span></div></div><div class="flex items-center gap-2"><span class="hidden md:inline-block px-2 py-0.5 rounded text-[11px] font-medium bg-status-warning-bg text-status-warning border border-status-warning-border">Highest Protection</span><div class="flex items-center gap-1 pl-1"><button class="w-7 h-7 rounded border border-border-subtle bg-surface-subtle text-text-muted opacity-40 cursor-not-allowed flex items-center justify-center" disabled="" title="Move Up"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_up</span></button><button class="w-7 h-7 rounded border border-border-strong bg-surface-elevated hover:bg-surface-subtle text-text-primary flex items-center justify-center transition-colors" title="Move Down"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span></button></div></div></div><div class="group flex items-center justify-between p-3 rounded-lg bg-surface-elevated border border-border-subtle hover:border-border-strong transition-colors"><div class="flex items-center gap-3"><button class="cursor-grab text-text-muted hover:text-text-primary focus:outline-none p-0.5" title="Drag to reorder" type="button"><span class="material-symbols-outlined text-[18px]">drag_indicator</span></button><div class="w-7 h-7 rounded-md bg-surface-subtle border border-border-subtle text-text-primary flex items-center justify-center font-numeric-offset font-bold text-xs">#2</div><div class="w-8 h-8 rounded-md bg-surface-subtle text-text-primary flex items-center justify-center"><span class="material-symbols-outlined text-[19px]">chair</span></div><div class="flex items-center gap-2.5"><span class="font-headline-sm text-headline-sm text-text-primary font-semibold">Guest Comfort &amp; Hospitality</span><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-subtle text-text-secondary border border-border-subtle">Senior ergonomics &amp; shade</span></div></div><div class="flex items-center gap-1 pl-1"><button class="w-7 h-7 rounded border border-border-strong bg-surface-elevated hover:bg-surface-subtle text-text-primary flex items-center justify-center transition-colors" title="Move Up"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_up</span></button><button class="w-7 h-7 rounded border border-border-strong bg-surface-elevated hover:bg-surface-subtle text-text-primary flex items-center justify-center transition-colors" title="Move Down"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span></button></div></div><div class="group flex items-center justify-between p-3 rounded-lg bg-surface-elevated border border-border-subtle hover:border-border-strong transition-colors"><div class="flex items-center gap-3"><button class="cursor-grab text-text-muted hover:text-text-primary focus:outline-none p-0.5" title="Drag to reorder" type="button"><span class="material-symbols-outlined text-[18px]">drag_indicator</span></button><div class="w-7 h-7 rounded-md bg-surface-subtle border border-border-subtle text-text-primary flex items-center justify-center font-numeric-offset font-bold text-xs">#3</div><div class="w-8 h-8 rounded-md bg-surface-subtle text-text-primary flex items-center justify-center"><span class="material-symbols-outlined text-[19px]">photo_camera</span></div><div class="flex items-center gap-2.5"><span class="font-headline-sm text-headline-sm text-text-primary font-semibold">Photography &amp; Film</span><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-subtle text-text-secondary border border-border-subtle">Candid coverage</span></div></div><div class="flex items-center gap-1 pl-1"><button class="w-7 h-7 rounded border border-border-strong bg-surface-elevated hover:bg-surface-subtle text-text-primary flex items-center justify-center transition-colors" title="Move Up"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_up</span></button><button class="w-7 h-7 rounded border border-border-strong bg-surface-elevated hover:bg-surface-subtle text-text-primary flex items-center justify-center transition-colors" title="Move Down"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span></button></div></div><div class="group flex items-center justify-between p-3 rounded-lg bg-surface-elevated border border-border-subtle hover:border-border-strong transition-colors"><div class="flex items-center gap-3"><button class="cursor-grab text-text-muted hover:text-text-primary focus:outline-none p-0.5" title="Drag to reorder" type="button"><span class="material-symbols-outlined text-[18px]">drag_indicator</span></button><div class="w-7 h-7 rounded-md bg-surface-subtle border border-border-subtle text-text-primary flex items-center justify-center font-numeric-offset font-bold text-xs">#4</div><div class="w-8 h-8 rounded-md bg-surface-subtle text-text-primary flex items-center justify-center"><span class="material-symbols-outlined text-[19px]">apartment</span></div><div class="flex items-center gap-2.5"><span class="font-headline-sm text-headline-sm text-text-primary font-semibold">Venue &amp; Atmosphere</span><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-subtle text-text-secondary border border-border-subtle">Ambience &amp; lighting</span></div></div><div class="flex items-center gap-1 pl-1"><button class="w-7 h-7 rounded border border-border-strong bg-surface-elevated hover:bg-surface-subtle text-text-primary flex items-center justify-center transition-colors" title="Move Up"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_up</span></button><button class="w-7 h-7 rounded border border-border-strong bg-surface-elevated hover:bg-surface-subtle text-text-primary flex items-center justify-center transition-colors" title="Move Down"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span></button></div></div><div class="group flex items-center justify-between p-3 rounded-lg bg-surface-elevated border border-border-subtle hover:border-border-strong transition-colors"><div class="flex items-center gap-3"><button class="cursor-grab text-text-muted hover:text-text-primary focus:outline-none p-0.5" title="Drag to reorder" type="button"><span class="material-symbols-outlined text-[18px]">drag_indicator</span></button><div class="w-7 h-7 rounded-md bg-surface-subtle border border-border-subtle text-text-primary flex items-center justify-center font-numeric-offset font-bold text-xs">#5</div><div class="w-8 h-8 rounded-md bg-surface-subtle text-text-primary flex items-center justify-center"><span class="material-symbols-outlined text-[19px]">local_florist</span></div><div class="flex items-center gap-2.5"><span class="font-headline-sm text-headline-sm text-text-primary font-semibold">Decoration &amp; Florals</span><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-subtle text-text-secondary border border-border-subtle">Mandap &amp; florals</span></div></div><div class="flex items-center gap-2"><span class="hidden md:inline-block px-2 py-0.5 rounded text-[11px] font-medium bg-surface-subtle text-text-secondary border border-border-subtle">Flexible</span><div class="flex items-center gap-1 pl-1"><button class="w-7 h-7 rounded border border-border-strong bg-surface-elevated hover:bg-surface-subtle text-text-primary flex items-center justify-center transition-colors" title="Move Up"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_up</span></button><button class="w-7 h-7 rounded border border-border-subtle bg-surface-subtle text-text-muted opacity-40 cursor-not-allowed flex items-center justify-center" disabled="" title="Move Down"><span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span></button></div></div></div></div>
+</section>
+<!-- ========================================================================= -->
+<!-- 5. SECTION 02: WHAT ARE YOUR MUST-HAVES?                                 -->
+<!-- ========================================================================= -->
+<section class="bg-surface-elevated rounded-xl p-6 lg:p-7 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.03)]">
+<div class="pb-4 border-b border-border-subtle">
+<h2 class="font-headline-md text-headline-md text-text-primary flex items-center gap-2">
+<span class="text-primary-container font-headline-lg text-headline-md">02.</span> What are your must-haves?
+        </h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+          Select non-negotiables. The AI planner treats these as fixed hard constraints.
+        </p>
+</div>
+<!-- Clean, Airy 3-Column Toggle Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4"><label class="group relative flex items-center justify-between p-3.5 rounded-lg border-2 border-primary-container bg-primary-soft/30 cursor-pointer select-none transition-colors"><div class="flex items-center gap-2.5 min-w-0"><div class="w-8 h-8 rounded-md bg-primary-soft text-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">eco</span></div><div class="min-w-0"><div class="font-label-ui text-label-ui font-semibold text-text-primary truncate">Pure Veg / Jain</div><p class="font-numeric-offset text-[11px] text-text-secondary">Dedicated kitchen</p></div></div><input checked="" class="h-4 w-4 rounded border-border-strong text-primary-container focus:ring-primary-container shrink-0" type="checkbox"></label><label class="group relative flex items-center justify-between p-3.5 rounded-lg border-2 border-primary-container bg-primary-soft/30 cursor-pointer select-none transition-colors"><div class="flex items-center gap-2.5 min-w-0"><div class="w-8 h-8 rounded-md bg-primary-soft text-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">music_note</span></div><div class="min-w-0"><div class="font-label-ui text-label-ui font-semibold text-text-primary truncate">Live Shehnai / Acoustic</div><p class="font-numeric-offset text-[11px] text-text-secondary">Morning raagas</p></div></div><input checked="" class="h-4 w-4 rounded border-border-strong text-primary-container focus:ring-primary-container shrink-0" type="checkbox"></label><label class="group relative flex items-center justify-between p-3.5 rounded-lg border-2 border-primary-container bg-primary-soft/30 cursor-pointer select-none transition-colors"><div class="flex items-center gap-2.5 min-w-0"><div class="w-8 h-8 rounded-md bg-primary-soft text-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">child_friendly</span></div><div class="min-w-0"><div class="font-label-ui text-label-ui font-semibold text-text-primary truncate">Kids' Play Area</div><p class="font-numeric-offset text-[11px] text-text-secondary">Supervised zone</p></div></div><input checked="" class="h-4 w-4 rounded border-border-strong text-primary-container focus:ring-primary-container shrink-0" type="checkbox"></label><label class="group relative flex items-center justify-between p-3.5 rounded-lg border-2 border-primary-container bg-primary-soft/30 cursor-pointer select-none transition-colors"><div class="flex items-center gap-2.5 min-w-0"><div class="w-8 h-8 rounded-md bg-primary-soft text-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">accessible</span></div><div class="min-w-0"><div class="font-label-ui text-label-ui font-semibold text-text-primary truncate">Wheelchair Access</div><p class="font-numeric-offset text-[11px] text-text-secondary">Step-free ramp</p></div></div><input checked="" class="h-4 w-4 rounded border-border-strong text-primary-container focus:ring-primary-container shrink-0" type="checkbox"></label><label class="group relative flex items-center justify-between p-3.5 rounded-lg border-2 border-primary-container bg-primary-soft/30 cursor-pointer select-none transition-colors"><div class="flex items-center gap-2.5 min-w-0"><div class="w-8 h-8 rounded-md bg-primary-soft text-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">roofing</span></div><div class="min-w-0"><div class="font-label-ui text-label-ui font-semibold text-text-primary truncate">Indoor AC Fallback</div><p class="font-numeric-offset text-[11px] text-text-secondary">Weather safeguard</p></div></div><input checked="" class="h-4 w-4 rounded border-border-strong text-primary-container focus:ring-primary-container shrink-0" type="checkbox"></label><label class="group relative flex items-center justify-between p-3.5 rounded-lg border border-border-subtle bg-surface-elevated hover:bg-surface-subtle cursor-pointer select-none transition-colors"><div class="flex items-center gap-2.5 min-w-0"><div class="w-8 h-8 rounded-md bg-surface-subtle text-text-secondary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">videocam</span></div><div class="min-w-0"><div class="font-label-ui text-label-ui font-medium text-text-primary truncate">Drone &amp; Video</div><p class="font-numeric-offset text-[11px] text-text-secondary">Aerial film</p></div></div><input class="h-4 w-4 rounded border-border-strong text-primary-container focus:ring-primary-container shrink-0" type="checkbox"></label></div>
+<!-- Lightweight Custom Tags Row -->
+<div class="mt-4 pt-3.5 border-t border-border-subtle flex flex-wrap items-center gap-2">
+<span class="font-numeric-offset text-numeric-offset text-text-secondary mr-1">Custom tags:</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-subtle border border-border-subtle text-text-primary text-xs font-medium">
+<span class="material-symbols-outlined text-[14px] text-status-success">check_circle</span>
+          Wheelchair ramp to stage
+          <button class="text-text-muted hover:text-status-danger ml-0.5 flex items-center" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-subtle border border-border-subtle text-text-primary text-xs font-medium">
+<span class="material-symbols-outlined text-[14px] text-status-success">check_circle</span>
+          No plastic water bottles
+          <button class="text-text-muted hover:text-status-danger ml-0.5 flex items-center" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</span>
+<div class="inline-flex items-center gap-1">
+<input class="w-48 bg-transparent border-0 py-0.5 px-2 text-xs text-text-primary focus:ring-0 placeholder:text-text-muted" placeholder="+ Type custom tag..." type="text">
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 6. SECTION 03: GUEST EXPERIENCE & PREFERENCES                             -->
+<!-- ========================================================================= -->
+<section class="bg-surface-elevated rounded-xl p-6 lg:p-7 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.03)]">
+<div class="pb-4 border-b border-border-subtle">
+<h2 class="font-headline-md text-headline-md text-text-primary flex items-center gap-2">
+<span class="text-primary-container font-headline-lg text-headline-md">03.</span> Guest experience &amp; preferences
+        </h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+          Specific nuances for vendor briefs, seating arrangements, and ceremony cues.
+        </p>
+</div>
+<div class="mt-5 space-y-4"><div class="space-y-1.5"><div class="flex items-center justify-between"><label class="font-label-ui text-xs font-semibold text-text-primary">Cultural &amp; Ritual Nuances</label><span class="text-text-muted text-[11px]">Optional</span></div><input class="w-full h-9 rounded-lg border border-border-strong bg-canvas-main px-3 font-body-default text-body-sm text-text-primary focus:ring-2 focus:ring-primary-container focus:border-transparent" placeholder="Key ritual requirements..." type="text" value="Traditional Odia rituals (Baula Patani, Hastaganthi); ventilated havan mandap"></div><div class="space-y-1.5"><div class="flex items-center justify-between"><label class="font-label-ui text-xs font-semibold text-text-primary">Accessibility &amp; Senior Comfort</label><span class="text-text-muted text-[11px]">Optional</span></div><input class="w-full h-9 rounded-lg border border-border-strong bg-canvas-main px-3 font-body-default text-body-sm text-text-primary focus:ring-2 focus:ring-primary-container focus:border-transparent" placeholder="Special guest assistance..." type="text" value="25 seniors need cushioned ground-floor seating near mandap"><div class="flex flex-wrap items-center gap-1.5 pt-0.5"><span class="font-numeric-offset text-[11px] text-text-muted mr-1">Quick add:</span><button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-subtle hover:bg-primary-soft hover:text-primary-container border border-border-subtle text-[11px] text-text-secondary transition-colors" type="button"><span class="material-symbols-outlined text-[12px]">add</span> Cushioned lounge seating</button><button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-subtle hover:bg-primary-soft hover:text-primary-container border border-border-subtle text-[11px] text-text-secondary transition-colors" type="button"><span class="material-symbols-outlined text-[12px]">add</span> Ground-floor mandap view</button><button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-subtle hover:bg-primary-soft hover:text-primary-container border border-border-subtle text-[11px] text-text-secondary transition-colors" type="button"><span class="material-symbols-outlined text-[12px]">add</span> Priority table dining</button></div></div><div class="space-y-1.5"><div class="flex items-center justify-between"><div class="flex items-center gap-1.5"><label class="font-label-ui text-xs font-semibold text-text-primary">Things to Avoid or Exclude</label><span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-status-danger-bg text-status-danger border border-status-danger-border">Negative Rules</span></div><span class="text-text-muted text-[11px]">Optional</span></div><input class="w-full h-9 rounded-lg border border-border-strong bg-canvas-main px-3 font-body-default text-body-sm text-text-primary focus:ring-2 focus:ring-primary-container focus:border-transparent" placeholder="Restrictions, blacklists, limits..." type="text" value="No loud DJ after 10:30 PM; no thermocol/plastics"><div class="flex flex-wrap items-center gap-1.5 pt-0.5"><span class="font-numeric-offset text-[11px] text-text-muted mr-1">Quick add:</span><button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-subtle hover:bg-status-danger-bg hover:text-status-danger border border-border-subtle text-[11px] text-text-secondary transition-colors" type="button"><span class="material-symbols-outlined text-[12px]">add</span> No loud music past 10:30 PM</button><button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-subtle hover:bg-status-danger-bg hover:text-status-danger border border-border-subtle text-[11px] text-text-secondary transition-colors" type="button"><span class="material-symbols-outlined text-[12px]">add</span> No disposable plastics</button><button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-subtle hover:bg-status-danger-bg hover:text-status-danger border border-border-subtle text-[11px] text-text-secondary transition-colors" type="button"><span class="material-symbols-outlined text-[12px]">add</span> No synthetic flowers</button></div></div></div>
+</section>
+<!-- ========================================================================= -->
+<!-- 7. SECTION 04: REFINE YOUR EVENT STYLE                                    -->
+<!-- ========================================================================= -->
+<section class="bg-surface-elevated rounded-xl p-6 lg:p-7 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.03)]">
+<div class="pb-4 border-b border-border-subtle">
+<h2 class="font-headline-md text-headline-md text-text-primary flex items-center gap-2">
+<span class="text-primary-container font-headline-lg text-headline-md">04.</span> Refine your event style
+        </h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+          Selected aesthetics carried forward from Step 1. Tap to toggle or combine vibes.
+        </p>
+</div>
+<div class="mt-4 flex flex-wrap gap-2.5">
+<!-- Chip 1: Selected -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border-2 border-primary-container bg-primary-soft text-primary-container font-label-ui text-xs font-semibold shadow-2xs transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="">Traditional &amp; Regal</span>
+</button>
+<!-- Chip 2: Selected -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border-2 border-primary-container bg-primary-soft text-primary-container font-label-ui text-xs font-semibold shadow-2xs transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="">Modern Warm Elegant</span>
+</button>
+<!-- Chip 3: Unselected -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border-strong bg-surface-elevated text-text-secondary hover:text-text-primary hover:bg-surface-subtle font-label-ui text-xs font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px] text-text-muted">add</span>
+<span class="">Intimate &amp; Heartfelt</span>
+</button>
+<!-- Chip 4: Unselected -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border-strong bg-surface-elevated text-text-secondary hover:text-text-primary hover:bg-surface-subtle font-label-ui text-xs font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px] text-text-muted">add</span>
+<span class="">Fun &amp; Vibrant</span>
+</button>
+<!-- Chip 5: Unselected -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border-strong bg-surface-elevated text-text-secondary hover:text-text-primary hover:bg-surface-subtle font-label-ui text-xs font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px] text-text-muted">add</span>
+<span class="">Eco-Friendly &amp; Minimal</span>
+</button>
+<!-- Custom Vibe Button -->
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-dashed border-border-strong bg-surface-subtle text-text-secondary hover:text-text-primary hover:bg-surface-elevated font-label-ui text-xs font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">add</span>
+<span class="">Custom vibe</span>
+</button>
+</div>
+</section>
+</div>
+</main>
+<!-- ========================================================================= -->
+<!-- 8. BOTTOM NAVIGATION BAR (Sticky Action Dock)                             -->
+<!-- ========================================================================= -->
+<footer class="sticky bottom-0 z-40 w-full bg-canvas-main/95 backdrop-blur-md border-t border-border-subtle shadow-[0_-4px_16px_rgba(24,24,27,0.03)] py-3.5">
+<div class="max-w-[1240px] mx-auto px-6 lg:px-8 flex items-center justify-between">
+<!-- Back Button -->
+<a class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border-strong bg-surface-elevated text-text-primary hover:bg-surface-subtle font-label-ui text-label-ui font-semibold shadow-sm transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span class="">Back to Budget &amp; Guests</span>
+</a>
+<!-- Right Action Group -->
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex flex-col text-right">
+<span class="font-numeric-offset text-numeric-offset text-text-secondary">Next: Step 4 Review &amp; Generate</span>
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Generate baseline plan</span>
+</div>
+<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-container hover:bg-primary-hover text-on-primary font-label-ui text-label-ui font-bold shadow-sm transition-all" href="#">
+<span class="">Continue to Review</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</footer>
+
+
+</body></html>

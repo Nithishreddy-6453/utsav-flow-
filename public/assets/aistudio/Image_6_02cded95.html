@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UtsavFlow — Event Setup: Step 2 Budget &amp; Guests</title>
+<!-- Typography: Google Fonts (Fraunces, Plus Jakarta Sans, JetBrains Mono) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-container": "#ff9631",
+            "surface-container-low": "#f5f3f0",
+            "on-surface": "#1b1c1a",
+            "on-background": "#1b1c1a",
+            "border-subtle": "#E6E1DA",
+            "outline-variant": "#c8c4d5",
+            "primary-container": "#3730a3",
+            "on-primary": "#ffffff",
+            "status-danger-bg": "#FFE4E6",
+            "status-success-border": "#86EFAC",
+            "primary": "#1f108e",
+            "surface": "#fbf9f6",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed": "#ffdbd1",
+            "on-tertiary-fixed": "#2f1500",
+            "secondary": "#a53c19",
+            "on-primary-fixed-variant": "#3b35a7",
+            "status-info-border": "#7DD3FC",
+            "tertiary": "#482300",
+            "on-secondary": "#ffffff",
+            "primary-fixed": "#e2dfff",
+            "error": "#ba1a1a",
+            "tertiary-fixed": "#ffdcc3",
+            "background": "#fbf9f6",
+            "on-primary-fixed": "#0f0069",
+            "accent-saffron": "#F59E0B",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#ffb59f",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "text-secondary": "#52525B",
+            "canvas-main": "#FAF8F5",
+            "tertiary-fixed-dim": "#ffb77d",
+            "status-danger-border": "#FDA4AF",
+            "primary-border": "#C7D2FE",
+            "tertiary-container": "#683600",
+            "primary-hover": "#312E81",
+            "inverse-primary": "#c3c0ff",
+            "status-warning-border": "#F59E0B",
+            "surface-tint": "#544fc0",
+            "surface-elevated": "#FFFFFF",
+            "inverse-surface": "#30312f",
+            "surface-container-high": "#eae8e5",
+            "status-success-bg": "#DCFCE7",
+            "on-primary-container": "#a9a7ff",
+            "outline": "#777584",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#e4e2df",
+            "on-secondary-container": "#6b1a00",
+            "text-muted": "#71717A",
+            "status-info": "#0369A1",
+            "surface-subtle": "#F3EFEA",
+            "secondary-container": "#fb7b54",
+            "status-warning-bg": "#FEF3C7",
+            "status-danger": "#BE123C",
+            "surface-container": "#efeeeb",
+            "status-warning": "#B45309",
+            "on-secondary-fixed": "#3a0a00",
+            "text-primary": "#18181B",
+            "surface-variant": "#e4e2df",
+            "inverse-on-surface": "#f2f0ed",
+            "error-container": "#ffdad6",
+            "status-success": "#15803D",
+            "border-strong": "#C8C1B6",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#464553",
+            "surface-dim": "#dbdad7",
+            "primary-soft": "#EEF2FF",
+            "on-secondary-fixed-variant": "#842503",
+            "status-info-bg": "#E0F2FE",
+            "surface-bright": "#fbf9f6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "gutter-mobile": "0.75rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "margin-tablet": "1.5rem",
+            "gutter": "1.5rem",
+            "gutter-tablet": "1rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"],
+            "numeric-offset": ["JetBrains Mono"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-hero-mobile": ["Fraunces"],
+            "headline-lg-mobile": ["Fraunces"],
+            "label-badge": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "kpi-financial-lg-mobile": ["JetBrains Mono"],
+            "kpi-financial-lg": ["JetBrains Mono"],
+            "body-default": ["Plus Jakarta Sans"],
+            "headline-lg": ["Fraunces"],
+            "headline-hero": ["Fraunces"],
+            "numeric-table": ["JetBrains Mono"],
+            "label-ui": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "numeric-offset": ["12px", {"lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "headline-sm": ["15px", {"lineHeight": "21px", "letterSpacing": "0em", "fontWeight": "600"}],
+            "headline-hero-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "headline-lg-mobile": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "label-badge": ["12px", {"lineHeight": "15px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "kpi-financial-lg-mobile": ["22px", {"lineHeight": "26px", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+            "kpi-financial-lg": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+            "body-default": ["15px", {"lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "headline-hero": ["48px", {"lineHeight": "54px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "numeric-table": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+            "label-ui": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500"}]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .festive-glow {
+      background-image: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, rgba(250, 248, 245, 0) 70%);
+    }
+  </style>
+</head>
+<body class="bg-canvas-main text-text-primary antialiased min-h-screen flex flex-col selection:bg-primary-soft selection:text-primary">
+<!-- TOP HEADER (Persistent, Glassmorphic, Brand Bar) -->
+<header class="sticky top-0 z-40 bg-canvas-main/90 backdrop-blur-md border-b border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)]">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<!-- Left Brand & Subtext -->
+<div class="flex items-center gap-3 sm:gap-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-headline-lg text-headline-sm font-bold shadow-sm">
+<span>U</span>
+</div>
+<span class="font-headline-lg text-headline-lg font-semibold text-primary tracking-tight">UtsavFlow</span>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-badge font-label-badge bg-status-warning-bg text-status-warning border border-status-warning-border">
+          MVP
+        </span>
+<span class="hidden md:inline-block text-text-muted text-body-sm font-body-sm pl-2 border-l border-border-subtle">
+          Plan with clarity. Celebrate with confidence.
+        </span>
+</div>
+<!-- Right Auto-saved & Exit -->
+<div class="flex items-center gap-3 sm:gap-4">
+<div class="flex items-center gap-2 text-text-secondary font-label-ui text-label-ui px-2 py-1 rounded bg-surface-subtle">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-success opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-status-success"></span>
+</span>
+<span class="hidden sm:inline">Draft auto-saved</span>
+<span class="sm:hidden text-numeric-offset font-numeric-offset">Saved</span>
+</div>
+<button class="h-9 px-3.5 rounded-lg border border-border-strong bg-surface-elevated text-text-primary hover:bg-surface-subtle text-label-ui font-label-ui font-medium transition-colors shadow-sm" type="button">
+          Save &amp; exit
+        </button>
+</div>
+</div>
+</header>
+<!-- AMBIENT TOP ACCENT / FESTIVE ILLUMINATION LAYER -->
+<div class="w-full festive-glow flex-1 flex flex-col">
+<main class="max-w-[1040px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1">
+<!-- STEP PROGRESS INDICATOR -->
+<section aria-label="Setup progress" class="mb-8">
+<!-- Breadcrumb / Cohort Sizing Pill -->
+<div class="flex items-center justify-between mb-3">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-soft text-primary-container text-label-badge font-label-badge border border-primary-border">
+<span class="material-symbols-outlined text-[16px]">account_balance_wallet</span>
+<span>Step 2 of 4: Financial Envelope &amp; Cohort Sizing</span>
+</div>
+<span class="text-numeric-offset font-numeric-offset text-text-muted">50% Completed</span>
+</div>
+<!-- 4-Step Track Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3">
+<!-- Step 1: Basic Details (Completed) -->
+<div class="bg-surface-elevated rounded-lg p-3 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex flex-col justify-between transition-colors">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-badge font-label-badge text-status-success flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Step 1: Basic Details
+              </span>
+<span class="text-numeric-offset font-numeric-offset text-status-success font-semibold">Done</span>
+</div>
+<p class="text-text-secondary text-body-sm font-body-sm truncate" title="Wedding · Bhubaneswar · 14 Nov 2026">
+              Wedding · Bhubaneswar · 14 Nov 2026
+            </p>
+</div>
+<!-- Step 2: Budget & Guests (ACTIVE) -->
+<div class="bg-primary-soft/40 rounded-lg p-3 border-2 border-primary-container shadow-sm flex flex-col justify-between ring-2 ring-primary-soft">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-badge font-label-badge text-primary-container font-bold flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                Step 2: Budget &amp; Guests
+              </span>
+<span class="inline-block px-1.5 py-0.5 rounded text-[11px] font-semibold bg-primary-container text-on-primary">
+                Active
+              </span>
+</div>
+<p class="text-primary font-headline-sm text-headline-sm font-medium">Financial Envelope &amp; Guests</p>
+</div>
+<!-- Step 3: Priorities (Upcoming) -->
+<div class="bg-surface-subtle/70 rounded-lg p-3 border border-border-subtle opacity-75 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-badge font-label-badge text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                Step 3: Priorities
+              </span>
+<span class="text-numeric-offset font-numeric-offset text-text-muted">Next</span>
+</div>
+<p class="text-text-muted text-body-sm font-body-sm">Pillars, must-haves &amp; trade-offs</p>
+</div>
+<!-- Step 4: Review (Upcoming) -->
+<div class="bg-surface-subtle/70 rounded-lg p-3 border border-border-subtle opacity-75 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-badge font-label-badge text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                Step 4: Review
+              </span>
+<span class="text-numeric-offset font-numeric-offset text-text-muted">Locked</span>
+</div>
+<p class="text-text-muted text-body-sm font-body-sm">Audit plan &amp; preliminary baseline</p>
+</div>
+</div>
+</section>
+<!-- PAGE TITLE & EDITORIAL HERO NARRATIVE -->
+<section class="mb-6">
+<h1 class="font-headline-lg text-headline-lg text-text-primary font-semibold tracking-tight">
+          Let's set your budget &amp; guest count
+        </h1>
+<p class="mt-1 text-text-secondary font-body-default text-body-default max-w-2xl">
+          We'll use these details to create a realistic plan that fits your celebration. Every rupee and seat can be fine-tuned later with audited transparency.
+        </p>
+</section>
+<!-- COMPACT EDITABLE EVENT SUMMARY CARD (Step 1 Context) -->
+<section class="mb-8">
+<div class="bg-surface-elevated rounded-xl p-4 sm:p-5 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-surface-subtle border border-border-subtle flex items-center justify-center text-primary-container shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[22px]">celebration</span>
+</div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-md text-headline-sm font-semibold text-text-primary">Ananya &amp; Rahul's Grand Wedding</span>
+<span class="px-2 py-0.5 rounded text-label-badge font-label-badge bg-surface-subtle text-text-secondary border border-border-subtle">
+                  Wedding (Multi-Day)
+                </span>
+</div>
+<div class="mt-1 flex flex-wrap items-center gap-y-1 gap-x-4 text-body-sm font-body-sm text-text-secondary">
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-text-muted">calendar_month</span>
+                  14 Nov 2026
+                </span>
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-text-muted">location_on</span>
+                  Bhubaneswar, Odisha
+                </span>
+</div>
+</div>
+</div>
+<div class="sm:self-center shrink-0">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-strong text-text-primary hover:bg-surface-subtle font-label-ui text-label-ui font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Edit</span>
+</button>
+</div>
+</div>
+</section>
+<!-- SECTION 01: TOTAL BUDGET ENVELOPE -->
+<section class="bg-surface-elevated rounded-xl p-5 sm:p-7 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] mb-8">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-border-subtle gap-2">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary font-semibold flex items-center gap-2">
+<span class="text-primary-container font-numeric-offset">01.</span> What's your total budget?
+            </h2>
+<p class="text-text-secondary font-body-sm text-body-sm mt-0.5">
+              Enter your ceiling target. You can simulate variations and stress shocks anytime.
+            </p>
+</div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-subtle border border-border-subtle text-text-secondary font-numeric-offset text-numeric-offset">
+<span class="material-symbols-outlined text-[15px] text-accent-saffron">currency_rupee</span>
+<span>Indian Rupee (INR)</span>
+</div>
+</div>
+<div class="mt-6 space-y-6">
+<!-- Main Numeric Input Well -->
+<div>
+<label class="block font-label-ui text-label-ui font-medium text-text-primary mb-2" for="budget-input">
+              Total Budget Amount
+            </label>
+<div class="relative rounded-lg shadow-sm max-w-md">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="font-kpi-financial-lg text-kpi-financial-lg text-text-primary font-semibold">₹</span>
+</div>
+<input class="block w-full pl-10 pr-16 py-3 font-kpi-financial-lg text-kpi-financial-lg text-text-primary bg-surface-container-lowest border border-border-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-primary-container" id="budget-input" name="budget-input" placeholder="8,00,000" type="text" value="8,00,000"/>
+<div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
+<span class="font-label-badge text-label-badge font-semibold text-text-muted bg-surface-subtle px-2 py-0.5 rounded border border-border-subtle">
+                  INR
+                </span>
+</div>
+</div>
+</div>
+<!-- Quick Chips -->
+<div>
+<span class="block text-body-sm font-body-sm text-text-secondary mb-2.5">Quick selections:</span>
+<div class="flex flex-wrap items-center gap-2">
+<button class="budget-chip px-3.5 py-1.5 rounded-lg border border-border-subtle bg-surface hover:bg-surface-subtle font-numeric-table text-numeric-table text-text-primary transition-all" type="button">
+                ₹ 5,00,000
+              </button>
+<button class="budget-chip px-3.5 py-1.5 rounded-lg border-2 border-primary-container bg-primary-soft font-numeric-table text-numeric-table font-semibold text-primary-container shadow-sm transition-all" type="button">
+                ₹ 8,00,000
+              </button>
+<button class="budget-chip px-3.5 py-1.5 rounded-lg border border-border-subtle bg-surface hover:bg-surface-subtle font-numeric-table text-numeric-table text-text-primary transition-all" type="button">
+                ₹ 12,00,000
+              </button>
+<button class="budget-chip px-3.5 py-1.5 rounded-lg border border-border-subtle bg-surface hover:bg-surface-subtle font-numeric-table text-numeric-table text-text-primary transition-all" type="button">
+                ₹ 15,00,000
+              </button>
+<button class="px-3.5 py-1.5 rounded-lg border border-dashed border-border-strong bg-transparent hover:bg-surface-subtle font-label-ui text-label-ui text-text-secondary transition-all" type="button">
+                + Custom
+              </button>
+</div>
+</div>
+<!-- AI Provenance Helper Note -->
+<div class="p-3.5 rounded-lg bg-status-warning-bg/40 border border-dashed border-status-warning-border flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-status-warning shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">arrow_back_ios_new</span>
+<p class="text-body-sm font-body-sm text-status-warning">
+<strong class="font-semibold">Planning Governance Notice:</strong> Budget amounts generated by AI are planning estimates until you add a quote or mark a booking confirmed.
+            </p>
+</div>
+<!-- Budget Governance Mode Triad / Toggle Cards -->
+<div>
+<label class="block font-label-ui text-label-ui font-medium text-text-primary mb-2.5">
+              Select Budget Governance Mode
+            </label>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Card A (Selected): Strict Budget -->
+<label class="relative flex flex-col p-4 rounded-xl border-2 border-primary-container bg-primary-soft/30 cursor-pointer shadow-sm transition-all hover:bg-primary-soft/50">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary-container">lock_clock</span>
+<span class="font-headline-sm text-headline-sm font-semibold text-text-primary">Strict budget</span>
+</div>
+<input checked="" class="h-4 w-4 text-primary-container border-border-strong focus:ring-primary-container" name="budget_mode" type="radio" value="strict"/>
+</div>
+<p class="text-body-sm font-body-sm text-text-secondary">
+                  Stay strictly within the entered amount. No overruns allowed without explicit user trade-offs or pillar reallocations.
+                </p>
+<div class="mt-3 pt-2 border-t border-primary-border/60 flex items-center gap-1.5 text-label-badge font-label-badge text-primary-container font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                  Zero-overrun guarantee mode
+                </div>
+</label>
+<!-- Card B: Some Flexibility -->
+<label class="relative flex flex-col p-4 rounded-xl border border-border-subtle bg-surface-elevated cursor-pointer shadow-sm hover:border-border-strong transition-all">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-text-secondary">tune</span>
+<span class="font-headline-sm text-headline-sm font-semibold text-text-primary">Some flexibility</span>
+</div>
+<input class="h-4 w-4 text-primary-container border-border-strong focus:ring-primary-container" name="budget_mode" type="radio" value="flex"/>
+</div>
+<p class="text-body-sm font-body-sm text-text-secondary">
+                  Show optional upgrades, trade-offs, and their additional costs within a 10–15% margin for premium experiences.
+                </p>
+<div class="mt-3 pt-2 border-t border-border-subtle flex items-center gap-1.5 text-label-badge font-label-badge text-text-muted">
+<span class="material-symbols-outlined text-[14px]">swap_calls</span>
+                  Up to +₹1,20,000 contingency buffer
+                </div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 02: GUEST COUNT & COHORT BREAKDOWN -->
+<section class="bg-surface-elevated rounded-xl p-5 sm:p-7 border border-border-subtle shadow-[0_1px_2px_rgba(24,24,27,0.04)] mb-8">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-border-subtle gap-2">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary font-semibold flex items-center gap-2">
+<span class="text-primary-container font-numeric-offset">02.</span> How many guests are you expecting?
+            </h2>
+<p class="text-text-secondary font-body-sm text-body-sm mt-0.5">
+              Catering and venue capacities scale directly with attendee sizing.
+            </p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-surface-subtle border border-border-subtle text-text-secondary text-label-badge font-label-badge">
+<span class="material-symbols-outlined text-[15px]">groups</span>
+            Attendee Roster
+          </span>
+</div>
+<div class="mt-6 space-y-6">
+<!-- Total Guest Count Input -->
+<div>
+<label class="block font-label-ui text-label-ui font-medium text-text-primary mb-2" for="total-guests">
+              Total Guest Count
+            </label>
+<div class="flex items-center gap-3 max-w-xs">
+<div class="relative w-full">
+<input class="block w-full px-4 py-2.5 font-numeric-table text-numeric-table font-semibold text-text-primary bg-surface-container-lowest border border-border-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-primary-container" id="total-guests" min="1" name="total-guests" type="number" value="200"/>
+</div>
+<span class="font-body-default text-body-default text-text-secondary whitespace-nowrap">
+                Guests
+              </span>
+</div>
+</div>
+<!-- Optional Guest Cohort Breakdown -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="block font-label-ui text-label-ui font-medium text-text-primary">
+                Guest Cohort Breakdown (Optional)
+              </label>
+<span class="text-label-badge font-label-badge text-text-muted">Assists per-plate &amp; accessibility logic</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+<!-- Card 1: Adults -->
+<div class="p-3.5 rounded-lg border border-border-subtle bg-surface-subtle/50 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-headline-sm text-headline-sm text-text-primary font-medium">Adults</span>
+<span class="material-symbols-outlined text-[18px] text-text-secondary">person</span>
+</div>
+<div class="my-2">
+<input class="cohort-input block w-full px-3 py-1.5 text-center font-numeric-table text-numeric-table font-bold text-text-primary bg-surface-elevated border border-border-strong rounded-md focus:outline-none focus:ring-1 focus:ring-primary-container" id="cohort-adults" min="0" type="number" value="140"/>
+</div>
+<span class="text-numeric-offset font-numeric-offset text-text-muted">Ages 18–64 (Full plate)</span>
+</div>
+<!-- Card 2: Children -->
+<div class="p-3.5 rounded-lg border border-border-subtle bg-surface-subtle/50 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-headline-sm text-headline-sm text-text-primary font-medium">Children</span>
+<span class="material-symbols-outlined text-[18px] text-text-secondary">child_care</span>
+</div>
+<div class="my-2">
+<input class="cohort-input block w-full px-3 py-1.5 text-center font-numeric-table text-numeric-table font-bold text-text-primary bg-surface-elevated border border-border-strong rounded-md focus:outline-none focus:ring-1 focus:ring-primary-container" id="cohort-children" min="0" type="number" value="30"/>
+</div>
+<span class="text-numeric-offset font-numeric-offset text-text-muted">Under 18 (Special menu)</span>
+</div>
+<!-- Card 3: Seniors -->
+<div class="p-3.5 rounded-lg border border-border-subtle bg-surface-subtle/50 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-headline-sm text-headline-sm text-text-primary font-medium">Seniors</span>
+<span class="material-symbols-outlined text-[18px] text-text-secondary">elderly</span>
+</div>
+<div class="my-2">
+<input class="cohort-input block w-full px-3 py-1.5 text-center font-numeric-table text-numeric-table font-bold text-text-primary bg-surface-elevated border border-border-strong rounded-md focus:outline-none focus:ring-1 focus:ring-primary-container" id="cohort-seniors" min="0" type="number" value="30"/>
+</div>
+<span class="text-numeric-offset font-numeric-offset text-text-muted">Ages 65+ (comfort &amp; mobility)</span>
+</div>
+</div>
+</div>
+<!-- Deterministic Math Validation Box -->
+<div class="p-3.5 rounded-lg bg-status-success-bg/40 border border-status-success-border flex items-center justify-between flex-wrap gap-2 transition-colors" id="cohort-validation-box">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-status-success" id="validation-icon" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-numeric-table text-numeric-table font-medium text-text-primary" id="validation-math">
+                140 Adults + 30 Children + 30 Seniors = 200 Guests
+              </span>
+</div>
+<span class="px-2 py-0.5 rounded text-label-badge font-label-badge bg-status-success text-on-primary" id="validation-badge">
+              Matches Total
+            </span>
+</div>
+<!-- Helper Note if incomplete or unspecified -->
+<p class="text-body-sm font-body-sm text-text-secondary flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted shrink-0 mt-0.5">info</span>
+            Breakdown is optional. We can plan catering and seating based on total count if specific cohorts are unknown.
+          </p>
+</div>
+</section>
+</main>
+</div>
+<!-- STICKY BOTTOM NAVIGATION DOCK -->
+<footer class="sticky bottom-0 z-40 bg-canvas-main/95 backdrop-blur-md border-t border-border-subtle shadow-[0_-2px_10px_rgba(24,24,27,0.03)]">
+<div class="max-w-[1040px] mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between">
+<!-- Back Action -->
+<button class="h-11 px-5 rounded-lg border border-border-strong bg-surface-elevated text-text-primary hover:bg-surface-subtle font-label-ui text-label-ui font-semibold inline-flex items-center gap-2 transition-all active:scale-[0.99] shadow-sm" onclick="history.back()" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        Back
+      </button>
+<!-- Step Counter & Continue Button Cluster -->
+<div class="flex items-center gap-4">
+<span class="hidden sm:inline text-text-muted font-numeric-offset text-numeric-offset">
+          Next: Step 3 Priorities
+        </span>
+<button class="h-11 px-7 rounded-lg bg-primary-container text-on-primary hover:bg-primary-hover font-label-ui text-label-ui font-semibold inline-flex items-center gap-2 transition-all shadow-md active:scale-[0.98]" id="continue-button" type="button">
+<span>Continue to Priorities</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</footer>
+<!-- LIGHTWEIGHT INLINE VALIDATION & QUICK SELECTION LOGIC -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const budgetInput = document.getElementById('budget-input');
+      const chips = document.querySelectorAll('.budget-chip');
+      const totalGuestsInput = document.getElementById('total-guests');
+      const adultsInput = document.getElementById('cohort-adults');
+      const childrenInput = document.getElementById('cohort-children');
+      const seniorsInput = document.getElementById('cohort-seniors');
+      
+      const valBox = document.getElementById('cohort-validation-box');
+      const valIcon = document.getElementById('validation-icon');
+      const valMath = document.getElementById('validation-math');
+      const valBadge = document.getElementById('validation-badge');
+
+      // Quick chip clicks
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => {
+            c.classList.remove('border-2', 'border-primary-container', 'bg-primary-soft', 'font-semibold', 'text-primary-container');
+            c.classList.add('border-border-subtle', 'bg-surface', 'text-text-primary');
+          });
+          chip.classList.remove('border-border-subtle', 'bg-surface', 'text-text-primary');
+          chip.classList.add('border-2', 'border-primary-container', 'bg-primary-soft', 'font-semibold', 'text-primary-container');
+          
+          const rawVal = chip.innerText.replace('₹', '').trim();
+          budgetInput.value = rawVal;
+        });
+      });
+
+      // Synchronize cohort math
+      function recalcCohorts() {
+        const total = parseInt(totalGuestsInput.value, 10) || 0;
+        const adults = parseInt(adultsInput.value, 10) || 0;
+        const children = parseInt(childrenInput.value, 10) || 0;
+        const seniors = parseInt(seniorsInput.value, 10) || 0;
+        const sum = adults + children + seniors;
+
+        valMath.textContent = `${adults} Adults + ${children} Children + ${seniors} Seniors = ${sum} Guests`;
+
+        if (sum === total) {
+          valBox.className = "p-3.5 rounded-lg bg-status-success-bg/40 border border-status-success-border flex items-center justify-between flex-wrap gap-2 transition-colors";
+          valIcon.className = "material-symbols-outlined text-[18px] text-status-success";
+          valIcon.textContent = "check_circle";
+          valBadge.className = "px-2 py-0.5 rounded text-label-badge font-label-badge bg-status-success text-on-primary";
+          valBadge.textContent = "Matches Total";
+        } else {
+          valBox.className = "p-3.5 rounded-lg bg-status-danger-bg/40 border border-status-danger-border flex items-center justify-between flex-wrap gap-2 transition-colors";
+          valIcon.className = "material-symbols-outlined text-[18px] text-status-danger";
+          valIcon.textContent = "warning";
+          valBadge.className = "px-2 py-0.5 rounded text-label-badge font-label-badge bg-status-danger text-on-primary";
+          const diff = sum - total;
+          valBadge.textContent = diff > 0 ? `+${diff} Over Total` : `${diff} Under Total`;
+        }
+      }
+
+      [totalGuestsInput, adultsInput, childrenInput, seniorsInput].forEach(inp => {
+        inp.addEventListener('input', recalcCohorts);
+      });
+    });
+  </script>
+</body></html>
