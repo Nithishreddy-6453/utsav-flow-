@@ -91,11 +91,14 @@ export const WizardShell: React.FC<WizardShellProps> = ({ currentStep, children 
           </div>
 
           {/* 4-Step Track Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 pt-1">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 pt-1" role="tablist" aria-label="Wizard steps">
             {/* Step 1 */}
-            <div 
+            <button 
+              type="button"
               onClick={() => navigate('/events/new/basic')}
-              className={`rounded-xl p-3.5 border transition-all cursor-pointer shadow-2xs ${currentStep === 1 ? 'bg-indigo-50/80 border-2 border-[#3730a3] shadow-xs' : 'bg-white border-zinc-200 hover:border-zinc-300'}`}
+              className={`text-left rounded-xl p-3.5 border transition-all cursor-pointer shadow-2xs focus:outline-hidden focus:ring-2 focus:ring-[#3730a3] ${currentStep === 1 ? 'bg-indigo-50/80 border-2 border-[#3730a3] shadow-xs' : 'bg-white border-zinc-200 hover:border-zinc-300'}`}
+              aria-current={currentStep === 1 ? 'step' : undefined}
+              aria-label="Step 1: Basic Details"
             >
               <div className="flex items-center justify-between mb-1">
                 <span className={`text-xs font-bold ${currentStep > 1 ? 'text-emerald-700' : currentStep === 1 ? 'text-[#3730a3]' : 'text-zinc-500'}`}>
@@ -104,12 +107,16 @@ export const WizardShell: React.FC<WizardShellProps> = ({ currentStep, children 
                 <span className="font-mono text-xs font-bold text-zinc-600">{currentStep > 1 ? 'Done' : currentStep === 1 ? 'Active' : ''}</span>
               </div>
               <p className="text-xs text-zinc-600 font-semibold truncate">{draft.eventName || 'Untitled Event'}</p>
-            </div>
+            </button>
 
             {/* Step 2 */}
-            <div 
+            <button 
+              type="button"
+              disabled={currentStep < 2}
               onClick={() => currentStep > 1 && navigate('/events/new/budget')}
-              className={`rounded-xl p-3.5 border transition-all ${currentStep === 2 ? 'bg-indigo-50/80 border-2 border-[#3730a3] shadow-xs cursor-pointer' : currentStep > 2 ? 'bg-white border-zinc-200 hover:border-zinc-300 cursor-pointer shadow-2xs' : 'bg-zinc-100 border-zinc-200 opacity-75'}`}
+              className={`text-left rounded-xl p-3.5 border transition-all focus:outline-hidden focus:ring-2 focus:ring-[#3730a3] ${currentStep === 2 ? 'bg-indigo-50/80 border-2 border-[#3730a3] shadow-xs cursor-pointer' : currentStep > 2 ? 'bg-white border-zinc-200 hover:border-zinc-300 cursor-pointer shadow-2xs' : 'bg-zinc-100 border-zinc-200 opacity-75 cursor-not-allowed'}`}
+              aria-current={currentStep === 2 ? 'step' : undefined}
+              aria-label="Step 2: Budget & Guests"
             >
               <div className="flex items-center justify-between mb-1">
                 <span className={`text-xs font-bold ${currentStep > 2 ? 'text-emerald-700' : currentStep === 2 ? 'text-[#3730a3]' : 'text-zinc-500'}`}>
@@ -118,12 +125,16 @@ export const WizardShell: React.FC<WizardShellProps> = ({ currentStep, children 
                 <span className="font-mono text-xs font-bold text-zinc-600">{currentStep > 2 ? 'Done' : currentStep === 2 ? 'Active' : 'Locked'}</span>
               </div>
               <p className="text-xs text-zinc-600 font-semibold truncate">₹{draft.maxBudget?.toLocaleString('en-IN') || '8,00,000'} · {draft.totalGuests} Guests</p>
-            </div>
+            </button>
 
             {/* Step 3 */}
-            <div 
+            <button 
+              type="button"
+              disabled={currentStep < 3}
               onClick={() => currentStep > 2 && navigate('/events/new/preferences')}
-              className={`rounded-xl p-3.5 border transition-all ${currentStep === 3 ? 'bg-indigo-50/80 border-2 border-[#3730a3] shadow-xs cursor-pointer' : currentStep > 3 ? 'bg-white border-zinc-200 hover:border-zinc-300 cursor-pointer shadow-2xs' : 'bg-zinc-100 border-zinc-200 opacity-75'}`}
+              className={`text-left rounded-xl p-3.5 border transition-all focus:outline-hidden focus:ring-2 focus:ring-[#3730a3] ${currentStep === 3 ? 'bg-indigo-50/80 border-2 border-[#3730a3] shadow-xs cursor-pointer' : currentStep > 3 ? 'bg-white border-zinc-200 hover:border-zinc-300 cursor-pointer shadow-2xs' : 'bg-zinc-100 border-zinc-200 opacity-75 cursor-not-allowed'}`}
+              aria-current={currentStep === 3 ? 'step' : undefined}
+              aria-label="Step 3: Priorities"
             >
               <div className="flex items-center justify-between mb-1">
                 <span className={`text-xs font-bold ${currentStep > 3 ? 'text-emerald-700' : currentStep === 3 ? 'text-[#3730a3]' : 'text-zinc-500'}`}>
@@ -132,19 +143,23 @@ export const WizardShell: React.FC<WizardShellProps> = ({ currentStep, children 
                 <span className="font-mono text-xs font-bold text-zinc-600">{currentStep > 3 ? 'Done' : currentStep === 3 ? 'Active' : 'Locked'}</span>
               </div>
               <p className="text-xs text-zinc-600 font-semibold truncate">{draft.priorities[0] || 'Food & Catering'} #1</p>
-            </div>
+            </button>
 
             {/* Step 4 */}
-            <div 
+            <button 
+              type="button"
+              disabled={currentStep < 4}
               onClick={() => currentStep > 3 && navigate('/events/new/review')}
-              className={`rounded-xl p-3.5 border transition-all shadow-2xs ${currentStep === 4 ? 'bg-indigo-50/80 border-2 border-[#3730a3] shadow-xs' : 'bg-zinc-100 border-zinc-200 opacity-75'}`}
+              className={`text-left rounded-xl p-3.5 border transition-all shadow-2xs focus:outline-hidden focus:ring-2 focus:ring-[#3730a3] ${currentStep === 4 ? 'bg-indigo-50/80 border-2 border-[#3730a3] shadow-xs cursor-pointer' : 'bg-zinc-100 border-zinc-200 opacity-75 cursor-not-allowed'}`}
+              aria-current={currentStep === 4 ? 'step' : undefined}
+              aria-label="Step 4: Review & Generate Plan"
             >
               <div className="flex items-center justify-between mb-1">
                 <span className={`text-xs font-bold ${currentStep === 4 ? 'text-[#3730a3]' : 'text-zinc-500'}`}>Step 4: Review</span>
                 <span className="font-mono text-xs font-bold text-zinc-600">{currentStep === 4 ? 'Active' : 'Locked'}</span>
               </div>
               <p className="text-xs text-zinc-600 font-semibold truncate">Pre-flight Audit</p>
-            </div>
+            </button>
           </div>
         </section>
 

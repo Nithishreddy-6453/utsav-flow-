@@ -25,8 +25,6 @@ import {
   RotateCcw,
   AlertTriangle,
   ArrowRight,
-  TrendingDown,
-  TrendingUp,
   Calendar,
   Users,
   IndianRupee,

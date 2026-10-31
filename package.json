@@ -1,10 +1,12 @@
 {
-  "name": "react-example",
+  "name": "utsavflow",
+  "version": "1.0.0",
+  "description": "GenAI-powered celebration & event planner for weddings, milestone parties, and cultural ceremonies",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
+    "start": "node server.ts",
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",

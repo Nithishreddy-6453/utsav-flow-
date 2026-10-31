@@ -48,6 +48,18 @@ export const Step1Basic: React.FC = () => {
     return 'Target celebration date';
   };
 
+  // Real-time synchronization of in-progress wizard draft to localStorage
+  // Guarantees persistence even if user reloads, switches tabs, or navigates via breadcrumbs
+  React.useEffect(() => {
+    updateDraft({
+      occasionType,
+      eventName: eventName.trim() || undefined,
+      eventDate,
+      eventLocation: eventCity.trim() || undefined,
+      eventStyle: styles
+    });
+  }, [occasionType, eventName, eventDate, eventCity, styles, updateDraft]);
+
   const handleContinue = (e: React.FormEvent) => {
     e.preventDefault();
     if (!eventName.trim() || !eventDate || !eventCity.trim()) {

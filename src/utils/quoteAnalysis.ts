@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { VendorQuote, ExtractedQuoteAnalysis, QuoteComparisonResult } from '../types/plan';
+import type { VendorQuote, ExtractedQuoteAnalysis, QuoteComparisonResult } from '../types/plan.ts';
 
 /**
  * Deterministically analyzes a single quote text to extract inclusions, exclusions,
@@ -29,6 +29,12 @@ export function analyzeQuoteDeterministically(
     lower.includes('inclusive of taxes') ||
     lower.includes('inclusive of gst') ||
     lower.includes('inclusive of all taxes') ||
+    lower.includes('inclusive of 18% gst') ||
+    lower.includes('inclusive of 18%') ||
+    lower.includes('including 18% gst') ||
+    lower.includes('including 18%') ||
+    lower.includes('inclusive of 12%') ||
+    lower.includes('inclusive of 5%') ||
     lower.includes('taxes included') ||
     lower.includes('gst included') ||
     lower.includes('tax included')
@@ -245,7 +251,7 @@ export function analyzeQuoteDeterministically(
 export function compareQuotesFallback(
   quotes: VendorQuote[],
   guestCount: number = 150,
-  priorities: string[] = []
+  _priorities: string[] = []
 ): QuoteComparisonResult {
   if (!quotes || quotes.length === 0) {
     return {

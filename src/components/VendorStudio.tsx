@@ -3,16 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { WorkspaceLayout } from './WorkspaceLayout';
 import { useEvent } from '../context/EventContext';
-import { Vendor, VendorQuote, VendorStatus, EventPlan, BudgetItem } from '../types/plan';
+import { Vendor, VendorQuote, VendorStatus, BudgetItem } from '../types/plan';
 import { formatINR } from '../utils/calculations';
 import {
   persistVendor,
   removeVendor,
   persistQuote,
-  removeQuote,
   applyQuoteToBudget
 } from '../utils/storage';
 import { AddVendorModal } from './AddVendorModal';
@@ -26,14 +25,12 @@ import {
   Plus,
   Zap,
   Search,
-  Filter,
   Phone,
   User,
   Link as LinkIcon,
   Edit2,
   Trash2,
-  ChevronRight,
-  ExternalLink
+  ChevronRight
 } from 'lucide-react';
 
 export const VendorStudio: React.FC = () => {
@@ -55,7 +52,6 @@ export const VendorStudio: React.FC = () => {
   // Filters state for 35% pane
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
-  const [categoryFilter, setCategoryFilter] = useState<string>('All');
 
   // Active Category for 65% comparison pane
   const [selectedComparisonCategory, setSelectedComparisonCategory] = useState<string>('Catering');
@@ -83,9 +79,8 @@ export const VendorStudio: React.FC = () => {
       Boolean(v.contactPerson && v.contactPerson.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const matchesStatus = statusFilter === 'All' || v.status === statusFilter;
-    const matchesCategory = categoryFilter === 'All' || v.category.toLowerCase() === categoryFilter.toLowerCase();
 
-    return matchesSearch && matchesStatus && matchesCategory;
+    return matchesSearch && matchesStatus;
   });
 
   // Handlers
@@ -111,7 +106,7 @@ export const VendorStudio: React.FC = () => {
     setPlan(updatedPlan);
   };
 
-  const handleUpdateQuoteAnalysis = (quoteId: string, updatedQuote: VendorQuote) => {
+  const handleUpdateQuoteAnalysis = (_quoteId: string, updatedQuote: VendorQuote) => {
     const updatedPlan = persistQuote(updatedQuote, draft);
     setPlan(updatedPlan);
   };
@@ -270,19 +265,20 @@ export const VendorStudio: React.FC = () => {
               <h2 className="font-bold text-zinc-900 text-base">Vendor Directory</h2>
               <p className="text-xs text-zinc-500">Pipeline contacts &amp; status</p>
             </div>
-            <span className="text-xs font-mono font-bold text-[#3730a3]">
+            <span className="text-xs font-mono font-bold text-[#3730a3]" aria-live="polite">
               {filteredVendors.length} Active
             </span>
           </div>
 
           {/* Search Input */}
           <div className="relative">
-            <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" aria-hidden="true" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search vendors or contacts..."
+              aria-label="Search vendors or contacts"
               className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#3730a3]/20 focus:border-[#3730a3]"
             />
           </div>

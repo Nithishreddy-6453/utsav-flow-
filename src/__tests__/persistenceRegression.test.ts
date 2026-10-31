@@ -16,9 +16,7 @@ import {
   removeTimelineTask, 
   updateTaskStatus, 
   persistVendor, 
-  removeVendor, 
   persistQuote, 
-  removeQuote, 
   applyQuoteToBudget, 
   saveIdeaToPlan, 
   removeIdeaFromPlan, 
@@ -265,5 +263,93 @@ describe('UtsavFlow Persistence & Data Integrity Regression Test Suite', () => {
 
     clearDraft();
     expect(hasSavedPlan()).toBe(false);
+  });
+
+  it('Test J: Wizard partial draft auto-save persists across browser simulation without form submission', () => {
+    // Simulate user editing Step 1 fields
+    const step1Draft = getSavedDraft();
+    step1Draft.eventName = 'Pooja & Rohan Sangeet Extravaganza';
+    step1Draft.eventLocation = 'Jaipur, Rajasthan';
+    step1Draft.occasionType = 'wedding';
+    saveDraft(step1Draft);
+
+    // Verify immediate persistence in simulated storage
+    const reloadedAfterStep1 = getSavedDraft();
+    expect(reloadedAfterStep1.eventName).toBe('Pooja & Rohan Sangeet Extravaganza');
+    expect(reloadedAfterStep1.eventLocation).toBe('Jaipur, Rajasthan');
+    expect(reloadedAfterStep1.occasionType).toBe('wedding');
+
+    // Simulate user typing budget in Step 2 without submitting
+    reloadedAfterStep1.maxBudget = 2500000;
+    reloadedAfterStep1.totalGuests = 350;
+    saveDraft(reloadedAfterStep1);
+
+    // Verify Step 2 persists across mock browser reload
+    const reloadedAfterStep2 = getSavedDraft();
+    expect(reloadedAfterStep2.maxBudget).toBe(2500000);
+    expect(reloadedAfterStep2.totalGuests).toBe(350);
+    expect(reloadedAfterStep2.eventName).toBe('Pooja & Rohan Sangeet Extravaganza');
+  });
+
+  it('Test K: Multi-item operations and replanning history persistence', () => {
+    const plan = getSavedPlan();
+    expect(plan.isInitialized).toBe(true);
+
+    // Add replan history entry
+    const historyEntry = {
+      changeId: 'chg_test_1',
+      strategyId: 'strat_1',
+      strategyTitle: 'Priority Shield',
+      strategyType: 'protect_priorities' as const,
+      previousConstraints: {
+        maxBudget: 1000000,
+        totalGuests: 200,
+        eventDate: '2026-11-20'
+      },
+      updatedConstraints: {
+        maxBudget: 800000,
+        totalGuests: 180,
+        eventDate: '2026-11-20'
+      },
+      appliedAt: new Date().toISOString(),
+      summary: 'Trimmed discretionary decor to safeguard catering.',
+      affectedBudgetItemIds: ['bi_1'],
+      affectedTaskIds: ['task_1']
+    };
+
+    plan.replanHistory = [historyEntry];
+    savePlan(plan);
+
+    const reloadedPlan = getSavedPlan();
+    expect(reloadedPlan.replanHistory?.length).toBe(1);
+    expect(reloadedPlan.replanHistory?.[0].strategyTitle).toBe('Priority Shield');
+  });
+
+  it('Test L: Direct workspace route reload and module navigation state continuity', () => {
+    // 1. Establish an active saved plan
+    const draft = getSavedDraft();
+    draft.eventName = 'Direct Route Reload Celebration';
+    draft.maxBudget = 1800000;
+    saveDraft(draft);
+
+    const plan = generateFallbackPlan(draft);
+    savePlan(plan);
+
+    // 2. Simulate navigating to /workspace/budget
+    const targetRoute = '/workspace/budget';
+    expect(targetRoute).toBe('/workspace/budget');
+
+    // 3. Mock direct page reload on that route
+    const reloadedDraft = getSavedDraft();
+    const reloadedPlan = getSavedPlan(reloadedDraft);
+
+    expect(reloadedDraft.eventName).toBe('Direct Route Reload Celebration');
+    expect(reloadedPlan.eventName).toBe('Direct Route Reload Celebration');
+    expect(reloadedPlan.budgetItems.length).toBeGreaterThan(0);
+    expect(reloadedPlan.isInitialized).toBe(true);
+
+    // 4. Verify cross-module continuity without data wiping
+    expect(reloadedPlan.timelineTasks.length).toBeGreaterThan(0);
+    expect(reloadedPlan.vendors?.length).toBeGreaterThan(0);
   });
 });

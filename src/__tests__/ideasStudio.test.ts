@@ -13,7 +13,6 @@ import {
 import {
   saveIdeaToPlan,
   removeIdeaFromPlan,
-  toggleSaveIdea,
   updatePlanIdeas,
   getSavedPlan,
   savePlan
@@ -21,7 +20,7 @@ import {
 import { applyReplanningStrategy } from '../utils/replanningEngine';
 import { DEFAULT_DRAFT } from '../data/presets';
 import { EventDraft } from '../types';
-import { EventPlan, PersonalizedIdea, ConstraintChangeRequest, TradeOffStrategy } from '../types/plan';
+import { EventPlan, ConstraintChangeRequest, TradeOffStrategy } from '../types/plan';
 
 const mockDraft: EventDraft = {
   ...DEFAULT_DRAFT,

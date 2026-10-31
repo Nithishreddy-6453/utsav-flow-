@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EventDraft, PresetConfig } from '../types';
+import { EventDraft, PresetConfig } from '../types.ts';
 
 export const DEFAULT_DRAFT: EventDraft = {
   id: 'draft-' + Math.random().toString(36).substring(2, 9),

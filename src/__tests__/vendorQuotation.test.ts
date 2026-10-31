@@ -13,7 +13,6 @@ import {
   persistVendor,
   removeVendor,
   persistQuote,
-  removeQuote,
   applyQuoteToBudget,
   getSavedPlan,
   savePlan

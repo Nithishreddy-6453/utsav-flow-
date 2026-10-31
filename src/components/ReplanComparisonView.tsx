@@ -14,7 +14,6 @@ import { formatINR } from '../utils/calculations';
 import { BeforeAfterReviewModal } from './BeforeAfterReviewModal';
 import {
   Sparkles,
-  ShieldCheck,
   CheckCircle2,
   AlertTriangle,
   ArrowRight,

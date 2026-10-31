@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EventDraft } from '../types';
-import { EventPlan, BudgetItem, TimelineTask, Vendor, VendorQuote } from '../types/plan';
-import { calculateDueDateFromOffset } from './dateCalculations';
-import { analyzeQuoteDeterministically } from './quoteAnalysis';
-import { generateDeterministicIdeas } from './ideaEngine';
+import type { EventDraft } from '../types.ts';
+import type { EventPlan, BudgetItem, TimelineTask, Vendor, VendorQuote } from '../types/plan.ts';
+import { calculateDueDateFromOffset } from './dateCalculations.ts';
+import { analyzeQuoteDeterministically } from './quoteAnalysis.ts';
+import { generateDeterministicIdeas } from './ideaEngine.ts';
 
 export function generateDefaultVendors(): Vendor[] {
   return [

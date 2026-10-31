@@ -35,15 +35,25 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [isReplanOpen, setIsReplanOpen] = useState<boolean>(false);
 
   const [route, setRoute] = useState<string>(() => {
-    const path = window.location.hash.replace('#', '') || '/';
-    return path;
+    if (typeof window === 'undefined') return '/';
+    const hash = window.location.hash.replace(/^#/, '');
+    if (hash) return hash;
+    if (window.location.pathname && window.location.pathname !== '/') {
+      return window.location.pathname;
+    }
+    return '/';
   });
 
   useEffect(() => {
     setIsHydrated(true);
 
+    // Sync hash if pathname was used
+    if (!window.location.hash && window.location.pathname && window.location.pathname !== '/') {
+      window.location.hash = window.location.pathname;
+    }
+
     const handleHashChange = () => {
-      const path = window.location.hash.replace('#', '') || '/';
+      const path = window.location.hash.replace(/^#/, '') || '/';
       setRoute(path);
     };
 
@@ -95,38 +105,38 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
   }, []);
 
-  const navigate = (path: string) => {
+  const navigate = React.useCallback((path: string) => {
     window.location.hash = path;
     setRoute(path);
     window.scrollTo(0, 0);
-  };
+  }, []);
 
-  const updateDraft = (updates: Partial<EventDraft>) => {
+  const updateDraft = React.useCallback((updates: Partial<EventDraft>) => {
     setDraft(prev => {
       const next = { ...prev, ...updates, updatedAt: new Date().toISOString() };
       saveDraft(next);
       return next;
     });
-  };
+  }, []);
 
-  const setPlan = (planOrFn: EventPlan | ((prev: EventPlan) => EventPlan)) => {
+  const setPlan = React.useCallback((planOrFn: EventPlan | ((prev: EventPlan) => EventPlan)) => {
     setPlanState(prev => {
       const next = typeof planOrFn === 'function' ? planOrFn(prev) : planOrFn;
       savePlan(next);
       return next;
     });
-  };
+  }, []);
 
-  const refreshPlan = () => {
+  const refreshPlan = React.useCallback(() => {
     const fresh = getSavedPlan(draft);
     setPlanState(fresh);
     return fresh;
-  };
+  }, [draft]);
 
-  const openReplan = () => setIsReplanOpen(true);
-  const closeReplan = () => setIsReplanOpen(false);
+  const openReplan = React.useCallback(() => setIsReplanOpen(true), []);
+  const closeReplan = React.useCallback(() => setIsReplanOpen(false), []);
 
-  const loadPreset = (presetKey: string) => {
+  const loadPreset = React.useCallback((presetKey: string) => {
     const preset = PRESETS[presetKey];
     if (!preset) return;
     setDraft(prev => {
@@ -152,21 +162,21 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       saveDraft(next);
       return next;
     });
-  };
+  }, []);
 
-  const resetDraft = () => {
+  const resetDraft = React.useCallback(() => {
     clearDraft();
     const fresh = getSavedDraft();
     setDraft(fresh);
-  };
+  }, []);
 
-  const clearAll = () => {
+  const clearAll = React.useCallback(() => {
     clearAllData();
     const freshDraft = getSavedDraft();
     setDraft(freshDraft);
     const freshPlan = getSavedPlan(freshDraft);
     setPlanState(freshPlan);
-  };
+  }, []);
 
   return (
     <EventContext.Provider 

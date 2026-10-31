@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { PersonalizedIdea, IdeaBudgetImpact } from '../types/plan';
-import { EventDraft } from '../types';
+import type { PersonalizedIdea } from '../types/plan.ts';
+import type { EventDraft } from '../types.ts';
 
 // Curated image assets available in workspace
 const CATEGORY_IMAGE_MAP: Record<string, string[]> = {
@@ -44,7 +44,6 @@ export function generateDeterministicIdeas(draft: EventDraft): PersonalizedIdea[
   const mustHaves = draft.mustHaves || [];
   const accessibility = draft.accessibilityRequirements || '';
   const thingsToAvoid = draft.thingsToAvoid || '';
-  const occasion = draft.occasionType || 'wedding';
   const guests = draft.totalGuests || 150;
   const budget = draft.maxBudget || 1000000;
   const style = draft.eventStyle?.join(', ') || 'Traditional Heritage';
@@ -238,7 +237,6 @@ export function refineIdeaDeterministically(
   const p = refinementPrompt.toLowerCase();
   const now = new Date().toISOString();
   const baseCategory = baseIdea?.category || 'Decor';
-  const guests = draft.totalGuests || 150;
 
   const alternatives: PersonalizedIdea[] = [];
 

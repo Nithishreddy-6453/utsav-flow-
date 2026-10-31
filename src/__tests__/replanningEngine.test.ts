@@ -14,8 +14,7 @@ import {
   calculateDeterministicImpact,
   generateDeterministicAlternatives,
   reconcileStrategyArithmetic,
-  applyReplanningStrategy,
-  undoLastReplan
+  applyReplanningStrategy
 } from '../utils/replanningEngine';
 import {
   getSavedPlan,
@@ -32,7 +31,6 @@ import {
   EventPlan,
   ConstraintChangeRequest,
   TradeOffStrategy,
-  BudgetItem,
   TimelineTask,
   Vendor,
   VendorQuote
@@ -1063,7 +1061,7 @@ describe('Phase 6: Stateful Constraint-Aware Replanning & Budget Shock Simulator
 
       const alternatives = generateDeterministicAlternatives(initialPlan, request, calculateDeterministicImpact(initialPlan, request));
       // User selects alternatives[1] in UI
-      const _selected = alternatives[1];
+      expect(alternatives[1].id).toBeDefined();
 
       const planAfterSelect = getSavedPlan(sampleDraft);
       expect(planAfterSelect.budgetSummary.totalBudget).toBe(1000000);

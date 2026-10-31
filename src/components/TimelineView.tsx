@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { WorkspaceLayout } from './WorkspaceLayout';
 import { useEvent } from '../context/EventContext';
 import { TimelineTask, TaskStatus } from '../types/plan';
@@ -432,8 +432,17 @@ export const TimelineView: React.FC = () => {
                         return (
                           <div
                             key={task.id}
+                            role="button"
+                            tabIndex={0}
                             onClick={() => setSelectedTask(task)}
-                            className={`p-3 sm:p-4 rounded-xl border transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-3 group ${
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                setSelectedTask(task);
+                              }
+                            }}
+                            aria-label={`View details for ${task.title}, priority ${task.priority}, status ${task.status}`}
+                            className={`p-3 sm:p-4 rounded-xl border transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-3 group focus:outline-hidden focus:ring-2 focus:ring-[#3730a3] ${
                               isDone 
                                 ? 'bg-zinc-50/50 border-zinc-200 opacity-80' 
                                 : depStatus.isBlocked 

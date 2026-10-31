@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { WorkspaceLayout } from './WorkspaceLayout';
 import { useEvent } from '../context/EventContext';
 import { BudgetItem } from '../types/plan';
@@ -288,7 +288,10 @@ export const BudgetLedger: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-zinc-100">
           <div className="flex items-center gap-2.5">
             <h2 className="text-base sm:text-lg font-bold text-zinc-900">Expense Ledger</h2>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#F3EFEA] text-zinc-700 border border-[#E6E1DA]">
+            <span 
+              className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#F3EFEA] text-zinc-700 border border-[#E6E1DA]"
+              aria-live="polite"
+            >
               {filteredItems.length} {filteredItems.length === 1 ? 'item' : 'items'}
             </span>
           </div>
@@ -297,7 +300,7 @@ export const BudgetLedger: React.FC = () => {
           <div className="flex flex-wrap items-center gap-2 text-xs">
             {/* Search Input */}
             <div className="relative min-w-[200px]">
-              <span className="material-symbols-outlined absolute left-2.5 top-2.5 text-[17px] text-zinc-400">
+              <span className="material-symbols-outlined absolute left-2.5 top-2.5 text-[17px] text-zinc-400" aria-hidden="true">
                 search
               </span>
               <input
@@ -305,15 +308,17 @@ export const BudgetLedger: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search category or item..."
+                aria-label="Search expense ledger items or categories"
                 className="w-full h-9 pl-8 pr-3 rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-900 font-medium placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#3730a3] focus:bg-white text-xs"
               />
               {searchQuery && (
                 <button 
                   onClick={() => setSearchQuery('')}
+                  aria-label="Clear search query"
                   className="absolute right-2.5 top-2.5 text-zinc-400 hover:text-zinc-700 cursor-pointer"
                   type="button"
                 >
-                  <span className="material-symbols-outlined text-[15px]">close</span>
+                  <span className="material-symbols-outlined text-[15px]" aria-hidden="true">close</span>
                 </button>
               )}
             </div>
@@ -322,6 +327,7 @@ export const BudgetLedger: React.FC = () => {
             <select
               value={costSourceFilter}
               onChange={(e) => setCostSourceFilter(e.target.value)}
+              aria-label="Filter expenses by cost provenance source"
               className="h-9 px-3 rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-800 font-semibold focus:outline-none focus:ring-2 focus:ring-[#3730a3]"
             >
               <option value="all">All Sources</option>
@@ -334,6 +340,7 @@ export const BudgetLedger: React.FC = () => {
             <select
               value={varianceFilter}
               onChange={(e) => setVarianceFilter(e.target.value)}
+              aria-label="Filter expenses by allocation variance status"
               className="h-9 px-3 rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-800 font-semibold focus:outline-none focus:ring-2 focus:ring-[#3730a3]"
             >
               <option value="all">All Variances</option>
@@ -402,8 +409,17 @@ export const BudgetLedger: React.FC = () => {
                   return (
                     <div
                       key={item.id}
+                      role="button"
+                      tabIndex={0}
                       onClick={() => setEditingItem(item)}
-                      className="grid grid-cols-12 items-center px-4 py-3.5 rounded-xl bg-white border border-[#E6E1DA] hover:border-[#3730a3] hover:shadow-sm transition-all cursor-pointer group"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          setEditingItem(item);
+                        }
+                      }}
+                      aria-label={`Edit ${item.itemName}, allocated ${formatINR(item.allocatedAmount)}, projected ${formatINR(item.projectedCost)}`}
+                      className="grid grid-cols-12 items-center px-4 py-3.5 rounded-xl bg-white border border-[#E6E1DA] hover:border-[#3730a3] hover:shadow-sm focus:outline-hidden focus:ring-2 focus:ring-[#3730a3] transition-all cursor-pointer group"
                     >
                       {/* Column 1: Category & Item */}
                       <div className="col-span-3 flex items-center gap-3">
@@ -486,8 +502,17 @@ export const BudgetLedger: React.FC = () => {
                 return (
                   <div
                     key={item.id}
+                    role="button"
+                    tabIndex={0}
                     onClick={() => setEditingItem(item)}
-                    className="p-4 rounded-xl bg-white border border-[#E6E1DA] hover:border-[#3730a3] shadow-2xs flex flex-col gap-3 cursor-pointer"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setEditingItem(item);
+                      }
+                    }}
+                    aria-label={`Edit ${item.itemName}, allocated ${formatINR(item.allocatedAmount)}, projected ${formatINR(item.projectedCost)}`}
+                    className="p-4 rounded-xl bg-white border border-[#E6E1DA] hover:border-[#3730a3] shadow-2xs flex flex-col gap-3 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-[#3730a3]"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>

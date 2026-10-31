@@ -36,7 +36,7 @@ interface QuoteComparisonWorkspaceProps {
 
 export const QuoteComparisonWorkspace: React.FC<QuoteComparisonWorkspaceProps> = ({
   quotes,
-  vendors,
+  vendors: _vendors,
   budgetItems,
   totalGuests,
   priorities,

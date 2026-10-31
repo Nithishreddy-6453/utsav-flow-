@@ -13,20 +13,12 @@ import {
   Printer,
   X,
   FileText,
-  Calendar,
-  Users,
-  IndianRupee,
-  ShieldCheck,
   AlertTriangle,
-  Building2,
   CheckCircle2,
   Clock,
-  Sparkles,
-  Layers,
   Phone,
   Mail,
   User,
-  History,
   Tag
 } from 'lucide-react';
 
@@ -53,7 +45,6 @@ export const EventBriefModal: React.FC<EventBriefModalProps> = ({
   const daysRemaining = calculateDaysRemaining(eventDate);
   const totalBudget = plan.budgetSummary?.totalBudget || draft.maxBudget || 1000000;
   const projectedSpend = plan.budgetSummary?.projectedSpend || 0;
-  const bufferReserve = plan.budgetSummary?.bufferReserve || 0;
   const deficitOrSurplus = totalBudget - projectedSpend;
   const isOverBudget = deficitOrSurplus < 0;
 
@@ -606,6 +597,18 @@ export const EventBriefModal: React.FC<EventBriefModalProps> = ({
                   </div>
                 )}
 
+                {blockedTasks.length > 0 && (
+                  <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-bold block">{blockedTasks.length} Blocked Timeline Tasks</span>
+                      <span className="text-[11px] text-rose-700">
+                        {blockedTasks.map(t => t.title).join(', ')} cannot proceed until prerequisite tasks are completed.
+                      </span>
+                    </div>
+                  </div>
+                )}
+
                 {unconfirmedQuotes.length > 0 && (
                   <div className="p-3 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-900 flex items-start gap-2">
                     <Tag className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
@@ -630,7 +633,7 @@ export const EventBriefModal: React.FC<EventBriefModalProps> = ({
                   </div>
                 )}
 
-                {!isOverBudget && overdueTasks.length === 0 && unconfirmedQuotes.length === 0 && quotesWithTaxRisk.length === 0 && (
+                {!isOverBudget && overdueTasks.length === 0 && blockedTasks.length === 0 && unconfirmedQuotes.length === 0 && quotesWithTaxRisk.length === 0 && (
                   <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span className="font-medium text-[11px]">

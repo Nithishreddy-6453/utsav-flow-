@@ -5,7 +5,7 @@
 
 import { EventPlan, TimelineTask } from '../types/plan';
 import { EventDraft } from '../types';
-import { parseISODateParts, addDaysToDate, createUTCDate } from './dateCalculations';
+import { parseISODateParts, addDaysToDate } from './dateCalculations';
 
 export type CalendarExportScope = 'all' | 'event_only' | 'tasks_only';
 
@@ -296,12 +296,13 @@ export function downloadICSFile(
       eventCount,
       content
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : 'Failed to generate calendar export';
     return {
       success: false,
       filename: generateICSFilename(draft.eventName),
       eventCount: 0,
-      error: err?.message || 'Failed to generate calendar export'
+      error: errorMsg
     };
   }
 }

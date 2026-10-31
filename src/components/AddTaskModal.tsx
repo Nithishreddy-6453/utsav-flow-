@@ -133,8 +133,9 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
 
       onSave(newTask);
       onClose();
-    } catch (err: any) {
-      setErrors({ form: err.message || 'Failed to create task.' });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to create task.';
+      setErrors({ form: msg });
       setIsSubmitting(false);
     }
   };

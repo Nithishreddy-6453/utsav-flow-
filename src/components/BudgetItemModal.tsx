@@ -200,8 +200,9 @@ export const BudgetItemModal: React.FC<BudgetItemModalProps> = ({
 
       onSave(itemToSave);
       onClose();
-    } catch (err: any) {
-      setErrors({ form: err.message || 'Failed to save budget item. Please check your inputs.' });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to save budget item. Please check your inputs.';
+      setErrors({ form: msg });
       setIsSubmitting(false);
     }
   };

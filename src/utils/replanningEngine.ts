@@ -3,25 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
+import type {
   EventPlan,
   BudgetItem,
-  TimelineTask,
   ConstraintChangeRequest,
   DeterministicImpact,
   TradeOffStrategy,
   AffectedTaskPreview,
   AffectedVendorPreview,
   CategoryAdjustment,
-  TimelineAdjustment,
   ReplanHistoryEntry
-} from '../types/plan';
+} from '../types/plan.ts';
 import {
   calculateDueDateFromOffset,
   calculateDaysRemaining,
   isDateOverdue
-} from './dateCalculations';
-import { calculateTotalProjected } from './calculations';
+} from './dateCalculations.ts';
+import { calculateTotalProjected } from './calculations.ts';
 
 /**
  * Calculates deterministic impact of proposed constraint changes.
@@ -128,7 +126,6 @@ export function calculateDeterministicImpact(
   if (guestDelta !== 0) {
     quotes.forEach(quote => {
       if (quote.category.toLowerCase().includes('catering') || quote.pricingModel === 'per_guest') {
-        const v = vendors.find(x => x.id === quote.vendorId);
         affectedVendors.push({
           vendorId: quote.vendorId,
           vendorName: quote.vendorName,

@@ -26,6 +26,18 @@ export const Step2Budget: React.FC = () => {
     setMaxBudget(amount);
   };
 
+  // Real-time synchronization of in-progress wizard draft to localStorage
+  React.useEffect(() => {
+    updateDraft({
+      maxBudget: maxBudget > 0 ? maxBudget : undefined,
+      budgetFlexibility,
+      totalGuests: totalGuests > 0 ? totalGuests : undefined,
+      adultGuests: adults,
+      childGuests: children,
+      seniorGuests: seniors
+    });
+  }, [maxBudget, budgetFlexibility, totalGuests, adults, children, seniors, updateDraft]);
+
   const handleContinue = (e: React.FormEvent) => {
     e.preventDefault();
     if (!maxBudget || maxBudget <= 0) {

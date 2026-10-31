@@ -15,7 +15,7 @@ import {
 } from '../utils/calendarExport';
 import { generateFallbackPlan } from '../utils/fallbackPlan';
 import { DEFAULT_DRAFT } from '../data/presets';
-import { EventPlan, TimelineTask, Vendor, VendorQuote, BudgetItem } from '../types/plan';
+import { EventPlan, Vendor, VendorQuote } from '../types/plan';
 import { EventDraft } from '../types';
 import { evaluateTaskDependency } from '../utils/dependencyEngine';
 import { isDateOverdue } from '../utils/dateCalculations';
@@ -489,9 +489,9 @@ describe('Phase 7: Calendar Export & Print-Ready Event Brief', () => {
       const draftSnapshot = JSON.stringify(sampleDraft);
 
       // Reading derived properties for brief
-      const totalBudget = samplePlan.budgetSummary.totalBudget;
-      const tasks = samplePlan.timelineTasks;
-      const vendors = samplePlan.vendors;
+      expect(samplePlan.budgetSummary.totalBudget).toBeGreaterThan(0);
+      expect(samplePlan.timelineTasks.length).toBeGreaterThan(0);
+      expect(samplePlan.vendors?.length).toBeGreaterThan(0);
 
       expect(JSON.stringify(samplePlan)).toBe(planSnapshot);
       expect(JSON.stringify(sampleDraft)).toBe(draftSnapshot);

@@ -11,17 +11,13 @@ import {
   getSavedPlan, 
   savePlan, 
   persistBudgetItem, 
-  removeBudgetItem,
-  persistTimelineTask,
-  updateTaskStatus,
-  persistVendor,
-  persistQuote,
-  applyQuoteToBudget,
-  applyReplanToPlan,
-  undoLastReplanInPlan,
-  saveIdeaToPlan,
-  removeIdeaFromPlan,
-  toggleSaveIdea
+  persistVendor, 
+  persistQuote, 
+  applyQuoteToBudget, 
+  applyReplanToPlan, 
+  undoLastReplanInPlan, 
+  saveIdeaToPlan, 
+  removeIdeaFromPlan 
 } from '../utils/storage';
 import { 
   calculateTotalAllocated, 
@@ -40,21 +36,17 @@ import {
 } from '../utils/quoteAnalysis';
 import { 
   calculateDeterministicImpact, 
-  generateDeterministicAlternatives, 
-  applyReplanningStrategy, 
-  undoLastReplan 
+  generateDeterministicAlternatives 
 } from '../utils/replanningEngine';
 import { generateDeterministicIdeas, refineIdeaDeterministically } from '../utils/ideaEngine';
 import { generateICSContent, escapeICSText } from '../utils/calendarExport';
 import { EventDraft } from '../types';
 import { 
-  EventPlan, 
   BudgetItem, 
   TimelineTask, 
   Vendor, 
   VendorQuote, 
-  ConstraintChangeRequest, 
-  TradeOffStrategy 
+  ConstraintChangeRequest 
 } from '../types/plan';
 import { DEFAULT_DRAFT } from '../data/presets';
 

@@ -4,6 +4,7 @@
  */
 
 import express from 'express';
+import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
@@ -17,7 +18,7 @@ import {
 import { compareQuotesFallback, analyzeQuoteDeterministically } from './src/utils/quoteAnalysis.ts';
 import { generateDeterministicAlternatives, reconcileStrategyArithmetic } from './src/utils/replanningEngine.ts';
 import { generateDeterministicIdeas, refineIdeaDeterministically } from './src/utils/ideaEngine.ts';
-import { PersonalizedIdeaSchema } from './src/schemas/ideas.ts';
+import type { EventPlan, VendorQuote, TradeOffStrategy, PersonalizedIdea } from './src/types/plan.ts';
 
 dotenv.config();
 
@@ -41,8 +42,8 @@ function isQuotaExhausted(): boolean {
   return false;
 }
 
-function handleGeminiError(endpoint: string, genErr: any) {
-  const errMsg = genErr?.message || String(genErr);
+function handleGeminiError(endpoint: string, genErr: unknown) {
+  const errMsg = genErr instanceof Error ? genErr.message : String(genErr);
   const is429 = errMsg.includes('429') || errMsg.includes('RESOURCE_EXHAUSTED') || errMsg.includes('quota') || errMsg.includes('Quota exceeded');
 
   if (is429) {
@@ -201,7 +202,7 @@ Return a valid JSON object with the following exact keys:
       }
 
       return res.json({ success: true, plan: planData });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error in /api/plan/generate:', err);
       // Fallback instead of crashing error response
       const fallback = generateFallbackPlan(req.body || {});
@@ -217,13 +218,24 @@ Return a valid JSON object with the following exact keys:
         return res.status(400).json({ error: 'At least one quotation is required for comparison.' });
       }
 
-      const quotes = rawQuotes.map((q: any) => ({
-        ...q,
-        category: q.category || category || 'General'
+      const quotes: VendorQuote[] = rawQuotes.map((q: Partial<VendorQuote>) => ({
+        id: q.id || `quote_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+        vendorId: q.vendorId || 'vendor_custom',
+        vendorName: q.vendorName || 'Unknown Vendor',
+        title: q.title || 'Quotation',
+        quotedTotal: Number(q.quotedTotal) || 0,
+        pricingModel: (q.pricingModel === 'per_guest' || q.pricingModel === 'hybrid' || q.pricingModel === 'itemized') ? q.pricingModel : 'lump_sum',
+        ratePerGuest: q.ratePerGuest,
+        validUntil: q.validUntil,
+        reviewStatus: q.reviewStatus || 'analyzed',
+        rawQuoteText: q.rawQuoteText || '',
+        category: q.category || category || 'General',
+        createdAt: q.createdAt || new Date().toISOString(),
+        updatedAt: q.updatedAt || new Date().toISOString()
       }));
 
       const apiKey = process.env.GEMINI_API_KEY;
-      let comparisonData: any = null;
+      let comparisonData: { comparison?: unknown; quoteDetails?: Record<string, unknown> } | null = null;
 
       if (apiKey && apiKey !== 'MY_GEMINI_API_KEY' && apiKey.trim() !== '' && !isQuotaExhausted()) {
         try {
@@ -341,7 +353,7 @@ Return a valid JSON object matching this schema:
 
       if (!comparisonData || !comparisonData.comparison) {
         const fallbackComparison = compareQuotesFallback(quotes, guestCount, priorities);
-        const quoteDetails: Record<string, any> = {};
+        const quoteDetails: Record<string, unknown> = {};
         for (const q of quotes) {
           quoteDetails[q.id] = analyzeQuoteDeterministically(q, guestCount);
         }
@@ -352,11 +364,11 @@ Return a valid JSON object matching this schema:
       }
 
       return res.json({ success: true, ...comparisonData });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error in /api/vendors/compare:', err);
       const { quotes = [], guestCount = 150, priorities = [] } = req.body || {};
       const fallbackComparison = compareQuotesFallback(quotes, guestCount, priorities);
-      const quoteDetails: Record<string, any> = {};
+      const quoteDetails: Record<string, unknown> = {};
       for (const q of quotes) {
         quoteDetails[q.id] = analyzeQuoteDeterministically(q, guestCount);
       }
@@ -373,7 +385,7 @@ Return a valid JSON object matching this schema:
       }
 
       const apiKey = process.env.GEMINI_API_KEY;
-      let strategies: any[] | null = null;
+      let strategies: TradeOffStrategy[] | null = null;
 
       if (apiKey && apiKey !== 'MY_GEMINI_API_KEY' && apiKey.trim() !== '' && !isQuotaExhausted()) {
         try {
@@ -398,7 +410,7 @@ The host has proposed revised event constraints or encountered a budget shock:
 - Priorities: ${currentC.priorities?.join(' > ') || 'Food & Catering, Guest Experience, Venue, Decor'}
 
 Existing Line Items:
-${budgetItems.slice(0, 10).map((b: any) => `- ID: ${b.id} | Category: ${b.categoryName} | Name: ${b.itemName} | Allocated: ₹${b.allocatedAmount} | Projected: ₹${b.projectedCost} | Model: ${b.calculationModel}`).join('\n')}
+${budgetItems.slice(0, 10).map((b: { id: string; categoryName: string; itemName: string; allocatedAmount: number; projectedCost: number; calculationModel: string }) => `- ID: ${b.id} | Category: ${b.categoryName} | Name: ${b.itemName} | Allocated: ₹${b.allocatedAmount} | Projected: ₹${b.projectedCost} | Model: ${b.calculationModel}`).join('\n')}
 
 Deterministic Impact:
 - Proposed Projected Spend before adjustments: ₹${deterministicImpact.proposedProjectedCost}
@@ -476,7 +488,7 @@ Return pure JSON matching this exact schema:
             const parsed = JSON.parse(cleanText);
             if (Array.isArray(parsed.strategies) && parsed.strategies.length === 3) {
               // Reconcile math with deterministic engine
-              strategies = parsed.strategies.map((s: any) => reconcileStrategyArithmetic(s, deterministicImpact));
+              strategies = parsed.strategies.map((s: TradeOffStrategy) => reconcileStrategyArithmetic(s, deterministicImpact));
             }
           }
         } catch (genErr) {
@@ -486,24 +498,24 @@ Return pure JSON matching this exact schema:
 
       if (!strategies || strategies.length !== 3) {
         // Fallback to deterministic strategies
-        const dummyPlan: any = {
-          budgetSummary: budgetSummary || { categories: [] },
+        const dummyPlan: Partial<EventPlan> = {
+          budgetSummary: budgetSummary || { totalBudget: 0, projectedSpend: 0, bufferReserve: 0, categories: [] },
           budgetItems,
           timelineTasks
         };
-        strategies = generateDeterministicAlternatives(dummyPlan, request, deterministicImpact);
+        strategies = generateDeterministicAlternatives(dummyPlan as EventPlan, request, deterministicImpact);
       }
 
       return res.json({ success: true, strategies });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error in /api/plan/rebalance:', err);
       const { request, budgetSummary, budgetItems = [], timelineTasks = [], deterministicImpact } = req.body || {};
-      const dummyPlan: any = {
-        budgetSummary: budgetSummary || { categories: [] },
+      const dummyPlan: Partial<EventPlan> = {
+        budgetSummary: budgetSummary || { totalBudget: 0, projectedSpend: 0, bufferReserve: 0, categories: [] },
         budgetItems,
         timelineTasks
       };
-      const fallback = generateDeterministicAlternatives(dummyPlan, request, deterministicImpact);
+      const fallback = generateDeterministicAlternatives(dummyPlan as EventPlan, request, deterministicImpact);
       return res.json({ success: true, strategies: fallback });
     }
   });
@@ -518,7 +530,7 @@ Return pure JSON matching this exact schema:
       }
 
       const apiKey = process.env.GEMINI_API_KEY;
-      let ideas: any[] | null = null;
+      let ideas: PersonalizedIdea[] | null = null;
 
       if (apiKey && apiKey !== 'MY_GEMINI_API_KEY' && apiKey.trim() !== '' && !isQuotaExhausted()) {
         try {
@@ -586,19 +598,19 @@ Return a JSON array of ideas matching this structure:
             const rawList = Array.isArray(parsed) ? parsed : parsed.ideas;
             if (Array.isArray(rawList) && rawList.length > 0) {
               const now = new Date().toISOString();
-              ideas = rawList.map((item, idx) => ({
+              ideas = rawList.map((item: Partial<PersonalizedIdea>, idx: number) => ({
                 id: item.id || `idea_ai_${Date.now()}_${idx}`,
-                title: item.title,
+                title: item.title || 'Personalized Concept',
                 category: item.category || 'Decor',
-                description: item.description,
-                whyItFits: item.whyItFits,
+                description: item.description || '',
+                whyItFits: item.whyItFits || '',
                 practicalConsiderations: Array.isArray(item.practicalConsiderations) ? item.practicalConsiderations : [],
                 mustHaveCompatibility: item.mustHaveCompatibility || '',
                 potentialConflicts: item.potentialConflicts || '',
-                budgetImpact: ['Likely low impact', 'Potentially moderate impact', 'Potentially high impact', 'Insufficient information to estimate'].includes(item.budgetImpact) ? item.budgetImpact : 'Likely low impact',
+                budgetImpact: (['Likely low impact', 'Potentially moderate impact', 'Potentially high impact', 'Insufficient information to estimate'].includes(item.budgetImpact as string) ? item.budgetImpact : 'Likely low impact') as PersonalizedIdea['budgetImpact'],
                 budgetAssumptions: item.budgetAssumptions || '',
                 tags: Array.isArray(item.tags) ? item.tags : [],
-                source: 'ai_curated',
+                source: 'ai_curated' as const,
                 createdAt: now,
                 updatedAt: now
               }));
@@ -618,7 +630,7 @@ Return a JSON array of ideas matching this structure:
       }
 
       return res.json({ success: true, ideas });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error in /api/ideas/generate:', err);
       const fallback = generateDeterministicIdeas(req.body?.draft || req.body || {});
       return res.json({ success: true, ideas: fallback });
@@ -638,7 +650,7 @@ Return a JSON array of ideas matching this structure:
       }
 
       const apiKey = process.env.GEMINI_API_KEY;
-      let refinedAlternatives: any[] | null = null;
+      let refinedAlternatives: PersonalizedIdea[] | null = null;
 
       if (apiKey && apiKey !== 'MY_GEMINI_API_KEY' && apiKey.trim() !== '' && !isQuotaExhausted()) {
         try {
@@ -705,20 +717,20 @@ Provide ONLY valid JSON containing an array of alternatives:
             const rawList = Array.isArray(parsed) ? parsed : parsed.ideas;
             if (Array.isArray(rawList) && rawList.length > 0) {
               const now = new Date().toISOString();
-              refinedAlternatives = rawList.map((item, idx) => ({
+              refinedAlternatives = rawList.map((item: Partial<PersonalizedIdea>, idx: number) => ({
                 id: item.id || `idea_ref_${Date.now()}_${idx}`,
-                title: item.title,
+                title: item.title || 'Refined Idea',
                 category: item.category || targetIdea?.category || 'Decor',
-                description: item.description,
-                whyItFits: item.whyItFits,
+                description: item.description || '',
+                whyItFits: item.whyItFits || '',
                 practicalConsiderations: Array.isArray(item.practicalConsiderations) ? item.practicalConsiderations : [],
                 mustHaveCompatibility: item.mustHaveCompatibility || '',
                 potentialConflicts: item.potentialConflicts || '',
-                budgetImpact: ['Likely low impact', 'Potentially moderate impact', 'Potentially high impact', 'Insufficient information to estimate'].includes(item.budgetImpact) ? item.budgetImpact : 'Likely low impact',
+                budgetImpact: (['Likely low impact', 'Potentially moderate impact', 'Potentially high impact', 'Insufficient information to estimate'].includes(item.budgetImpact as string) ? item.budgetImpact : 'Likely low impact') as PersonalizedIdea['budgetImpact'],
                 budgetAssumptions: item.budgetAssumptions || '',
                 tags: Array.isArray(item.tags) ? item.tags : ['Refined Alternative'],
                 isRefined: true,
-                source: 'user_refined',
+                source: 'user_refined' as const,
                 createdAt: now,
                 updatedAt: now
               }));
@@ -734,7 +746,7 @@ Provide ONLY valid JSON containing an array of alternatives:
       }
 
       return res.json({ success: true, ideas: refinedAlternatives });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error in /api/ideas/refine:', err);
       const fallback = refineIdeaDeterministically(req.body?.refinementPrompt || '', req.body?.draft || {}, req.body?.idea);
       return res.json({ success: true, ideas: fallback });
@@ -752,10 +764,15 @@ Provide ONLY valid JSON containing an array of alternatives:
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static('dist'));
+    const distPath = path.resolve(process.cwd(), 'dist');
+    app.use(express.static(distPath));
+    // SPA catch-all fallback: serve index.html for non-API client routes
+    app.get('*', (_req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'));
+    });
   }
 
-  const port = 3000;
+  const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
   app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on http://0.0.0.0:${port}`);
   });

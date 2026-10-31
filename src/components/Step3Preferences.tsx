@@ -71,6 +71,18 @@ export const Step3Preferences: React.FC = () => {
     setCustomTags(customTags.filter(t => t !== tag));
   };
 
+  // Real-time synchronization of in-progress wizard draft to localStorage
+  React.useEffect(() => {
+    updateDraft({
+      priorities,
+      mustHaves,
+      customMustHaves: customTags,
+      culturalPreferences: culturalPrefs,
+      accessibilityRequirements: accessibilityPrefs,
+      thingsToAvoid
+    });
+  }, [priorities, mustHaves, customTags, culturalPrefs, accessibilityPrefs, thingsToAvoid, updateDraft]);
+
   const handleContinue = (e: React.FormEvent) => {
     e.preventDefault();
     updateDraft({

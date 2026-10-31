@@ -10,11 +10,13 @@ import { calculateTimelineSummary } from '../utils/dependencyEngine';
 import { calculateDaysRemaining, formatDisplayDate } from '../utils/dateCalculations';
 import { formatINR } from '../utils/calculations';
 import { EventBriefModal } from './EventBriefModal';
-import { FileText } from 'lucide-react';
+import { ExportCalendarModal } from './ExportCalendarModal';
+import { FileText, Calendar } from 'lucide-react';
 
 export const WorkspaceOverview: React.FC = () => {
   const { draft, plan, navigate, openReplan } = useEvent();
   const [isEventBriefOpen, setIsEventBriefOpen] = useState<boolean>(false);
+  const [isExportCalendarOpen, setIsExportCalendarOpen] = useState<boolean>(false);
 
   const tasks = plan.timelineTasks || [];
   const taskMetrics = useMemo(() => calculateTimelineSummary(tasks), [tasks]);
@@ -60,6 +62,14 @@ export const WorkspaceOverview: React.FC = () => {
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2 shrink-0 pt-2 lg:pt-0">
+          <button
+            type="button"
+            onClick={() => setIsExportCalendarOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-50 text-zinc-700 text-xs font-bold shadow-xs cursor-pointer transition-all"
+          >
+            <Calendar className="w-4 h-4 text-[#3730a3]" />
+            <span>Export Calendar</span>
+          </button>
           <button
             type="button"
             onClick={() => setIsEventBriefOpen(true)}
@@ -247,6 +257,16 @@ export const WorkspaceOverview: React.FC = () => {
           plan={plan}
           draft={draft}
           onClose={() => setIsEventBriefOpen(false)}
+        />
+      )}
+
+      {/* Calendar Export Modal */}
+      {isExportCalendarOpen && (
+        <ExportCalendarModal
+          isOpen={isExportCalendarOpen}
+          plan={plan}
+          draft={draft}
+          onClose={() => setIsExportCalendarOpen(false)}
         />
       )}
     </WorkspaceLayout>

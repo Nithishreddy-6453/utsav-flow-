@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BudgetItem, CostCalculationModel } from '../types/plan';
+import type { BudgetItem, CostCalculationModel } from '../types/plan.ts';
 
 /**
  * Calculates projected cost based on calculation model and inputs.
